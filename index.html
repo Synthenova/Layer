@@ -158,9 +158,19 @@
     <!-- Cinematic Text Scroll-Jack Section -->
     <section id="reveal" class="relative min-h-[200vh] w-full bg-[#111] text-[#F9F8F6] z-20">
         <div class="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-4 md:px-20">
-            <div class="max-w-4xl text-center">
+            <!-- Left parallax image -->
+            <div class="absolute left-8 md:left-16 w-32 md:w-48 h-48 md:h-72 overflow-hidden reveal-img-left">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1904&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfume Left">
+            </div>
+            
+            <!-- Right parallax image -->
+            <div class="absolute right-8 md:right-16 w-32 md:w-48 h-48 md:h-72 overflow-hidden reveal-img-right">
+                <img src="https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=1887&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfume Right">
+            </div>
+            
+            <div class="max-w-4xl text-center z-10">
                 <p class="text-3xl md:text-6xl serif leading-tight reveal-text" id="split-text">
-                    Perfume is singular. Layering is infinite. We curate the finest decants and matching lotions to help you sculpt a scent that is uniquely, undeniably yours.
+                    Layering brings you infinite potential. We curate the finest collections to help you sculpt a scent that is undeniably yours.
                 </p>
             </div>
         </div>
@@ -453,12 +463,35 @@
                 start: 'top top',
                 end: 'bottom bottom',
                 scrub: 1,
-                // markers: true 
             },
             opacity: 1,
             color: '#fff',
             stagger: 0.1
         });
+
+        // Parallax images for reveal section
+        let revealTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#reveal',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+            }
+        });
+
+        // Left image: enters from bottom, exits to top (starts first)
+        revealTl.fromTo('.reveal-img-left', 
+            { y: '100vh', opacity: 0 }, 
+            { y: '-100vh', opacity: 1, duration: 1, ease: 'none' }, 
+            0
+        );
+
+        // Right image: enters from bottom, exits to top (starts slightly after, exits slightly after)
+        revealTl.fromTo('.reveal-img-right', 
+            { y: '100vh', opacity: 0 }, 
+            { y: '-100vh', opacity: 1, duration: 1, ease: 'none' }, 
+            0.15
+        );
 
         // Showcase Layer Box Animation
         let tlShowcase = gsap.timeline({
