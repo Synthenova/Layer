@@ -458,26 +458,24 @@
         const text = textContainer.innerText;
         textContainer.innerHTML = '';
         
-        // Split text into words for animation (preserve spacing)
-        const words = text.split(' ');
-        words.forEach((word, index) => {
+        // Split text into sentences for animation
+        const sentences = text.split(/(?<=[.!?])\s+/);
+        sentences.forEach((sentence, index) => {
             const span = document.createElement('span');
-            span.innerText = word;
-            span.style.marginRight = '0.3em';
+            span.innerText = sentence + ' ';
             textContainer.appendChild(span);
         });
 
         const textSpans = textContainer.querySelectorAll('span');
-        const totalWords = textSpans.length;
+        const totalSentences = textSpans.length;
         
-        // All words start with same dither effect, revealed word by word on scroll
-        // Section stays pinned until all words are revealed
+        // All sentences start with same dither effect, revealed sentence by sentence on scroll
         textSpans.forEach((span, i) => {
             gsap.to(span, {
                 scrollTrigger: {
                     trigger: '#reveal',
-                    start: `top+=${(i / totalWords) * 300}% top`,
-                    end: `top+=${((i + 1) / totalWords) * 300}% top`,
+                    start: `top+=${(i / totalSentences) * 300}% top`,
+                    end: `top+=${((i + 1) / totalSentences) * 300}% top`,
                     scrub: 0.5,
                 },
                 opacity: 1,
