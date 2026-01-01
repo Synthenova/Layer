@@ -458,28 +458,34 @@
         const text = textContainer.innerText;
         textContainer.innerHTML = '';
         
-        // Split text into words for animation
+        // Split text into words for animation (preserve spacing)
         const words = text.split(' ');
-        words.forEach(word => {
+        words.forEach((word, index) => {
             const span = document.createElement('span');
-            span.innerText = word + ' ';
+            span.innerText = word;
+            span.style.marginRight = '0.3em';
             textContainer.appendChild(span);
         });
 
         const textSpans = textContainer.querySelectorAll('span');
+        const totalWords = textSpans.length;
         
-        // Animate each span: smoke particles converge into clear text
-        gsap.to(textSpans, {
-            scrollTrigger: {
-                trigger: '#reveal',
-                start: 'top top',
-                end: 'bottom bottom',
-                scrub: 1,
-            },
-            opacity: 1,
-            color: '#fff',
-            filter: 'blur(0px)',
-            stagger: 0.1
+        // All words start with same dither effect, revealed word by word on scroll
+        textSpans.forEach((span, i) => {
+            const startProgress = i / totalWords;
+            const endProgress = (i + 1) / totalWords;
+            
+            gsap.to(span, {
+                scrollTrigger: {
+                    trigger: '#reveal',
+                    start: `top+=${startProgress * 100}% top`,
+                    end: `top+=${endProgress * 100}% top`,
+                    scrub: 0.5,
+                },
+                opacity: 1,
+                color: '#fff',
+                filter: 'none',
+            });
         });
 
         // Animate the SVG filter displacement scale to reduce (particles converge)
