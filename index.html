@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layer | The Art of Scent Stacking</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg: #F9F8F6;
+            --color-text: #1A1A1A;
+            --color-accent: #D4AF37;
+        }
+        
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor setup later */
+        }
+        
+        h1, h2, h3, h4, h5, h6, .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: black;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* Utility for hiding scrollbar */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Reveal Text Effect */
+        .reveal-text span {
+            opacity: 0.1;
+            transition: opacity 0.3s;
+        }
+        .reveal-text span.active {
+            opacity: 1;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Blob Animation Keyframes */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+        
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 20s linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-6 flex justify-between items-center mix-blend-difference text-white">
+        <div class="text-2xl font-light tracking-widest uppercase serif">Layer</div>
+        <div class="hidden md:flex space-x-12 text-xs tracking-[0.2em] uppercase">
+            <a href="#" class="hover:opacity-50 transition-opacity">Curated Kits</a>
+            <a href="#" class="hover:opacity-50 transition-opacity">The Science</a>
+            <a href="#" class="hover:opacity-50 transition-opacity">Journal</a>
+        </div>
+        <button class="text-xs tracking-[0.2em] uppercase border-b border-transparent hover:border-white transition-all">Cart (0)</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#E5DACE] rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
+            <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-[#D4C5B5] rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
+            <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-[#EDE6DE] rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div class="z-10 text-center px-4 relative">
+            <p class="text-xs md:text-sm tracking-[0.4em] uppercase mb-6 opacity-0 hero-elem">The Art of Scent Stacking</p>
+            <h1 class="text-6xl md:text-9xl font-light italic opacity-0 hero-elem leading-none">
+                Not Just <br> <span class="not-italic">Perfume.</span>
+            </h1>
+            <div class="mt-12 opacity-0 hero-elem">
+                <a href="#reveal" class="inline-block px-8 py-3 border border-stone-800 rounded-full text-xs tracking-[0.2em] hover:bg-stone-900 hover:text-white transition-all duration-500">
+                    DISCOVER LAYERING
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 opacity-0 hero-elem">
+            <p class="text-[10px] tracking-widest uppercase animate-bounce">Scroll</p>
+        </div>
+    </header>
+
+    <!-- Cinematic Text Scroll-Jack Section -->
+    <section id="reveal" class="relative min-h-[200vh] w-full bg-[#111] text-[#F9F8F6] z-20">
+        <div class="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-4 md:px-20">
+            <div class="max-w-4xl text-center">
+                <p class="text-3xl md:text-6xl serif leading-tight reveal-text" id="split-text">
+                    Perfume is singular. Layering is infinite. We curate the finest decants and matching lotions to help you sculpt a scent that is uniquely, undeniably yours.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Layer Box Showcase -->
+    <section class="relative h-[150vh] bg-stone-100 overflow-hidden flex flex-col items-center justify-center z-30" id="showcase">
+        <div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+            <!-- Central Box -->
+            <div class="relative w-64 h-80 md:w-96 md:h-[500px] bg-white shadow-2xl flex items-center justify-center z-20 showcase-box border border-stone-200">
+                <div class="absolute inset-2 border border-stone-100 flex items-center justify-center">
+                    <span class="serif text-4xl italic text-stone-300">Layer 01</span>
+                </div>
+                <!-- Placeholder for Box Image -->
+                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1887&auto=format&fit=crop" class="w-full h-full object-cover opacity-90 p-4" alt="Layer Box">
+            </div>
+
+            <!-- Floating Products -->
+            <div class="absolute w-32 h-48 bg-stone-200 shadow-lg z-10 floating-item item-1 top-1/4 -left-12 md:left-1/4 rounded-t-full border border-white">
+                <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1904&auto=format&fit=crop" class="w-full h-full object-cover rounded-t-full" alt="Perfume 1">
+            </div>
+            
+            <div class="absolute w-32 h-48 bg-stone-200 shadow-lg z-30 floating-item item-2 bottom-1/4 -right-12 md:right-1/4 rounded-t-full border border-white">
+                 <img src="https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=1887&auto=format&fit=crop" class="w-full h-full object-cover rounded-t-full" alt="Perfume 2">
+            </div>
+
+            <div class="absolute w-24 h-24 bg-white shadow-lg z-40 floating-item item-3 top-1/2 left-10 md:left-1/3 rounded-full flex items-center justify-center border border-stone-100">
+                 <div class="text-[10px] tracking-widest text-center">BASE<br>LOTION</div>
+            </div>
+
+            <div class="absolute bottom-10 text-center w-full z-20">
+                <h2 class="text-4xl serif italic mb-2">The Starter Kit</h2>
+                <p class="text-xs tracking-widest uppercase text-stone-500">Citrus · Wood · Vanilla</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horizontal Scroll Gallery -->
+    <section id="h-scroll-section" class="bg-[#EAE6E1] overflow-hidden">
+        <div class="h-screen w-full flex items-center overflow-hidden sticky top-0" id="h-scroll-container">
+            
+            <div class="absolute top-12 left-6 md:left-20 z-10 mix-blend-difference text-white">
+                <p class="text-xs tracking-[0.3em] uppercase mb-4">The Collection</p>
+                <h2 class="text-5xl md:text-6xl serif">Curated Stacks</h2>
+            </div>
+
+            <div class="flex space-x-12 px-6 md:px-20" id="h-scroll-wrapper">
+                <!-- Spacer for title -->
+                <div class="min-w-[50px] md:min-w-[400px]"></div>
+
+                <!-- Card 1 -->
+                <div class="min-w-[300px] md:min-w-[400px] h-[500px] relative group overflow-hidden bg-white shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=1964&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Kit 1">
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <h3 class="text-3xl serif italic mb-2">Midnight Velvet</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-80">Oud + Rose + Unscented Lotion</p>
+                    </div>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="min-w-[300px] md:min-w-[400px] h-[500px] relative group overflow-hidden bg-white shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=1887&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Kit 2">
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <h3 class="text-3xl serif italic mb-2">Sunday Morning</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-80">Bergamot + Linen + Shea</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="min-w-[300px] md:min-w-[400px] h-[500px] relative group overflow-hidden bg-white shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=1770&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Kit 3">
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <h3 class="text-3xl serif italic mb-2">Deep Amber</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-80">Vanilla + Tobacco + Cocoa</p>
+                    </div>
+                </div>
+
+                 <!-- Card 4 -->
+                 <div class="min-w-[300px] md:min-w-[400px] h-[500px] relative group overflow-hidden bg-white shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1616012480717-fd9867059ca0?q=80&w=1964&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Kit 4">
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-0 left-0 p-8 text-white">
+                        <h3 class="text-3xl serif italic mb-2">Forest Rain</h3>
+                        <p class="text-xs tracking-widest uppercase opacity-80">Petrichor + Pine + Aloe</p>
+                    </div>
+                </div>
+                
+                 <!-- Card 5 (Build Your Own) -->
+                <div class="min-w-[300px] md:min-w-[400px] h-[500px] relative group overflow-hidden bg-white flex items-center justify-center border border-stone-300 shadow-xl">
+                    <div class="text-center p-8">
+                        <h3 class="text-3xl serif italic mb-4">Build Your Own</h3>
+                        <p class="text-xs tracking-widest uppercase text-stone-500 mb-6">Select 3 decants + 1 base</p>
+                        <span class="w-12 h-12 rounded-full border border-black flex items-center justify-center mx-auto text-xl transition-all group-hover:bg-black group-hover:text-white">+</span>
+                    </div>
+                </div>
+
+                <!-- End Spacer -->
+                <div class="min-w-[100px]"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Philosophy / Image Grid -->
+    <section class="py-24 px-6 md:px-20 bg-[#F9F8F6]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 relative">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1585120040315-2241b774ad0f?q=80&w=2070&auto=format&fit=crop" class="w-full h-64 object-cover rounded-sm mt-12" alt="Detail">
+                    <img src="https://images.unsplash.com/photo-1557170334-a9632e77c6e4?q=80&w=1887&auto=format&fit=crop" class="w-full h-80 object-cover rounded-sm" alt="Detail">
+                </div>
+                <!-- Decorative element -->
+                <div class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[80%] border border-stone-300 rounded-full opacity-50"></div>
+            </div>
+            <div class="order-1 md:order-2">
+                <span class="text-xs tracking-[0.3em] uppercase text-stone-500 block mb-6">The Philosophy</span>
+                <h2 class="text-5xl md:text-7xl serif mb-8 leading-[0.9]">Chemistry <br><span class="italic text-stone-400">&</span> Artistry</h2>
+                <p class="text-lg leading-relaxed text-stone-600 mb-8 max-w-md">
+                    Traditional perfumes are static. Your mood is not. Scent stacking allows you to modulate intensity and complexity. 
+                    Start with a hydrating base to lock in molecules, layer a woody core, and finish with a citrus top note.
+                </p>
+                <ul class="space-y-4 text-sm tracking-wide uppercase">
+                    <li class="flex items-center gap-4">
+                        <span class="w-2 h-2 bg-stone-900 rounded-full"></span> 100% Authentic Decants
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <span class="w-2 h-2 bg-stone-900 rounded-full"></span> Unscented Peptide Lotion Base
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <span class="w-2 h-2 bg-stone-900 rounded-full"></span> Travel Friendly Vials
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Notes Visualizer -->
+    <section class="min-h-screen bg-[#F9F8F6] relative flex flex-col md:flex-row overflow-hidden" id="visualizer">
+        <!-- Dynamic Background Image -->
+        <div class="absolute inset-0 z-0 transition-opacity duration-700 ease-in-out opacity-20" id="note-bg">
+            <img src="https://images.unsplash.com/photo-1605651702720-4151bef65860?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover grayscale" alt="Background">
+        </div>
+
+        <div class="relative z-10 w-full md:w-1/2 p-6 md:p-24 flex flex-col justify-center bg-white/50 backdrop-blur-sm md:bg-transparent">
+            <p class="text-xs tracking-[0.3em] uppercase mb-8">Compose Your Scent</p>
+            <h2 class="text-5xl md:text-7xl serif mb-12">The Notes</h2>
+            
+            <div class="space-y-6">
+                <div class="note-item group cursor-pointer border-b border-stone-300 pb-4" data-img="https://images.unsplash.com/photo-1615486511484-92e590d6e2e3?q=80&w=2070&auto=format&fit=crop">
+                    <div class="flex justify-between items-center">
+                        <span class="text-3xl md:text-5xl font-light italic serif group-hover:pl-4 transition-all duration-300">Top Notes</span>
+                        <span class="text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">15-30 Mins</span>
+                    </div>
+                    <p class="h-0 overflow-hidden group-hover:h-auto group-hover:mt-4 text-stone-600 transition-all duration-300 text-sm">
+                        The first impression. Typically citrus, light florals, or herbs. They evaporate quickly but set the mood.
+                    </p>
+                </div>
+
+                <div class="note-item group cursor-pointer border-b border-stone-300 pb-4" data-img="https://images.unsplash.com/photo-1535683010036-76f5e2277752?q=80&w=2070&auto=format&fit=crop">
+                    <div class="flex justify-between items-center">
+                        <span class="text-3xl md:text-5xl font-light italic serif group-hover:pl-4 transition-all duration-300">Heart Notes</span>
+                        <span class="text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">2-4 Hours</span>
+                    </div>
+                    <p class="h-0 overflow-hidden group-hover:h-auto group-hover:mt-4 text-stone-600 transition-all duration-300 text-sm">
+                        The core of the fragrance. Spices, deeper florals, and fruits emerge once the top notes fade.
+                    </p>
+                </div>
+
+                <div class="note-item group cursor-pointer border-b border-stone-300 pb-4" data-img="https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=2070&auto=format&fit=crop">
+                    <div class="flex justify-between items-center">
+                        <span class="text-3xl md:text-5xl font-light italic serif group-hover:pl-4 transition-all duration-300">Base Notes</span>
+                        <span class="text-xs uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">6+ Hours</span>
+                    </div>
+                    <p class="h-0 overflow-hidden group-hover:h-auto group-hover:mt-4 text-stone-600 transition-all duration-300 text-sm">
+                        The foundation. Woods, musk, amber, and vanilla. These rich molecules linger the longest on your skin.
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hidden md:flex w-1/2 items-center justify-center relative z-10">
+            <!-- Circular visualizer concept -->
+            <div class="w-96 h-96 border border-stone-400 rounded-full flex items-center justify-center relative animate-spin-slow" style="animation-duration: 20s;">
+                <div class="absolute inset-4 border border-stone-300 rounded-full"></div>
+                <div class="absolute inset-12 border border-stone-200 rounded-full"></div>
+                <div class="text-xs tracking-widest uppercase bg-[#F9F8F6] px-4 py-2 z-20 absolute">Scent Profile</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#111] text-[#F9F8F6] pt-24 pb-12 px-6 md:px-20">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-24">
+            <div class="mb-12 md:mb-0">
+                <h2 class="text-6xl md:text-8xl serif italic mb-4">Layer</h2>
+                <p class="text-sm tracking-widest uppercase opacity-50">Define your aura.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-12 md:gap-24 text-sm tracking-widest uppercase">
+                <div class="flex flex-col space-y-4">
+                    <span class="opacity-40 mb-2">Shop</span>
+                    <a href="#" class="hover:text-stone-400 transition-colors">Best Sellers</a>
+                    <a href="#" class="hover:text-stone-400 transition-colors">New Arrivals</a>
+                    <a href="#" class="hover:text-stone-400 transition-colors">Gift Sets</a>
+                </div>
+                <div class="flex flex-col space-y-4">
+                    <span class="opacity-40 mb-2">Company</span>
+                    <a href="#" class="hover:text-stone-400 transition-colors">About</a>
+                    <a href="#" class="hover:text-stone-400 transition-colors">Journal</a>
+                    <a href="#" class="hover:text-stone-400 transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] tracking-widest uppercase opacity-40">
+            <p>&copy; 2024 Layer Perfumery. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+                <a href="#">TikTok</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lenis for smooth scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+
+        requestAnimationFrame(raf)
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        window.addEventListener('mousemove', function(e) {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+
+            // Add a little lag to the outline for smooth feel
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+        
+        // Hover effects for cursor
+        document.querySelectorAll('a, button, .cursor-grab').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                cursorOutline.style.mixBlendMode = 'difference';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+                cursorOutline.style.mixBlendMode = 'normal';
+            });
+        });
+
+        // Hero Reveal
+        const heroTimeline = gsap.timeline();
+        heroTimeline.to('.hero-elem', {
+            y: 0,
+            opacity: 1,
+            duration: 1.5,
+            stagger: 0.2,
+            ease: 'power3.out',
+            delay: 0.5
+        });
+
+        // Text Reveal Section
+        const textContainer = document.querySelector('.reveal-text');
+        const text = textContainer.innerText;
+        textContainer.innerHTML = '';
+        
+        // Split text into words for animation
+        const words = text.split(' ');
+        words.forEach(word => {
+            const span = document.createElement('span');
+            span.innerText = word + ' ';
+            textContainer.appendChild(span);
+        });
+
+        const textSpans = textContainer.querySelectorAll('span');
+        
+        gsap.to(textSpans, {
+            scrollTrigger: {
+                trigger: '#reveal',
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                // markers: true 
+            },
+            opacity: 1,
+            color: '#fff',
+            stagger: 0.1
+        });
+
+        // Showcase Layer Box Animation
+        let tlShowcase = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#showcase",
+                start: "top top",
+                end: "bottom top", // Pin for full section height
+                scrub: true,
+                pin: true,
+                anticipatePin: 1
+            }
+        });
+
+        // Initial state set in CSS, animate here
+        tlShowcase.fromTo(".item-1", { y: 100, opacity: 0 }, { y: -50, opacity: 1, duration: 2 }, 0)
+                  .fromTo(".item-2", { y: 100, opacity: 0 }, { y: -80, opacity: 1, duration: 2.5 }, 0.2)
+                  .fromTo(".item-3", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.5 }, 0.5)
+                  .to(".showcase-box", { scale: 1.1, rotation: 2, duration: 3 }, 0);
+
+        // Horizontal Scroll Gallery (GSAP)
+        const section = document.getElementById("h-scroll-section");
+        const container = document.getElementById("h-scroll-container");
+        const wrapper = document.getElementById("h-scroll-wrapper");
+
+        if (wrapper) {
+            let scrollTween = gsap.to(wrapper, {
+                x: () => -(wrapper.scrollWidth - window.innerWidth),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top top",
+                    end: () => "+=" + (wrapper.scrollWidth - window.innerWidth),
+                    pin: true,
+                    scrub: 1,
+                    invalidateOnRefresh: true,
+                    anticipatePin: 1
+                }
+            });
+        }
+
+        // Visualizer Interaction
+        const noteItems = document.querySelectorAll('.note-item');
+        const noteBg = document.querySelector('#note-bg img');
+        
+        noteItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const newSrc = item.getAttribute('data-img');
+                gsap.to(noteBg, {
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => {
+                        noteBg.src = newSrc;
+                        gsap.to(noteBg, { opacity: 1, duration: 0.5 });
+                    }
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
