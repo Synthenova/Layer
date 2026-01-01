@@ -167,7 +167,7 @@
     </header>
 
     <!-- Cinematic Text Scroll-Jack Section -->
-    <section id="reveal" class="relative min-h-[200vh] w-full bg-[#111] text-[#F9F8F6] z-20">
+    <section id="reveal" class="relative min-h-[400vh] w-full bg-[#111] text-[#F9F8F6] z-20">
         <div class="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-4 md:px-20">
             <!-- Left parallax image -->
             <div class="absolute left-8 md:left-16 w-32 md:w-48 h-48 md:h-72 overflow-hidden reveal-img-left">
@@ -471,15 +471,13 @@
         const totalWords = textSpans.length;
         
         // All words start with same dither effect, revealed word by word on scroll
+        // Section stays pinned until all words are revealed
         textSpans.forEach((span, i) => {
-            const startProgress = i / totalWords;
-            const endProgress = (i + 1) / totalWords;
-            
             gsap.to(span, {
                 scrollTrigger: {
                     trigger: '#reveal',
-                    start: `top+=${startProgress * 100}% top`,
-                    end: `top+=${endProgress * 100}% top`,
+                    start: `top+=${(i / totalWords) * 300}% top`,
+                    end: `top+=${((i + 1) / totalWords) * 300}% top`,
                     scrub: 0.5,
                 },
                 opacity: 1,
