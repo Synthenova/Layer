@@ -167,20 +167,20 @@
     </header>
 
     <!-- Cinematic Text Scroll-Jack Section -->
-    <section id="reveal" class="relative min-h-[400vh] w-full bg-[#111] text-[#F9F8F6] z-20">
-        <div class="sticky top-0 h-screen flex items-center justify-center overflow-hidden px-4 md:px-20">
+    <section id="reveal" class="relative w-screen bg-[#111] text-[#F9F8F6] z-20" style="height: 400vh;">
+        <div class="sticky top-0 w-screen h-screen flex items-center justify-center overflow-hidden px-4 md:px-20">
             <!-- Left parallax image -->
-            <div class="absolute left-8 md:left-16 w-32 md:w-48 h-48 md:h-72 overflow-hidden reveal-img-left">
+            <div class="absolute left-4 md:left-16 w-28 sm:w-32 md:w-48 h-40 sm:h-48 md:h-72 overflow-hidden reveal-img-left">
                 <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=1904&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfume Left">
             </div>
             
             <!-- Right parallax image -->
-            <div class="absolute right-8 md:right-16 w-32 md:w-48 h-48 md:h-72 overflow-hidden reveal-img-right">
+            <div class="absolute right-4 md:right-16 w-28 sm:w-32 md:w-48 h-40 sm:h-48 md:h-72 overflow-hidden reveal-img-right">
                 <img src="https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=1887&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfume Right">
             </div>
             
-            <div class="max-w-4xl text-center z-10">
-                <p class="text-3xl md:text-6xl serif leading-tight reveal-text" id="split-text">
+            <div class="max-w-4xl text-center z-10 px-4">
+                <p class="text-2xl sm:text-3xl md:text-5xl lg:text-6xl serif leading-tight reveal-text" id="split-text">
                     Layering brings you infinite potential. We curate the finest collections to help you sculpt a scent that is undeniably yours.
                 </p>
             </div>
@@ -474,8 +474,8 @@
             gsap.to(span, {
                 scrollTrigger: {
                     trigger: '#reveal',
-                    start: `top+=${(i / totalSentences) * 300}% top`,
-                    end: `top+=${((i + 1) / totalSentences) * 300}% top`,
+                    start: `top+=${(i / totalSentences) * 250}% center`,
+                    end: `top+=${((i + 1) / totalSentences) * 250}% center`,
                     scrub: 0.5,
                 },
                 opacity: 1,
@@ -488,7 +488,7 @@
         gsap.to('#dither-filter feDisplacementMap', {
             scrollTrigger: {
                 trigger: '#reveal',
-                start: 'top top',
+                start: 'top center',
                 end: 'bottom bottom',
                 scrub: 1,
             },
@@ -499,35 +499,37 @@
         gsap.to('#dither-filter feGaussianBlur', {
             scrollTrigger: {
                 trigger: '#reveal',
-                start: 'top top',
+                start: 'top center',
                 end: 'bottom bottom',
                 scrub: 1,
             },
             attr: { stdDeviation: 0 },
         });
 
-        // Parallax images for reveal section
+        // Parallax images for reveal section - scroll-jack starts when images reach center
         let revealTl = gsap.timeline({
             scrollTrigger: {
                 trigger: '#reveal',
-                start: 'top top',
+                start: 'top center',
                 end: 'bottom bottom',
                 scrub: 1,
+                pin: '#reveal .sticky',
+                pinSpacing: false,
             }
         });
 
-        // Left image: enters from bottom, exits to top (starts first)
+        // Left image: enters from bottom, moves to center then exits to top
         revealTl.fromTo('.reveal-img-left', 
-            { y: '100vh', opacity: 0 }, 
-            { y: '-100vh', opacity: 1, duration: 1, ease: 'none' }, 
+            { y: '80vh', opacity: 0 }, 
+            { y: '-80vh', opacity: 1, duration: 1, ease: 'none' }, 
             0
         );
 
-        // Right image: enters from bottom, exits to top (starts later, exits later)
+        // Right image: enters from bottom, moves to center then exits to top (delayed)
         revealTl.fromTo('.reveal-img-right', 
-            { y: '100vh', opacity: 0 }, 
-            { y: '-100vh', opacity: 1, duration: 1, ease: 'none' }, 
-            0.35
+            { y: '80vh', opacity: 0 }, 
+            { y: '-80vh', opacity: 1, duration: 1, ease: 'none' }, 
+            0.25
         );
 
         // Showcase Layer Box Animation
