@@ -71,13 +71,15 @@
             scrollbar-width: none;
         }
         
-        /* Reveal Text Effect */
+        /* Reveal Text Effect with Dither/Atomized Effect */
         .reveal-text span {
-            opacity: 0.1;
-            transition: opacity 0.3s;
+            opacity: 0.15;
+            transition: opacity 0.3s, filter 0.3s;
+            filter: url(#dither-filter);
         }
         .reveal-text span.active {
             opacity: 1;
+            filter: none;
         }
 
         .glass-panel {
@@ -113,6 +115,17 @@
     </style>
 </head>
 <body>
+
+    <!-- SVG Filter for Dither/Atomized Effect -->
+    <svg class="absolute w-0 h-0" aria-hidden="true">
+        <defs>
+            <filter id="dither-filter" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" seed="5"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+                <feGaussianBlur stdDeviation="0.3"/>
+            </filter>
+        </defs>
+    </svg>
 
     <!-- Custom Cursor -->
     <div class="cursor-dot hidden md:block"></div>
@@ -466,6 +479,7 @@
             },
             opacity: 1,
             color: '#fff',
+            filter: 'none',
             stagger: 0.1
         });
 
@@ -486,11 +500,11 @@
             0
         );
 
-        // Right image: enters from bottom, exits to top (starts slightly after, exits slightly after)
+        // Right image: enters from bottom, exits to top (starts later, exits later)
         revealTl.fromTo('.reveal-img-right', 
             { y: '100vh', opacity: 0 }, 
             { y: '-100vh', opacity: 1, duration: 1, ease: 'none' }, 
-            0.15
+            0.35
         );
 
         // Showcase Layer Box Animation
