@@ -1,0 +1,63 @@
+<section id="horizontal-scroll-section" class="h-screen w-full overflow-hidden bg-black text-white relative" data-bloom-dark-zone>
+  <div class="horizontal-scroll-wrapper flex items-center h-full">
+    <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center items-center p-12 border-r border-gray-800">
+      <span class="text-sm uppercase tracking-widest text-gray-500 mb-4">Step 01</span>
+      <h2 class="text-6xl md:text-8xl font-bold mb-8 text-center">The Arrival</h2>
+      <video
+        class="h-[60vh] rounded-2xl shadow-2xl"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="none"
+        data-bloom-video
+        data-bloom-video-priority="1"
+        data-bloom-video-src="{{ 'arrival.mp4' | file_url }}"
+        data-bloom-video-key="arrival"
+      ></video>
+    </div>
+    <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center items-center p-12 border-r border-gray-800 bg-gray-900">
+      <span class="text-sm uppercase tracking-widest text-gray-500 mb-4">Step 02</span>
+      <h2 class="text-6xl md:text-8xl font-bold mb-8 text-center">The Unbox</h2>
+      <video
+        class="h-[60vh] rounded-2xl shadow-2xl"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="none"
+        data-bloom-video
+        data-bloom-video-priority="1"
+        data-bloom-video-src="{{ 'unbox.mp4' | file_url }}"
+        data-bloom-video-key="unbox"
+      ></video>
+    </div>
+    <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center items-center p-12 border-r border-gray-800">
+      <span class="text-sm uppercase tracking-widest text-gray-500 mb-4">Step 03</span>
+      <h2 class="text-6xl md:text-8xl font-bold mb-8 text-center">The Bloom</h2>
+      <video
+        class="h-[60vh] rounded-2xl shadow-2xl"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="none"
+        data-bloom-video
+        data-bloom-video-priority="1"
+        data-bloom-video-src="{{ 'bloom.mp4' | file_url }}"
+        data-bloom-video-key="bloom"
+      ></video>
+    </div>
+    <div class="w-screen h-full flex-shrink-0 flex flex-col justify-center items-center p-12 bg-white text-black">
+      <h2 class="text-6xl md:text-8xl font-bold mb-8 text-center">Your Turn</h2>
+      <button class="px-8 py-4 bg-black text-white rounded-full text-lg hover:scale-105 transition-transform">Start Your Journey</button>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bloom horizontal scroll",
+  "settings": []
+}
+{% endschema %}

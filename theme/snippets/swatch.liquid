@@ -1,0 +1,88 @@
+{%- doc -%}
+  Renders a swatch either from a variant image object or a swatch object.
+
+  @param {object} swatch - a swatch object
+  @param {object} [variant_image] - an alternate image when there is no swatch value
+  @param {string} [mode] - one of 'unscaled', 'filter', 'pill'
+  @param {object} [product_resource] - the product object for metaobject fallback
+  @param {string} [option_value_name] - the option value name to match against metaobject
+
+  @example
+  {% render 'swatch', swatch: swatch, variant_image: variant_image, mode: 'unscaled' %}
+{%- enddoc -%}
+
+{% liquid
+  assign swatch_value = null
+  assign extra_classes = ''
+  assign debug_source = 'none'
+
+  # PRIORITY 1: Native Shopify swatch color (highest priority)
+  if swatch.color
+    assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+    assign debug_source = 'swatch_color'
+
+    # PRIORITY 2: Native Shopify swatch image
+  elsif swatch.image
+    assign swatch_image_url = swatch.image | image_url: width: 80
+    assign swatch_value = 'url(' | append: swatch_image_url | append: ')'
+    assign debug_source = 'swatch_image'
+
+    # PRIORITY 3: Metaobject fallback - check product.metafields.custom.color
+  elsif product_resource and option_value_name
+    assign color_metaobject = product_resource.metafields.custom.color
+    assign option_name_lower = option_value_name | downcase | strip
+
+    if color_metaobject != blank
+      # The color metaobject is a list.metaobject_reference
+      # Each entry has: label (name), color (hex value like #FFFFFF)
+      for color_entry in color_metaobject.value
+        # Match by label field (the display name in the metaobject)
+        assign entry_label = color_entry.label | downcase | strip
+
+        if entry_label == option_name_lower
+          # The color field contains the hex value like "#FFFFFF"
+          if color_entry.color != blank
+            assign swatch_value = color_entry.color
+            assign debug_source = 'metaobject_color'
+          endif
+          break
+        endif
+      endfor
+    endif
+  endif
+
+  # PRIORITY 4: Variant image (lowest priority - only if nothing else worked)
+  if swatch_value == null
+    if settings.show_variant_image and variant_image
+      assign swatch_image_width = settings.variant_swatch_width | times: 2
+      assign swatch_image_url = variant_image | image_url: width: swatch_image_width
+      assign swatch_value = 'url(' | append: swatch_image_url | append: ')'
+      assign extra_classes = extra_classes | append: ' swatch--variant-image'
+      assign debug_source = 'variant_image_fallback'
+    endif
+  endif
+
+  case mode
+    when 'unscaled'
+      assign extra_classes = extra_classes | append: ' swatch--unscaled'
+    when 'filter'
+      assign extra_classes = extra_classes | append: ' swatch--filter'
+    when 'pill'
+      assign extra_classes = extra_classes | append: ' swatch--pill'
+  endcase
+%}
+
+<span
+  class="
+    swatch
+    {{ extra_classes }}
+    {% if swatch_value == null %} swatch--unavailable{% endif %}
+  "
+  style="
+    --swatch-background: {{ swatch_value }};
+    {% if swatch.image and settings.show_variant_image == false %} --swatch-focal-point: {{ swatch.image.presentation.focal_point }};{% endif %}
+  "
+  data-swatch-source="{{ debug_source }}"
+  data-option-value="{{ option_value_name }}"
+>
+</span>

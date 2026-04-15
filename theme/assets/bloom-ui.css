@@ -1,0 +1,90 @@
+body {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.cursor-dot,
+.cursor-dot-outline {
+  display: block !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 2147483647;
+  pointer-events: none;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #000;
+}
+
+.cursor-dot-outline {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+}
+
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  
+  body * {
+    cursor: none !important;
+  }
+}
+
+body.hovering .cursor-dot-outline {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: transparent;
+  backdrop-filter: invert(1);
+}
+
+body.cursor-white .cursor-dot {
+  background-color: #fff;
+}
+
+body.cursor-white .cursor-dot-outline {
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-dot-outline {
+    display: none !important;
+  }
+  
+  body {
+    cursor: auto;
+  }
+  
+  body * {
+    cursor: auto !important;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  word-wrap: normal !important;
+}
+
+.skip-to-content-link:focus {
+  z-index: 9999;
+  position: inherit;
+  overflow: auto;
+  width: auto;
+  height: auto;
+  clip: auto;
+}

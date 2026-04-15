@@ -1,0 +1,242 @@
+{% doc %}
+  @prompt
+     {{ product.metafields.custom.size.value }}
+    
+    it has a table html i want to display it as tabl
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-size-table-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    margin: {{ block.settings.spacing_top }}px 0 {{ block.settings.spacing_bottom }}px;
+  }
+
+  .ai-size-table-{{ ai_gen_id }} table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: {{ block.settings.table_background }};
+    border-radius: {{ block.settings.border_radius }}px;
+    overflow: hidden;
+  }
+
+  .ai-size-table-{{ ai_gen_id }} th {
+    background-color: {{ block.settings.header_background }};
+    color: {{ block.settings.header_text_color }};
+    font-weight: {{ block.settings.header_font_weight }};
+    text-align: {{ block.settings.text_alignment }};
+    padding: {{ block.settings.cell_padding }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    font-size: {{ block.settings.header_font_size }}px;
+  }
+
+  .ai-size-table-{{ ai_gen_id }} td {
+    color: {{ block.settings.cell_text_color }};
+    text-align: {{ block.settings.text_alignment }};
+    padding: {{ block.settings.cell_padding }}px;
+    border: {{ block.settings.border_width }}px solid {{ block.settings.border_color }};
+    font-size: {{ block.settings.cell_font_size }}px;
+  }
+
+  .ai-size-table-{{ ai_gen_id }} tr:nth-child(even) td {
+    background-color: {{ block.settings.row_alternate_background }};
+  }
+
+  .ai-size-table-{{ ai_gen_id }} tr:hover td {
+    background-color: {{ block.settings.row_hover_background }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-size-table-{{ ai_gen_id }} {
+      font-size: {{ block.settings.cell_font_size | times: 0.9 }}px;
+    }
+
+    .ai-size-table-{{ ai_gen_id }} th,
+    .ai-size-table-{{ ai_gen_id }} td {
+      padding: {{ block.settings.cell_padding | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-size-table-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if product.metafields.custom.size.value != blank %}
+    {{ product.metafields.custom.size.value }}
+  {% else %}
+    <div style="padding: 20px; text-align: center; color: #999; font-style: italic;">
+      No size information available for this product
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Product size table",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Table style"
+    },
+    {
+      "type": "color",
+      "id": "table_background",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#E6E6E6"
+    },
+    {
+      "type": "header",
+      "content": "Header row"
+    },
+    {
+      "type": "color",
+      "id": "header_background",
+      "label": "Background",
+      "default": "#efefef"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "header_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "header_font_weight",
+      "label": "Font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Table cells"
+    },
+    {
+      "type": "color",
+      "id": "cell_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "cell_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "cell_padding",
+      "label": "Cell padding",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "row_alternate_background",
+      "label": "Alternate row background",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "row_hover_background",
+      "label": "Row hover background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "label": "Top spacing",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "label": "Bottom spacing",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product size table"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,145 @@
+<section class="py-12 md:py-0 md:h-screen px-6 md:px-12 bg-gray-50 flex flex-col justify-center">
+  <div class="max-w-7xl mx-auto mb-8 w-full text-center">
+    <h2 class="text-4xl font-bold mb-4">Why Choose Bloom?</h2>
+  </div>
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:h-[70vh] md:auto-rows-[calc((70vh-1.5rem)/2)] reveal-text w-full">
+    <div
+      class="md:col-span-2 row-span-1 glossy-card rounded-3xl p-8 relative overflow-hidden group mobile-fade-in"
+      id="compression-card"
+    >
+      <video
+        id="compression-video"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        muted
+        playsinline
+        preload="none"
+        data-bloom-video
+        data-bloom-video-priority="2"
+        data-bloom-video-src="{{ 'compression-tech.mp4' | file_url }}"
+        data-bloom-video-key="compression-tech"
+      ></video>
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-transparent z-10 pointer-events-none"
+      ></div>
+      <div class="relative z-20 h-full flex flex-col justify-between">
+        <div>
+          <h3 class="text-3xl font-bold mb-2 text-white">Compression Technology</h3>
+          <p class="text-sm text-gray-200">
+            High-resilience foam compression reduces volume by 70% while maintaining structural integrity.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <a
+      href="{{ routes.collections_url }}"
+      class="order-last md:order-none md:col-span-1 md:row-span-2 glossy-card rounded-3xl overflow-hidden relative group cursor-pointer block mobile-fade-in"
+      id="shop-card"
+    >
+      <div class="absolute inset-0">
+        <img
+          src="{{ 'sofa-collage.png' | file_url }}"
+          class="slideshow-img absolute inset-0 w-full h-full object-cover opacity-100 transition-opacity duration-1000"
+          data-index="0"
+          alt="Bloom collage 1"
+        >
+        <img
+          src="{{ 'sofa-collage-2.png' | file_url }}"
+          class="slideshow-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+          data-index="1"
+          alt="Bloom collage 2"
+        >
+        <img
+          src="{{ 'sofa-collage-7.png' | file_url }}"
+          class="slideshow-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+          data-index="2"
+          alt="Bloom collage 3"
+        >
+        <img
+          src="{{ 'sofa-collage-10.png' | file_url }}"
+          class="slideshow-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+          data-index="3"
+          alt="Bloom collage 4"
+        >
+        <img
+          src="{{ 'sofa-collage-12.png' | file_url }}"
+          class="slideshow-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000"
+          data-index="4"
+          alt="Bloom collage 5"
+        >
+      </div>
+      <div
+        class="absolute inset-x-0 bottom-0 h-[60%] bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-[1]"
+      ></div>
+      <div class="absolute top-8 right-8 text-5xl font-light text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+        &rarr;
+      </div>
+      <div class="absolute bottom-8 left-8 text-white z-10">
+        <h3 class="text-xl font-semibold">The Shop</h3>
+        <p class="text-gray-300 text-sm mt-2">Explore the collection</p>
+      </div>
+    </a>
+
+    <div
+      class="md:col-span-1 glossy-card rounded-3xl p-8 flex flex-col justify-between items-center hover:shadow-xl transition-shadow relative overflow-hidden group mobile-fade-in"
+      id="setup-time-card"
+    >
+      <video
+        id="setup-video"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        muted
+        playsinline
+        preload="none"
+        data-bloom-video
+        data-bloom-video-priority="2"
+        data-bloom-video-src="{{ 'setup-time.mp4' | file_url }}"
+        data-bloom-video-key="setup-time"
+      ></video>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none"></div>
+      <div class="flex-1 flex items-center justify-center w-full relative z-20">
+        <div class="relative w-48 h-48">
+          <svg class="transform -rotate-90 w-48 h-48">
+            <circle cx="96" cy="96" r="88" stroke="rgba(255,255,255,0.2)" stroke-width="8" fill="none"></circle>
+            <circle id="clock-progress" cx="96" cy="96" r="88" stroke="#ffffff" stroke-width="8" fill="none" stroke-dasharray="552.92" stroke-dashoffset="552.92" class="transition-all ease-linear"></circle>
+          </svg>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span id="clock-time" class="text-5xl font-bold text-white">3m</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-4 relative z-20 text-white">
+        <h3 class="text-xl font-semibold mb-2">Setup Time</h3>
+        <p class="text-sm text-gray-300">From box to bloom in three minutes flat.</p>
+      </div>
+    </div>
+
+    <div
+      class="md:col-span-1 glossy-card rounded-3xl overflow-hidden relative group mobile-fade-in"
+      id="materials-card"
+    >
+      <video
+        id="materials-video"
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        muted
+        playsinline
+        preload="none"
+        data-bloom-video
+        data-bloom-video-priority="2"
+        data-bloom-video-src="{{ 'foam-compression.mp4' | file_url }}"
+        data-bloom-video-key="foam-compression"
+      ></video>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 pointer-events-none"></div>
+      <div class="absolute bottom-8 left-8 z-20 text-white pointer-events-none">
+        <h3 class="text-xl font-semibold">High-Quality Materials</h3>
+        <p class="text-gray-300 text-sm mt-2">High-resilience foam technology</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bloom bento grid",
+  "settings": []
+}
+{% endschema %}

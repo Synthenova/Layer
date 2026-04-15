@@ -1,0 +1,140 @@
+<section class="py-24 bg-white" id="experience-gallery">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-12 tracking-tight">The Bloom Family</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 auto-rows-[200px] md:auto-rows-[300px]">
+      <div class="col-span-2 row-span-2 relative overflow-hidden gallery-item rounded-xl" data-row="1">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          data-bloom-video
+          data-bloom-video-priority="3"
+          data-bloom-video-src="{{ 'bloom-lifestyle.mp4' | file_url }}"
+          data-bloom-video-key="bloom-lifestyle"
+        ></video>
+      </div>
+      <div class="col-span-1 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="1">
+        <img
+          src="{{ 'sofa-collage.png' | file_url }}"
+          alt="Sofa experience"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+        >
+      </div>
+      <div class="col-span-1 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="1">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          data-bloom-video
+          data-bloom-video-priority="3"
+          data-bloom-video-src="{{ 'wow-moment.mp4' | file_url }}"
+          data-bloom-video-key="wow-moment"
+        ></video>
+      </div>
+      <div class="col-span-1 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="2">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          data-bloom-video
+          data-bloom-video-priority="3"
+          data-bloom-video-src="{{ 'foam-video.mp4' | file_url }}"
+          data-bloom-video-key="foam-video"
+        ></video>
+      </div>
+      <div class="col-span-1 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="2">
+        <img
+          src="{{ 'sofa-collage-2.png' | file_url }}"
+          alt="Lifestyle"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+        >
+      </div>
+      <div class="hidden md:block col-span-2 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="3">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          data-bloom-video
+          data-bloom-video-priority="3"
+          data-bloom-video-src="{{ 'foam-compression.mp4' | file_url }}"
+          data-bloom-video-key="foam-compression"
+        ></video>
+      </div>
+      <div class="col-span-2 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="3">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          data-bloom-video
+          data-bloom-video-priority="3"
+          data-bloom-video-src="{{ 'comfort-demo.mp4' | file_url }}"
+          data-bloom-video-key="comfort-demo"
+        ></video>
+      </div>
+      <div class="hidden md:block col-span-1 row-span-2 relative overflow-hidden gallery-item rounded-xl" data-row="4">
+        <img
+          src="{{ 'sofa-collage-1.png' | file_url }}"
+          alt="Detail shot"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+        >
+      </div>
+      <div class="col-span-2 row-span-2 relative overflow-hidden gallery-item rounded-xl" data-row="4">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          data-bloom-video
+          data-bloom-video-priority="3"
+          data-bloom-video-src="{{ 'magical-moment.mp4' | file_url }}"
+          data-bloom-video-key="magical-moment"
+        ></video>
+      </div>
+      <div class="col-span-1 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="4">
+        <img
+          src="{{ 'sofa-collage-3.png' | file_url }}"
+          alt="Comfort"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+        >
+      </div>
+      <div class="col-span-1 row-span-1 relative overflow-hidden gallery-item rounded-xl" data-row="5">
+        <video
+          class="absolute inset-0 w-full h-full object-cover"
+          autoplay
+          loop
+          muted
+          playsinline
+          preload="none"
+          data-bloom-video
+          data-bloom-video-priority="3"
+          data-bloom-video-src="{{ 'youturn.mp4' | file_url }}"
+          data-bloom-video-key="youturn"
+        ></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bloom experience gallery",
+  "settings": []
+}
+{% endschema %}
