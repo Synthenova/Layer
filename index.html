@@ -4,7 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#F9F8F6">
+    <meta name="description" content="Layer is a luxury scent-stacking webstore for curated fragrance pairings, decants, and layering rituals.">
+    <link rel="canonical" href="https://layer.local/">
+    <meta property="og:title" content="Layer | The Art of Scent Stacking">
+    <meta property="og:description" content="Curated fragrance pairings, decants, and layering rituals for a signature scent.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./public/combo1-white-studio-editorial.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
+    <link rel="manifest" href="./public/site.webmanifest">
     <title>Layer | The Art of Scent Stacking</title>
+
+    <script>document.documentElement.classList.add('js');</script>
 
     <!-- Tailwind CSS -->
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
@@ -13,6 +24,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="./public/combo1-macro-bokeh-closeup.png">
+    <link rel="preload" as="image" href="./public/combo2-macro-bokeh-closeup.png">
 
     <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -32,6 +45,11 @@
             font-family: 'Montserrat', sans-serif;
             overflow-x: hidden;
             cursor: none;
+        }
+
+        html,
+        body {
+            max-width: 100%;
         }
 
         @media (pointer: coarse) {
@@ -57,18 +75,28 @@
         .cursor-dot {
             width: 5px;
             height: 5px;
-            background-color: var(--color-text);
+            background-color: #0D0D0D;
+            transition: background-color 0.18s ease;
         }
         .cursor-outline {
             width: 36px;
             height: 36px;
-            border: 1px solid rgba(0,0,0,0.35);
-            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+            border: 1px solid #0D0D0D;
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.18s ease;
         }
         .cursor-outline.hovered {
             width: 58px;
             height: 58px;
             background-color: rgba(0,0,0,0.04);
+        }
+        .cursor-dot.cursor-light {
+            background-color: #F9F8F6;
+        }
+        .cursor-outline.cursor-light {
+            border-color: #F9F8F6;
+        }
+        .cursor-outline.cursor-light.hovered {
+            background-color: rgba(255,255,255,0.08);
         }
 
         /* ── Scrollbar hide ── */
@@ -76,17 +104,64 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* ── Hero initial state — GSAP animates these in ── */
-        .hero-elem {
+        .js .hero-elem {
             opacity: 0;
             transform: translateY(40px);
         }
 
+        .hero-decor {
+            contain: paint;
+        }
+
+        @media (max-width: 767px) {
+            .hero-blob {
+                width: min(82vw, 24rem) !important;
+                height: min(82vw, 24rem) !important;
+                filter: blur(72px);
+            }
+            .hero-ring-lg {
+                width: min(118vw, 34rem);
+                height: min(118vw, 34rem);
+            }
+            .hero-ring-sm {
+                width: min(90vw, 28rem);
+                height: min(90vw, 28rem);
+            }
+        }
+
+        @media (max-height: 700px) {
+            .hero-scroll-indicator {
+                bottom: 1.1rem;
+                gap: 0.35rem;
+            }
+            .hero-copy {
+                margin-top: 1.5rem;
+                margin-bottom: 1.75rem;
+            }
+        }
+
         /* ── Reveal Text ── */
+        .reveal-text {
+            text-shadow: 0 0 22px rgba(249,248,246,0.08);
+        }
         .reveal-text span {
-            opacity: 0.15;
-            color: rgba(249,248,246,0.2);
             display: inline;
+        }
+        .js .reveal-text span {
+            opacity: 0.08;
+            color: rgba(249,248,246,0.12);
             filter: url(#dither-filter);
+            transform: translate3d(0, 18px, 0) scale(1.08);
+            text-shadow: 0 0 36px rgba(249,248,246,0.22);
+        }
+        .reveal-smoke {
+            background:
+                radial-gradient(circle at 25% 35%, rgba(249,248,246,0.18), transparent 22%),
+                radial-gradient(circle at 62% 48%, rgba(249,248,246,0.12), transparent 26%),
+                radial-gradient(circle at 45% 70%, rgba(201,169,110,0.1), transparent 24%);
+            filter: blur(30px);
+            mix-blend-mode: screen;
+            transform: scale(1.18);
         }
 
         /* ── Glass panel ── */
@@ -123,13 +198,96 @@
 
         /* ── Navigation scroll state ── */
         #main-nav {
-            transition: background 0.5s ease, border-color 0.5s ease, color 0.5s ease, padding 0.4s ease;
+            transition: background 0.5s ease, border-color 0.5s ease, color 0.5s ease, padding 0.4s ease, transform 0.32s ease;
+            transform: translateY(0);
+            will-change: transform;
         }
         #main-nav.scrolled {
             background: rgba(249,248,246,0.9);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        #main-nav.nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        #mobile-menu {
+            transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s ease;
+        }
+        #mobile-menu[hidden] {
+            display: block;
+            opacity: 0;
+            transform: translateY(-0.75rem);
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* ── Split showcase ── */
+        .split-panel {
+            flex: 1 1 0;
+            transition: flex-grow 0.42s cubic-bezier(0.2,0.8,0.2,1), filter 0.42s ease;
+        }
+        .split-showcase:hover .split-panel {
+            flex-grow: 1;
+        }
+        .split-showcase .split-panel:hover,
+        .split-showcase .split-panel:focus-within {
+            flex-grow: 3;
+        }
+
+        /* ── Horizontal collection containment ── */
+        #h-scroll-section {
+            overflow: hidden;
+            max-width: 100vw;
+        }
+        #h-scroll-container {
+            overflow: hidden;
+        }
+        .collection-card .buy-button {
+            opacity: 0;
+            transform: translateY(0.75rem);
+            transition: opacity 0.35s ease, transform 0.35s ease, background-color 0.3s ease, color 0.3s ease;
+        }
+        .collection-card:hover .buy-button,
+        .collection-card:focus-visible .buy-button,
+        .collection-card:focus-within .buy-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @media (max-width: 767px) {
+            #h-scroll-wrapper > div:nth-child(even) { margin-top: 0; }
+            .collection-card .buy-button {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        /* ── Best sellers gallery ── */
+        .best-seller-track {
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+        }
+        .best-seller-track::-webkit-scrollbar {
+            display: none;
+        }
+        .best-seller-track {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .best-seller-card {
+            scroll-snap-align: start;
+            flex: 0 0 calc((100% - 4.5rem) / 4);
+        }
+        @media (max-width: 1023px) {
+            .best-seller-card {
+                flex-basis: calc((100% - 1.5rem) / 2);
+            }
+        }
+        @media (max-width: 639px) {
+            .best-seller-card {
+                flex-basis: 78%;
+            }
         }
 
         /* ── Note item accordion — max-height approach ── */
@@ -173,6 +331,7 @@
 
         /* ── Pre-footer input ── */
         .cta-input::placeholder { color: rgba(255,255,255,0.35); letter-spacing: 0.12em; }
+        .form-message[hidden] { display: none; }
 
         /* ── Respect reduced-motion ── */
         @media (prefers-reduced-motion: reduce) {
@@ -202,31 +361,47 @@
 
     <!-- ── NAVIGATION ── -->
     <nav id="main-nav" class="fixed top-0 w-full z-50 px-6 md:px-10 py-5 flex justify-between items-center mix-blend-difference text-white">
-        <a href="#" class="text-xl font-light tracking-[0.3em] uppercase serif">Layer</a>
+        <a href="#top" class="text-xl font-light tracking-[0.3em] uppercase serif">Layer</a>
         <div class="hidden md:flex space-x-10 text-[10px] tracking-[0.25em]">
-            <a href="#showcase" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Curated Kits</a>
+            <a href="#h-scroll-section" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Fragrances</a>
+            <a href="#for-him" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Him</a>
+            <a href="#for-her" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Her</a>
             <a href="#visualizer" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">The Science</a>
-            <a href="#" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Journal</a>
         </div>
-        <button class="text-[10px] tracking-[0.2em] border border-current rounded-full px-5 py-2 hover:opacity-60 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-full">
-            Cart (0)
-        </button>
+        <div class="flex items-center gap-3">
+            <button id="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-[10px] tracking-[0.2em] border border-current rounded-full px-4 py-2 hover:opacity-60 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                Menu
+            </button>
+            <button type="button" aria-label="Open shopping cart, 0 items" class="text-[10px] tracking-[0.2em] border border-current rounded-full px-5 py-2 hover:opacity-60 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                Cart (0)
+            </button>
+        </div>
+        <div id="mobile-menu" hidden class="absolute left-6 right-6 top-[4.6rem] md:hidden rounded-[2px] border border-stone-200 bg-[#F9F8F6]/95 px-6 py-6 text-[#1A1A1A] shadow-[0_24px_70px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+            <div class="flex flex-col gap-5 text-[10px] tracking-[0.28em] uppercase">
+                <a href="#h-scroll-section" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Fragrances</a>
+                <a href="#for-him" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Him</a>
+                <a href="#for-her" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Her</a>
+                <a href="#visualizer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">The Science</a>
+            </div>
+        </div>
     </nav>
+
+    <main id="top">
 
     <!-- ── HERO ── -->
     <header class="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center">
 
         <!-- Ambient blobs -->
-        <div class="absolute inset-0 z-0" aria-hidden="true">
-            <div class="absolute top-1/4 left-1/5 w-[520px] h-[520px] bg-[#EDE4D6] rounded-full mix-blend-multiply blur-[110px] opacity-75 animate-blob"></div>
-            <div class="absolute top-1/3 right-1/4 w-[420px] h-[420px] bg-[#D9C9B6] rounded-full mix-blend-multiply blur-[90px] opacity-60 animate-blob animation-delay-2000"></div>
-            <div class="absolute -bottom-28 left-1/3 w-[460px] h-[460px] bg-[#EDE8E0] rounded-full mix-blend-multiply blur-[100px] opacity-65 animate-blob animation-delay-4000"></div>
+        <div class="hero-decor absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+            <div class="hero-blob absolute top-1/4 left-1/5 w-[520px] h-[520px] bg-[#EDE4D6] rounded-full mix-blend-multiply blur-[110px] opacity-75 animate-blob"></div>
+            <div class="hero-blob absolute top-1/3 right-1/4 w-[420px] h-[420px] bg-[#D9C9B6] rounded-full mix-blend-multiply blur-[90px] opacity-60 animate-blob animation-delay-2000"></div>
+            <div class="hero-blob absolute -bottom-28 left-1/3 w-[460px] h-[460px] bg-[#EDE8E0] rounded-full mix-blend-multiply blur-[100px] opacity-65 animate-blob animation-delay-4000"></div>
         </div>
 
         <!-- Decorative rings -->
-        <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none" aria-hidden="true">
-            <div class="w-[640px] h-[640px] border border-stone-300 rounded-full animate-spin-slow opacity-20"></div>
-            <div class="absolute w-[480px] h-[480px] border border-stone-300 rounded-full animate-spin-reverse opacity-15"></div>
+        <div class="hero-decor absolute inset-0 flex items-center justify-center z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div class="hero-ring-lg w-[640px] h-[640px] border border-stone-300 rounded-full animate-spin-slow opacity-20"></div>
+            <div class="hero-ring-sm absolute w-[480px] h-[480px] border border-stone-300 rounded-full animate-spin-reverse opacity-15"></div>
         </div>
 
         <div class="z-10 text-center px-6 relative">
@@ -237,7 +412,7 @@
                 <span class="block italic">Not Just</span>
                 <span class="block not-italic font-thin tracking-[-0.01em]">Perfume.</span>
             </h1>
-            <p class="hero-elem text-[11px] md:text-xs text-stone-500 tracking-[0.2em] max-w-[22rem] mx-auto mt-9 mb-11 leading-[2] font-light">
+            <p class="hero-elem hero-copy text-[11px] md:text-xs text-stone-500 tracking-[0.2em] max-w-[22rem] mx-auto mt-9 mb-11 leading-[2] font-light">
                 Craft a signature scent through the precise science of layering.
             </p>
             <div class="hero-elem">
@@ -249,7 +424,7 @@
         </div>
 
         <!-- Scroll indicator -->
-        <div class="hero-elem absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5">
+        <div class="hero-elem hero-scroll-indicator absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5">
             <span class="text-[9px] tracking-[0.35em] uppercase text-stone-400">Scroll</span>
             <svg class="scroll-arrow w-3 h-[15px] text-stone-400" fill="none" viewBox="0 0 12 16" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
                 <line x1="6" y1="1" x2="6" y2="14"/>
@@ -258,20 +433,21 @@
         </div>
     </header>
 
-    <!-- ── CINEMATIC TEXT SCROLL (300vh, sticky inner) ── -->
-    <section id="reveal" class="relative bg-[#0D0D0D] text-[#F9F8F6] z-20" style="height: 300vh;">
+    <!-- ── CINEMATIC TEXT SCROLL (three viewport scroll beats, sticky inner) ── -->
+    <section id="reveal" class="relative bg-[#0D0D0D] text-[#F9F8F6] z-20 min-h-[300vh]" data-scroll-beats="3">
         <div class="h-screen w-full flex items-center justify-center overflow-hidden px-8 md:px-24 sticky top-0">
+            <div class="reveal-smoke absolute inset-[12%] opacity-70 pointer-events-none" aria-hidden="true"></div>
 
             <!-- Parallax image left -->
             <div class="absolute left-6 md:left-14 w-28 md:w-44 h-44 md:h-[17rem] overflow-hidden reveal-img-left opacity-0" aria-hidden="true">
                 <img src="./public/combo1-macro-bokeh-closeup.png"
-                     class="w-full h-full object-cover" alt="" loading="lazy">
+                     class="w-full h-full object-cover" alt="" loading="eager">
             </div>
 
             <!-- Parallax image right -->
             <div class="absolute right-6 md:right-14 w-28 md:w-44 h-44 md:h-[17rem] overflow-hidden reveal-img-right opacity-0" aria-hidden="true">
                 <img src="./public/combo2-macro-bokeh-closeup.png"
-                     class="w-full h-full object-cover" alt="" loading="lazy">
+                     class="w-full h-full object-cover" alt="" loading="eager">
             </div>
 
             <div class="max-w-3xl text-center z-10 relative">
@@ -285,76 +461,55 @@
     </section>
 
     <!-- ── SHOWCASE ── -->
-    <section class="relative h-screen bg-[#EEEAE4] overflow-hidden z-30" id="showcase">
-        <div class="h-full w-full flex items-center justify-center relative">
-
-            <!-- Subtle dot-grid background -->
-            <div class="absolute inset-0 opacity-[0.025]" aria-hidden="true"
-                 style="background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px); background-size: 28px 28px;"></div>
-
-            <!-- Central box -->
-            <div class="relative w-[260px] h-[340px] md:w-[380px] md:h-[480px] bg-white shadow-[0_24px_80px_-8px_rgba(0,0,0,0.14)] flex items-center justify-center z-20 showcase-box">
-                <div class="absolute inset-[10px] border border-stone-100 pointer-events-none"></div>
-                <img src="./public/combo1-white-studio-editorial.png"
-                     class="w-full h-full object-cover p-4" alt="Layer Starter Kit">
+    <section class="relative min-h-screen bg-[#EEEAE4] overflow-hidden z-30 split-showcase flex flex-col md:flex-row" id="showcase" aria-label="Shop fragrance edits">
+        <article id="for-him" class="split-panel relative min-h-[50vh] md:min-h-screen overflow-hidden group">
+            <img src="./public/for-him-date-night-power.png"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                 alt="Date Night Power scent stack with dark bottles, amber light, tobacco notes, and polished decant vials">
+            <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/75 via-black/20 to-transparent"></div>
+            <div class="relative z-10 h-full min-h-[50vh] md:min-h-screen flex flex-col justify-end p-8 md:p-14 lg:p-20 text-[#F9F8F6]">
+                <p class="text-[9px] tracking-[0.45em] uppercase text-white/45 mb-4">Date Night Power</p>
+                <h2 class="text-[3.1rem] md:text-[5rem] lg:text-[6.5rem] serif italic leading-[0.86] mb-5">For Him</h2>
+                <p class="text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-white/55 mb-8 max-w-md">Bleu de Chanel · Tobacco Vanille · 5ml Decants</p>
+                <a href="#h-scroll-section" class="inline-flex w-fit items-center gap-3 rounded-full border border-white/70 px-7 py-3 text-[9px] tracking-[0.3em] uppercase text-white transition-colors duration-300 hover:bg-white hover:text-[#0D0D0D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                    Shop Him
+                    <span class="block h-px w-6 bg-current"></span>
+                </a>
             </div>
+        </article>
 
-            <!-- Floating: bottle left-top -->
-            <div class="absolute floating-item item-1 overflow-hidden shadow-[0_14px_48px_rgba(0,0,0,0.13)]"
-                 style="width:90px;height:136px;top:11%;left:7%;border-radius:50% 50% 4px 4px;">
-                <img src="./public/combo1-dutch-angle-mist.png"
-                     class="w-full h-full object-cover" alt="Perfume" loading="lazy">
+        <article id="for-her" class="split-panel relative min-h-[50vh] md:min-h-screen overflow-hidden group">
+            <img src="./public/for-her-romantic-evening.png"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                 alt="Romantic Evening scent stack with rose-toned bottles, amber crystal reflections, and polished decant vials">
+            <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-black/75 via-black/15 to-transparent"></div>
+            <div class="relative z-10 h-full min-h-[50vh] md:min-h-screen flex flex-col justify-end items-start md:items-end p-8 md:p-14 lg:p-20 text-[#F9F8F6] md:text-right">
+                <p class="text-[9px] tracking-[0.45em] uppercase text-white/45 mb-4">Romantic Evening</p>
+                <h2 class="text-[3.1rem] md:text-[5rem] lg:text-[6.5rem] serif italic leading-[0.86] mb-5">For Her</h2>
+                <p class="text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-white/55 mb-8 max-w-md">Delina · Baccarat Rouge 540 · 5ml Decants</p>
+                <a href="#h-scroll-section" class="inline-flex w-fit items-center gap-3 rounded-full border border-white/70 px-7 py-3 text-[9px] tracking-[0.3em] uppercase text-white transition-colors duration-300 hover:bg-white hover:text-[#0D0D0D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                    Shop Her
+                    <span class="block h-px w-6 bg-current"></span>
+                </a>
             </div>
-
-            <!-- Floating: bottle right-bottom -->
-            <div class="absolute floating-item item-2 overflow-hidden shadow-[0_14px_48px_rgba(0,0,0,0.13)]"
-                 style="width:90px;height:136px;bottom:11%;right:7%;border-radius:50% 50% 4px 4px;">
-                <img src="./public/combo2-low-light-noir.png"
-                     class="w-full h-full object-cover" alt="Perfume" loading="lazy">
-            </div>
-
-            <!-- Floating: base-lotion badge left-mid -->
-            <div class="absolute floating-item item-3 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.08)] flex flex-col items-center justify-center border border-stone-100"
-                 style="width:84px;height:84px;top:50%;left:3%;transform:translateY(-50%);border-radius:50%;">
-                <span class="text-[7.5px] tracking-[0.2em] uppercase text-stone-400 leading-tight">Base</span>
-                <span class="text-[7px] tracking-[0.18em] uppercase text-stone-600 leading-tight mt-0.5">Lotion</span>
-            </div>
-
-            <!-- Floating: price badge right-top -->
-            <div class="absolute floating-item item-4 bg-[#0D0D0D] text-[#F9F8F6] flex flex-col items-center justify-center shadow-lg"
-                 style="width:72px;height:72px;top:13%;right:12%;border-radius:4px;">
-                <span class="text-[7px] tracking-[0.2em] uppercase opacity-40 mb-0.5">From</span>
-                <span class="text-[22px] font-light serif italic leading-none">$49</span>
-            </div>
-
-            <!-- Title -->
-            <div class="absolute bottom-10 md:bottom-14 text-center w-full z-20 px-4">
-                <p class="text-[9px] tracking-[0.45em] uppercase text-stone-400 mb-3">Signature Collection</p>
-                <h2 class="text-[2.2rem] md:text-[3rem] serif italic leading-none">The Starter Kit</h2>
-                <div class="flex items-center justify-center gap-4 mt-4">
-                    <span class="w-10 h-px bg-stone-300 block"></span>
-                    <p class="text-[9px] tracking-[0.3em] uppercase text-stone-400">Citrus · Wood · Vanilla</p>
-                    <span class="w-10 h-px bg-stone-300 block"></span>
-                </div>
-            </div>
-        </div>
+        </article>
     </section>
 
     <!-- ── HORIZONTAL SCROLL GALLERY ── -->
     <section id="h-scroll-section" class="bg-[#E6E2DC]">
-        <div class="h-screen w-full flex items-center relative" id="h-scroll-container">
+        <div class="min-h-screen md:h-screen w-full flex items-center relative py-28 md:py-0" id="h-scroll-container">
 
-            <div class="absolute top-10 md:top-14 left-6 md:left-20 z-10 mix-blend-difference text-white" aria-hidden="false">
+            <div class="absolute top-10 md:top-14 left-6 md:left-20 z-10 md:mix-blend-difference md:text-white text-stone-800" aria-hidden="false">
                 <p class="text-[9px] tracking-[0.4em] uppercase mb-3 opacity-60">The Collection</p>
                 <h2 class="text-4xl md:text-6xl serif font-light leading-none">Curated Stacks</h2>
             </div>
 
-            <div class="flex gap-6 md:gap-10 px-6 md:px-20" id="h-scroll-wrapper">
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 px-6 md:px-20 w-full md:w-auto" id="h-scroll-wrapper">
                 <!-- leading spacer -->
-                <div class="min-w-[40px] md:min-w-[340px] shrink-0"></div>
+                <div class="hidden md:block min-w-[340px] shrink-0"></div>
 
                 <!-- Card 1 -->
-                <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
+                <a href="#email-signup" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Midnight Velvet scent stack">
                     <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">01</span>
                     <img src="./public/combo3-low-light-midnight.png"
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Midnight Velvet" loading="lazy">
@@ -363,12 +518,15 @@
                         <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Woody Oriental</p>
                         <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Midnight Velvet</h3>
                         <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Oud · Rose · Lotion Base</p>
-                        <span class="text-sm text-white/75 font-light serif">$65</span>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$65 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 2 -->
-                <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
+                <a href="#email-signup" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Sunday Morning scent stack">
                     <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">02</span>
                     <img src="./public/combo1-perspective-blur-cloudy.png"
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Sunday Morning" loading="lazy">
@@ -377,12 +535,15 @@
                         <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Fresh &amp; Airy</p>
                         <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Sunday Morning</h3>
                         <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Bergamot · Linen · Shea</p>
-                        <span class="text-sm text-white/75 font-light serif">$55</span>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$55 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 3 -->
-                <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
+                <a href="#email-signup" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Deep Amber scent stack">
                     <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">03</span>
                     <img src="./public/combo2-white-studio-gourmand.png"
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Deep Amber" loading="lazy">
@@ -391,12 +552,15 @@
                         <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Warm &amp; Gourmand</p>
                         <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Deep Amber</h3>
                         <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Vanilla · Tobacco · Cocoa</p>
-                        <span class="text-sm text-white/75 font-light serif">$60</span>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$60 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 4 -->
-                <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
+                <a href="#email-signup" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Forest Rain scent stack">
                     <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">04</span>
                     <img src="./public/combo3-dutch-angle-mist.png"
                          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Forest Rain" loading="lazy">
@@ -405,12 +569,15 @@
                         <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Green &amp; Aquatic</p>
                         <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Forest Rain</h3>
                         <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Petrichor · Pine · Aloe</p>
-                        <span class="text-sm text-white/75 font-light serif">$58</span>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$58 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
                     </div>
-                </div>
+                </a>
 
                 <!-- Card 5: Build Your Own -->
-                <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-xl shrink-0 flex items-center justify-center border border-stone-300/70 bg-[#E6E2DC]">
+                <a href="#email-signup" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-xl shrink-0 flex items-center justify-center border border-stone-300/70 bg-[#E6E2DC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Build your own scent stack">
                     <div class="text-center p-10">
                         <div class="w-14 h-14 rounded-full border border-stone-400 flex items-center justify-center mx-auto mb-9 transition-[background-color,color,border-color,width] duration-400 group-hover:bg-[#0D0D0D] group-hover:border-[#0D0D0D]">
                             <span class="text-2xl text-stone-500 group-hover:text-white transition-colors duration-400 leading-none" style="margin-top:-1px">+</span>
@@ -418,11 +585,12 @@
                         <h3 class="text-[1.8rem] serif italic mb-3 text-stone-800 leading-tight">Build Your Own</h3>
                         <p class="text-[9px] tracking-[0.25em] uppercase text-stone-400 mb-1.5">3 decants + 1 base</p>
                         <p class="text-[9px] tracking-[0.25em] uppercase text-stone-400">From $45</p>
+                        <span class="buy-button mt-8 inline-flex rounded-full bg-[#0D0D0D] px-6 py-3 text-[8px] tracking-[0.28em] uppercase text-[#F9F8F6]">Start Stack</span>
                     </div>
-                </div>
+                </a>
 
                 <!-- trailing spacer -->
-                <div class="min-w-[60px] md:min-w-[80px] shrink-0"></div>
+                <div class="hidden md:block min-w-[80px] shrink-0"></div>
             </div>
         </div>
     </section>
@@ -432,20 +600,20 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-28 items-center max-w-6xl mx-auto">
 
             <!-- Image grid -->
-            <div class="order-2 md:order-1 relative phil-col-images">
-                <div class="grid grid-cols-2 gap-5">
+            <div class="order-2 md:order-1 relative z-0 phil-col-images">
+                <div class="relative z-10 grid grid-cols-2 gap-5">
                     <div class="phil-img-wrap">
-                        <img src="./public/combo3-macro-bokeh-closeup.png"
-                             class="w-full h-60 md:h-72 object-cover mt-14" alt="Perfume detail" loading="lazy">
+                        <img src="./public/combo1-low-light-iridescent.png"
+                             class="w-full h-60 md:h-72 object-cover mt-14" alt="Iridescent close-up of layered perfume decants and reflective fragrance glass" loading="lazy">
                     </div>
                     <div class="phil-img-wrap">
-                        <img src="./public/combo3-white-studio-refined.png"
-                             class="w-full h-72 md:h-80 object-cover" alt="Perfume detail" loading="lazy">
+                        <img src="./public/combo2-macro-bokeh-closeup.png"
+                             class="w-full h-72 md:h-80 object-cover" alt="Macro view of fragrance bottles and decant tools used for scent layering" loading="lazy">
                     </div>
                 </div>
                 <!-- Decorative accents -->
-                <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-stone-200 -z-10 hidden md:block"></div>
-                <div class="absolute -top-5 -right-5 w-18 h-18 bg-[#E8DFCE] rounded-full -z-10 opacity-50 hidden md:block" style="width:4.5rem;height:4.5rem;"></div>
+                <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-stone-200 z-0 hidden md:block"></div>
+                <div class="absolute -top-5 -right-5 w-18 h-18 bg-[#E8DFCE] rounded-full z-0 opacity-50 hidden md:block" style="width:4.5rem;height:4.5rem;"></div>
             </div>
 
             <!-- Content -->
@@ -456,8 +624,8 @@
                     <span class="italic text-stone-300">&amp;</span> Artistry
                 </h2>
                 <p class="text-[0.9rem] leading-[2] text-stone-500 mb-10 max-w-md font-light">
-                    Traditional perfumes are static. Your mood is not. Scent stacking lets you modulate intensity and complexity —
-                    start with a hydrating base to lock in molecules, layer a woody core, then finish with a citrus top note.
+                    Each stack starts with authenticated decants and a neutral peptide base that helps fragrance molecules settle evenly on skin.
+                    Build from long-wearing woods or amber, then tune the top with citrus, florals, spice, or clean musks.
                 </p>
                 <ul class="space-y-5">
                     <li class="flex items-center gap-5 text-[10px] tracking-[0.25em] uppercase text-stone-700">
@@ -477,89 +645,277 @@
         </div>
     </section>
 
+    <!-- ── BEST SELLERS ── -->
+    <section class="bg-[#F9F8F6] px-6 py-28 md:px-20 md:py-36 overflow-hidden" id="best-sellers" aria-labelledby="best-sellers-title">
+        <div class="mx-auto max-w-7xl">
+            <div class="mb-12 flex flex-col gap-8 md:mb-16 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <p class="mb-5 text-[9px] uppercase tracking-[0.45em] text-stone-400">Best Sellers</p>
+                    <h2 id="best-sellers-title" class="serif text-[3.1rem] font-light leading-[0.9] md:text-[5.2rem]">
+                        Stocked to <em>Layer</em>
+                    </h2>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button type="button" class="gallery-prev flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-stone-800 transition-colors duration-300 hover:bg-stone-900 hover:text-[#F9F8F6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400" aria-label="Scroll best sellers left">
+                        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="gallery-next flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-stone-800 transition-colors duration-300 hover:bg-stone-900 hover:text-[#F9F8F6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400" aria-label="Scroll best sellers right">
+                        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="best-seller-track flex gap-6 overflow-x-auto pb-3" tabindex="0" aria-label="Best selling fragrance products">
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/black-opium.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="YSL Black Opium Eau de Parfum bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">YSL</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Black Opium EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Coffee · Vanilla · White Flowers</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$101.50</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.0 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/sauvage-edp.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Dior Sauvage Eau de Parfum bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Dior</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Sauvage EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Bergamot · Pepper · Ambroxan</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$127.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/bleu-de-chanel.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Bleu de Chanel Eau de Parfum bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Chanel</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Bleu de Chanel</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Grapefruit · Incense · Cedar</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">Sourcing</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/cloud-edp.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Ariana Grande Cloud Eau de Parfum bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Ariana Grande</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Cloud EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Coconut · Praline · Musk</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$44.75</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/good-girl.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Carolina Herrera Good Girl Eau de Parfum stiletto bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Carolina Herrera</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Good Girl EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Almond · Tuberose · Tonka</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$98.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">2.7 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/flowerbomb.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Viktor&Rolf Flowerbomb Eau de Parfum bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Viktor&amp;Rolf</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Flowerbomb EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Rose · Jasmine · Patchouli</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$68.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/daisy-edt.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Marc Jacobs Daisy Eau de Toilette bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Marc Jacobs</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Daisy EDT</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Strawberry · Violet · Woods</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$53.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/acqua-di-gio.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Armani Acqua di Gio Eau de Parfum bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Armani</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Acqua di Gio EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Marine · Bergamot · Cedar</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$72.50</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.3 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/eros-edp.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Versace Eros Eau de Parfum bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Versace</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Eros EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Mint · Green Apple · Vanilla</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$59.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="#email-signup" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="./public/best-sellers/jazz-club.png" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Maison Margiela Replica Jazz Club Eau de Toilette bottle on a white background" loading="lazy">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Maison Margiela</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Replica Jazz Club</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Rum · Tobacco · Vanilla</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$78.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <!-- ── NOTES VISUALIZER ── -->
     <section class="min-h-screen bg-[#F9F8F6] relative flex flex-col md:flex-row" id="visualizer">
 
         <!-- Dynamic background image -->
-        <div class="absolute inset-0 z-0 pointer-events-none" id="note-bg">
-            <img src="./public/combo1-low-light-iridescent.png"
+        <div class="absolute inset-0 z-0 pointer-events-none" id="note-bg" data-default-img="./public/combo2-low-light-noir.png">
+            <img src="./public/combo2-low-light-noir.png"
                  class="w-full h-full object-cover grayscale opacity-[0.13]" alt="" aria-hidden="true" loading="lazy">
         </div>
+        <div class="absolute inset-0 z-0 pointer-events-none bg-[#F9F8F6]/45" aria-hidden="true"></div>
 
         <!-- Left: accordion -->
         <div class="relative z-10 w-full md:w-1/2 p-8 md:p-20 lg:p-28 flex flex-col justify-center">
             <span class="text-[9px] tracking-[0.45em] uppercase text-stone-400 block mb-9">Compose Your Scent</span>
             <h2 class="text-[3rem] md:text-[4rem] lg:text-[5rem] serif font-light mb-14 leading-[0.88]">The <em>Notes</em></h2>
 
-            <div class="divide-y divide-stone-200">
+            <div class="divide-y divide-stone-200" id="notes-accordion">
                 <button class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7"
-                     data-img="./public/combo1-white-studio-editorial.png">
+                     data-img="./public/combo1-dutch-angle-mist.png" type="button" aria-expanded="false" aria-controls="note-panel-top" id="note-trigger-top">
                     <div class="flex justify-between items-baseline">
                         <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Top Notes</span>
                         <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">15–30 Mins</span>
                     </div>
-                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light">
+                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light" id="note-panel-top" role="region" aria-labelledby="note-trigger-top">
                         The first impression. Typically citrus, light florals, or herbs. They evaporate quickly but set the mood.
                     </div>
-                </div>
+                </button>
 
                 <button class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7"
-                     data-img="./public/combo2-white-studio-gourmand.png">
+                     data-img="./public/combo2-macro-bokeh-closeup.png" type="button" aria-expanded="false" aria-controls="note-panel-heart" id="note-trigger-heart">
                     <div class="flex justify-between items-baseline">
                         <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Heart Notes</span>
                         <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">2–4 Hours</span>
                     </div>
-                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light">
+                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light" id="note-panel-heart" role="region" aria-labelledby="note-trigger-heart">
                         The core of the fragrance. Spices, deeper florals, and fruits emerge once the top notes fade.
                     </div>
-                </div>
+                </button>
 
                 <button class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7"
-                     data-img="./public/combo3-low-light-midnight.png">
+                     data-img="./public/combo3-dutch-angle-noir-campaign.png" type="button" aria-expanded="false" aria-controls="note-panel-base" id="note-trigger-base">
                     <div class="flex justify-between items-baseline">
                         <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Base Notes</span>
                         <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">6+ Hours</span>
                     </div>
-                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light">
+                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light" id="note-panel-base" role="region" aria-labelledby="note-trigger-base">
                         The foundation. Woods, musk, amber, and vanilla. These rich molecules linger the longest on your skin.
                     </div>
+                </button>
+            </div>
+
+            <div class="mt-12 rounded-[2px] border border-stone-200/80 bg-[#F9F8F6]/70 p-6 md:hidden">
+                <p class="text-[8.5px] tracking-[0.45em] uppercase text-stone-400 mb-5">Scent Profile</p>
+                <div class="space-y-4 text-[10px] tracking-[0.24em] uppercase text-stone-600">
+                    <p>Top · Citrus · Herbs · Aldehydes</p>
+                    <p>Heart · Floral · Spice · Fruit</p>
+                    <p>Base · Wood · Musk · Amber</p>
                 </div>
             </div>
         </div>
 
         <!-- Right: fragrance pyramid visualiser -->
         <div class="hidden md:flex w-1/2 items-center justify-center relative z-10 p-12">
-            <div class="relative w-72 h-72">
+            <div class="relative w-[25rem] h-[25rem] rounded-full bg-[#F9F8F6]/70 shadow-[0_28px_90px_rgba(0,0,0,0.06)] backdrop-blur-[2px]">
                 <!-- Spinning rings -->
-                <div class="absolute inset-0 border border-stone-300/40 rounded-full animate-spin-slow" aria-hidden="true"></div>
-                <div class="absolute inset-5 border border-stone-200/40 rounded-full animate-spin-reverse" aria-hidden="true"></div>
+                <div class="absolute inset-0 border border-stone-300/60 rounded-full animate-spin-slow" aria-hidden="true"></div>
+                <div class="absolute inset-7 border border-stone-200/70 rounded-full animate-spin-reverse" aria-hidden="true"></div>
 
                 <!-- Pyramid layers -->
-                <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 px-8">
-                    <div class="w-full text-center py-3.5 border-b border-stone-200/60">
-                        <p class="text-[8px] tracking-[0.3em] uppercase text-stone-400 mb-1">Top · 15 – 30 min</p>
-                        <p class="text-[11px] font-light text-stone-600 tracking-wider">Citrus &nbsp;·&nbsp; Herbs &nbsp;·&nbsp; Aldehydes</p>
+                <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-12">
+                    <div class="w-full text-center py-5 border-b border-stone-200/80">
+                        <p class="text-[9px] tracking-[0.34em] uppercase text-stone-500 mb-1.5">Top · 15 – 30 min</p>
+                        <p class="text-[13px] font-light text-stone-800 tracking-wider">Citrus &nbsp;·&nbsp; Herbs &nbsp;·&nbsp; Aldehydes</p>
                     </div>
-                    <div class="w-full text-center py-3.5 border-b border-stone-200/60">
-                        <p class="text-[8px] tracking-[0.3em] uppercase text-stone-400 mb-1">Heart · 2 – 4 hrs</p>
-                        <p class="text-[11px] font-light text-stone-600 tracking-wider">Floral &nbsp;·&nbsp; Spice &nbsp;·&nbsp; Fruit</p>
+                    <div class="w-full text-center py-5 border-b border-stone-200/80">
+                        <p class="text-[9px] tracking-[0.34em] uppercase text-stone-500 mb-1.5">Heart · 2 – 4 hrs</p>
+                        <p class="text-[13px] font-light text-stone-800 tracking-wider">Floral &nbsp;·&nbsp; Spice &nbsp;·&nbsp; Fruit</p>
                     </div>
-                    <div class="w-full text-center py-3.5">
-                        <p class="text-[8px] tracking-[0.3em] uppercase text-stone-400 mb-1">Base · 6+ hrs</p>
-                        <p class="text-[11px] font-light text-stone-600 tracking-wider">Wood &nbsp;·&nbsp; Musk &nbsp;·&nbsp; Amber</p>
+                    <div class="w-full text-center py-5">
+                        <p class="text-[9px] tracking-[0.34em] uppercase text-stone-500 mb-1.5">Base · 6+ hrs</p>
+                        <p class="text-[13px] font-light text-stone-800 tracking-wider">Wood &nbsp;·&nbsp; Musk &nbsp;·&nbsp; Amber</p>
                     </div>
                 </div>
 
                 <!-- Outer label -->
                 <div class="absolute -bottom-10 left-0 right-0 text-center">
-                    <p class="text-[8.5px] tracking-[0.45em] uppercase text-stone-400">Scent Profile</p>
+                    <p class="text-[10px] tracking-[0.5em] uppercase text-stone-500">Scent Profile</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ── PRE-FOOTER CTA ── -->
-    <section class="bg-[#0D0D0D] py-32 px-6 md:px-20 text-[#F9F8F6] relative overflow-hidden">
+    <section class="bg-[#0D0D0D] py-32 px-6 md:px-20 text-[#F9F8F6] relative overflow-hidden" id="email-signup">
         <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
              style="background: radial-gradient(ellipse at 50% 60%, rgba(201,169,110,0.07) 0%, transparent 65%);"></div>
         <div class="relative z-10 max-w-xl mx-auto text-center">
@@ -568,16 +924,20 @@
             <p class="text-[0.82rem] text-stone-400 leading-[2.1] mb-12 font-light max-w-sm mx-auto">
                 Be first to discover new curated stacks, exclusive decants, and the science behind layering.
             </p>
-            <form class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto" onsubmit="return false;">
-                <input type="email" placeholder="Your email address"
+            <form id="signup-form" class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto" novalidate>
+                <label for="signup-email" class="sr-only">Email address</label>
+                <input id="signup-email" name="email" type="email" placeholder="Your email address" autocomplete="email" required aria-describedby="signup-message"
                        class="cta-input flex-1 bg-transparent border border-stone-700 rounded-full px-6 py-3.5 text-[11px] text-white outline-none focus:border-stone-500 transition-colors duration-300">
                 <button type="submit"
                         class="bg-[#F9F8F6] text-[#0D0D0D] rounded-full px-7 py-3.5 text-[9px] tracking-[0.3em] hover:bg-stone-200 transition-colors duration-300 shrink-0 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0D0D]">
                     Subscribe
                 </button>
             </form>
+            <p id="signup-message" class="form-message mt-5 text-[9px] tracking-[0.25em] uppercase text-stone-500" role="status" aria-live="polite" hidden></p>
         </div>
     </section>
+
+    </main>
 
     <!-- ── FOOTER ── -->
     <footer class="bg-[#080808] text-[#F9F8F6] pt-20 pb-10 px-6 md:px-20">
@@ -604,11 +964,11 @@
             </div>
         </div>
         <div class="border-t border-white/[0.07] pt-8 flex flex-col md:flex-row justify-between items-center text-[8.5px] tracking-[0.28em] uppercase opacity-25">
-            <p>&copy; 2025 Layer Perfumery. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2026</span> Layer Perfumery. All rights reserved.</p>
             <div class="flex space-x-8 mt-5 md:mt-0">
-                <a href="#" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Instagram</a>
-                <a href="#" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Twitter</a>
-                <a href="#" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">TikTok</a>
+                <a href="#" aria-label="Layer on Instagram" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Instagram</a>
+                <a href="#" aria-label="Layer on X" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Twitter</a>
+                <a href="#" aria-label="Layer on TikTok" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">TikTok</a>
             </div>
         </div>
     </footer>
@@ -621,11 +981,6 @@
                 el.style.opacity = 1;
                 el.style.transform = 'none';
             });
-            document.querySelectorAll('.reveal-text span').forEach(el => {
-                el.style.opacity = 1;
-                el.style.color = '#F9F8F6';
-                el.style.filter = 'none';
-            });
         }
         gsap.registerPlugin(ScrollTrigger);
 
@@ -637,12 +992,49 @@
         if (cursorDot && cursorOutline && window.matchMedia('(pointer: fine)').matches) {
             const moveX = gsap.quickTo(cursorOutline, 'left', { duration: 0.45, ease: 'power3.out' });
             const moveY = gsap.quickTo(cursorOutline, 'top',  { duration: 0.45, ease: 'power3.out' });
+            const darkCursorSelectors = [
+                '#reveal',
+                '#showcase',
+                '#email-signup',
+                'footer',
+                '.collection-card'
+            ].join(',');
+
+            const parseColor = (value) => {
+                const match = value && value.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([.\d]+))?\)/);
+                if (!match) return null;
+                const alpha = match[4] === undefined ? 1 : Number(match[4]);
+                if (alpha === 0) return null;
+                return [Number(match[1]), Number(match[2]), Number(match[3])];
+            };
+
+            const isDarkColor = ([r, g, b]) => ((r * 299 + g * 587 + b * 114) / 1000) < 128;
+
+            const shouldUseLightCursor = (x, y) => {
+                const stack = document.elementsFromPoint(x, y)
+                    .filter(el => !el.classList?.contains('cursor-dot') && !el.classList?.contains('cursor-outline'));
+
+                if (stack.some(el => el.closest?.(darkCursorSelectors))) return true;
+
+                for (const el of stack) {
+                    const styles = window.getComputedStyle(el);
+                    const bg = parseColor(styles.backgroundColor);
+                    if (bg) return isDarkColor(bg);
+                }
+                return false;
+            };
+
+            const setCursorTheme = (useLight) => {
+                cursorDot.classList.toggle('cursor-light', useLight);
+                cursorOutline.classList.toggle('cursor-light', useLight);
+            };
 
             window.addEventListener('mousemove', (e) => {
                 cursorDot.style.left = e.clientX + 'px';
                 cursorDot.style.top  = e.clientY + 'px';
                 moveX(e.clientX);
                 moveY(e.clientY);
+                setCursorTheme(shouldUseLightCursor(e.clientX, e.clientY));
             });
 
             document.querySelectorAll('a, button, .note-item').forEach(el => {
@@ -651,17 +1043,98 @@
             });
         }
 
-        // ── Navigation scroll state (remove mix-blend-difference when scrolled) ──
+        // ── Mobile navigation ──
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            const closeMobileMenu = () => {
+                mobileMenu.hidden = true;
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                mobileMenuToggle.setAttribute('aria-label', 'Open navigation menu');
+            };
+            mobileMenuToggle.addEventListener('click', () => {
+                const isOpen = mobileMenuToggle.getAttribute('aria-expanded') === 'true';
+                mobileMenu.hidden = isOpen;
+                mobileMenuToggle.setAttribute('aria-expanded', String(!isOpen));
+                mobileMenuToggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') closeMobileMenu();
+            });
+        }
+
+        // ── Navigation scroll state and direction reveal ──
         const nav = document.getElementById('main-nav');
+
+        if (nav) {
+            let lastNavScrollY = window.scrollY;
+            let navTriggerStartY = window.scrollY;
+            const navTriggerZone = 15;
+
+            const setNavScrolledState = () => {
+                if (window.scrollY > 72) {
+                    nav.classList.add('scrolled');
+                    nav.classList.remove('mix-blend-difference', 'text-white');
+                    nav.style.color = 'var(--color-text)';
+                } else {
+                    nav.classList.remove('scrolled');
+                    nav.classList.add('mix-blend-difference', 'text-white');
+                    nav.style.color = '';
+                    if (window.scrollY === 0) {
+                        nav.classList.remove('nav-hidden');
+                    }
+                }
+            };
+
+            const showNav = () => {
+                nav.classList.remove('nav-hidden');
+                navTriggerStartY = window.scrollY;
+            };
+
+            const hideNav = () => {
+                const menuOpen = mobileMenuToggle?.getAttribute('aria-expanded') === 'true';
+                if (window.scrollY <= 0 || menuOpen) return;
+                nav.classList.add('nav-hidden');
+                navTriggerStartY = window.scrollY;
+            };
+
+            setNavScrolledState();
+
+            window.addEventListener('scroll', () => {
+                const currentY = window.scrollY;
+                const direction = currentY > lastNavScrollY ? 'down' : 'up';
+
+                setNavScrolledState();
+
+                if (direction === 'down' && currentY - navTriggerStartY >= navTriggerZone) {
+                    hideNav();
+                }
+                if (direction === 'up' && navTriggerStartY - currentY >= navTriggerZone) {
+                    showNav();
+                }
+
+                if ((direction === 'down' && currentY < navTriggerStartY) || (direction === 'up' && currentY > navTriggerStartY)) {
+                    navTriggerStartY = currentY;
+                }
+
+                lastNavScrollY = currentY;
+            }, { passive: true });
+        }
+
         ScrollTrigger.create({
             start: 'top -72px',
             onEnter: () => {
+                if (!nav) return;
                 nav.classList.add('scrolled');
                 nav.classList.remove('mix-blend-difference', 'text-white');
                 nav.style.color = 'var(--color-text)';
             },
             onLeaveBack: () => {
+                if (!nav) return;
                 nav.classList.remove('scrolled');
+                nav.classList.remove('nav-hidden');
                 nav.classList.add('mix-blend-difference', 'text-white');
                 nav.style.color = '';
             }
@@ -701,8 +1174,20 @@
                     opacity: 1,
                     color: '#F9F8F6',
                     filter: 'none',
+                    y: 0,
+                    scale: 1,
+                    textShadow: '0 0 0 rgba(249,248,246,0)',
                 });
             });
+
+            if (prefersReducedMotion) {
+                textSpans.forEach(el => {
+                    el.style.opacity = 1;
+                    el.style.color = '#F9F8F6';
+                    el.style.filter = 'none';
+                    el.style.transform = 'none';
+                });
+            }
 
             // SVG filter convergence — particles consolidate as text is revealed
             gsap.to('#dither-filter feDisplacementMap', {
@@ -712,6 +1197,12 @@
             gsap.to('#dither-filter feGaussianBlur', {
                 scrollTrigger: { trigger: '#reveal', start: 'top top', end: 'bottom bottom', scrub: 1 },
                 attr: { stdDeviation: 0 },
+            });
+            gsap.to('.reveal-smoke', {
+                scrollTrigger: { trigger: '#reveal', start: 'top top', end: 'bottom bottom', scrub: 1 },
+                opacity: 0.08,
+                scale: 0.72,
+                filter: 'blur(8px)',
             });
 
             // Parallax images (staggered entry/exit within the 300vh)
@@ -723,21 +1214,20 @@
                 .fromTo('.reveal-img-right', { y: '70vh', opacity: 0 }, { y: '-45vh', opacity: 1, duration: 1, ease: 'none' }, 0.18);
         }
 
-        // ── Showcase animation ──
-        gsap.timeline({
-            scrollTrigger: { trigger: '#showcase', start: 'top 70%', end: 'center center', scrub: true }
-        })
-        .fromTo('.showcase-box', { scale: 0.88, opacity: 0 }, { scale: 1, opacity: 1, duration: 1 }, 0)
-        .fromTo('.item-1',       { y: 55,  opacity: 0 },       { y: 0, opacity: 1, duration: 1 }, 0.05)
-        .fromTo('.item-2',       { y: 55,  opacity: 0 },       { y: 0, opacity: 1, duration: 1 }, 0.1)
-        .fromTo('.item-3',       { scale: 0, opacity: 0 },     { scale: 1, opacity: 1, duration: 1 }, 0.15)
-        .fromTo('.item-4',       { scale: 0, opacity: 0 },     { scale: 1, opacity: 1, duration: 1 }, 0.2);
+        // ── Split showcase animation ──
+        gsap.fromTo('.split-panel',
+            { opacity: 0.88, y: 28 },
+            { opacity: 1, y: 0, duration: 0.85, ease: 'power2.out', stagger: 0.08,
+              scrollTrigger: { trigger: '#showcase', start: 'top 72%', toggleActions: 'play none none none' } }
+        );
 
         // ── Horizontal scroll gallery ──
         const hSection = document.getElementById('h-scroll-section');
         const hWrapper = document.getElementById('h-scroll-wrapper');
 
-        if (hSection && hWrapper) {
+        const desktopGallery = window.matchMedia('(min-width: 768px)');
+
+        if (hSection && hWrapper && desktopGallery.matches) {
             gsap.to(hWrapper, {
                 x: () => -(hWrapper.scrollWidth - window.innerWidth),
                 ease: 'none',
@@ -751,6 +1241,34 @@
                     anticipatePin: 1,
                 }
             });
+        }
+
+        // ── Best sellers side-scroll controls ──
+        const bestSellerTrack = document.querySelector('.best-seller-track');
+        const bestSellerPrev = document.querySelector('.gallery-prev');
+        const bestSellerNext = document.querySelector('.gallery-next');
+
+        if (bestSellerTrack && bestSellerPrev && bestSellerNext) {
+            const updateBestSellerControls = () => {
+                const maxScroll = bestSellerTrack.scrollWidth - bestSellerTrack.clientWidth - 2;
+                bestSellerPrev.disabled = bestSellerTrack.scrollLeft <= 2;
+                bestSellerNext.disabled = bestSellerTrack.scrollLeft >= maxScroll;
+                bestSellerPrev.classList.toggle('opacity-35', bestSellerPrev.disabled);
+                bestSellerNext.classList.toggle('opacity-35', bestSellerNext.disabled);
+            };
+
+            const scrollBestSellers = (direction) => {
+                const firstCard = bestSellerTrack.querySelector('.best-seller-card');
+                const gap = parseFloat(getComputedStyle(bestSellerTrack).columnGap || getComputedStyle(bestSellerTrack).gap || 0);
+                const distance = firstCard ? ((firstCard.getBoundingClientRect().width + gap) * 4) : bestSellerTrack.clientWidth;
+                bestSellerTrack.scrollBy({ left: direction * distance, behavior: 'smooth' });
+            };
+
+            bestSellerPrev.addEventListener('click', () => scrollBestSellers(-1));
+            bestSellerNext.addEventListener('click', () => scrollBestSellers(1));
+            bestSellerTrack.addEventListener('scroll', updateBestSellerControls, { passive: true });
+            window.addEventListener('resize', updateBestSellerControls);
+            updateBestSellerControls();
         }
 
         // ── Philosophy entrance animations ──
@@ -767,23 +1285,74 @@
 
         // ── Notes visualizer — background image swap ──
         const noteItems = document.querySelectorAll('.note-item');
+        const noteBg = document.getElementById('note-bg');
         const noteBgImg = document.querySelector('#note-bg img');
+        const defaultNoteImg = noteBg?.dataset.defaultImg || noteBgImg?.getAttribute('src');
+        let activeNoteImg = '';
+        let currentNoteImg = noteBgImg?.getAttribute('src') || '';
 
         noteItems.forEach(item => {
-            const updateImage = () => {
-                const newSrc = item.dataset.img;
-                if (!newSrc || !noteBgImg) return;
+            const activateItem = () => {
+                noteItems.forEach(other => {
+                    const isActive = other === item;
+                    other.classList.toggle('active', isActive);
+                    other.setAttribute('aria-expanded', String(isActive));
+                });
+                activeNoteImg = item.dataset.img || '';
+            };
+            const updateImage = (newSrc) => {
+                if (!newSrc || !noteBgImg || newSrc === currentNoteImg) return;
                 gsap.to(noteBgImg, {
                     opacity: 0, duration: 0.25,
                     onComplete: () => {
                         noteBgImg.src = newSrc;
+                        currentNoteImg = newSrc;
                         gsap.to(noteBgImg, { opacity: 0.13, duration: 0.45 });
                     }
                 });
             };
-            item.addEventListener('mouseenter', updateImage);
-            item.addEventListener('focus', updateImage);
+            const previewItem = () => updateImage(item.dataset.img);
+            const restoreImage = () => updateImage(activeNoteImg || defaultNoteImg);
+
+            item.addEventListener('mouseenter', previewItem);
+            item.addEventListener('mouseleave', restoreImage);
+            item.addEventListener('focus', previewItem);
+            item.addEventListener('blur', restoreImage);
+            item.addEventListener('click', () => {
+                activateItem();
+                updateImage(activeNoteImg);
+            });
         });
+
+        // ── Email capture fallback flow ──
+        const signupForm = document.getElementById('signup-form');
+        const signupEmail = document.getElementById('signup-email');
+        const signupMessage = document.getElementById('signup-message');
+
+        if (signupForm && signupEmail && signupMessage) {
+            signupForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                signupMessage.hidden = false;
+                if (!signupEmail.validity.valid) {
+                    signupMessage.textContent = 'Enter a valid email address.';
+                    signupMessage.classList.remove('text-stone-500');
+                    signupMessage.classList.add('text-[#C9A96E]');
+                    signupEmail.setAttribute('aria-invalid', 'true');
+                    signupEmail.focus();
+                    return;
+                }
+                signupEmail.setAttribute('aria-invalid', 'false');
+                signupMessage.classList.add('text-stone-500');
+                signupMessage.classList.remove('text-[#C9A96E]');
+                signupMessage.textContent = 'You are on the list.';
+                signupForm.reset();
+            });
+        }
+
+        const copyrightYear = document.getElementById('copyright-year');
+        if (copyrightYear) {
+            copyrightYear.textContent = new Date().getFullYear();
+        }
     </script>
 </body>
 </html>
