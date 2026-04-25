@@ -1,0 +1,115 @@
+{% if shop.policies.size > 0 %}
+  <div class="footer-utilities__policy-list footer-utilities__text" {{ block.shopify_attributes }}>
+    <ul
+      class="
+        policy_list list-unstyled
+        custom-typography
+        {% if block.settings.font_size != "" %}custom-font-size{% endif %}
+      "
+      style="{% render 'typography-style', preset: 'custom', settings: block.settings %}"
+    >
+      {%- for policy in shop.policies -%}
+        {%- assign policy_title_down = policy.title | downcase -%}
+        {%- if policy != blank and policy.title != 'Contact Information' and policy.title != 'Contact information' -%}
+          <li>
+            <a
+              href="{{ policy.url }}"
+              class="footer-utilities__text"
+            >
+              {{- policy.title | escape -}}
+            </a>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .policy_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+  }
+
+  .policy_list li {
+    list-style: none;
+    display: inline-block;
+  }
+
+  .policy_list li a {
+    color: currentColor;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  .policy_list li a:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.policy_list",
+  "tag": null,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:content.manage_policies"
+    },
+    {
+      "type": "select",
+      "id": "font_size",
+      "label": "t:settings.size",
+      "options": [
+        {
+          "value": "0.625rem",
+          "label": "10px"
+        },
+        {
+          "value": "0.75rem",
+          "label": "12px"
+        },
+        {
+          "value": "0.875rem",
+          "label": "14px"
+        },
+        {
+          "value": "1rem",
+          "label": "16px"
+        },
+        {
+          "value": "1.125rem",
+          "label": "18px"
+        }
+      ],
+      "default": "0.75rem"
+    },
+    {
+      "type": "select",
+      "id": "case",
+      "label": "t:settings.case",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:options.default"
+        },
+        {
+          "value": "uppercase",
+          "label": "t:options.uppercase"
+        }
+      ],
+      "default": "none"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.policy_list",
+      "category": "t:categories.footer"
+    }
+  ]
+}
+{% endschema %}

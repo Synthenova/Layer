@@ -1,0 +1,63 @@
+<section id="hero" class="relative w-full h-[300vh] bg-black" data-bloom-dark-zone>
+  <div class="sticky top-0 h-screen w-full overflow-hidden">
+    <canvas
+      id="scroll-canvas"
+      class="w-full h-full object-cover brightness-[0.85] md:brightness-100"
+      style="will-change: transform; transform: translateZ(0);"
+    ></canvas>
+    {% assign hero_frame_total = 35 %}
+    <script id="hero-frame-data" type="application/json">
+      {
+        "frames": [
+          {% for i in (1..hero_frame_total) %}
+            {% assign padded_number = i | prepend: '000' | slice: -3, 3 %}
+            {% capture frame_asset %}frame-{{ padded_number }}.jpg{% endcapture %}
+            "{{ frame_asset | file_url }}"{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ],
+        "mobile_frames": [
+          {% for i in (1..hero_frame_total) %}
+            {% assign padded_number = i | prepend: '000' | slice: -3, 3 %}
+            {% capture frame_asset %}mobile-frame-{{ padded_number }}.jpg{% endcapture %}
+            "{{ frame_asset | file_url }}"{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ]
+      }
+    </script>
+
+    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 px-4">
+      <p
+        id="hero-text-1"
+        class="text-white text-3xl md:text-4xl lg:text-[60px] font-normal tracking-[0.01em] leading-tight md:leading-[77px] absolute top-[30%] left-0 right-0 w-full md:static md:w-auto md:mb-4 opacity-0 blur-lg translate-y-10 text-center"
+      >
+        {{ section.settings.headline_primary }}
+      </p>
+      <h1
+        id="hero-text-2"
+        class="text-white text-[120px] md:text-[160px] lg:text-[240px] font-bold tracking-[-0.06em] leading-none opacity-0 blur-xl translate-y-10 text-center"
+      >
+        {{ section.settings.headline_secondary }}
+      </h1>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bloom hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "headline_primary",
+      "label": "Headline",
+      "default": "unbox. unroll."
+    },
+    {
+      "type": "text",
+      "id": "headline_secondary",
+      "label": "Subheadline",
+      "default": "bloom."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,44 @@
+<section class="py-12 md:py-16 md:min-h-screen px-6 md:px-12 bg-gray-50 flex flex-col justify-center">
+  <div class="max-w-7xl mx-auto mb-8">
+    <h2 class="text-4xl font-bold mb-4">Designed for every space.</h2>
+  </div>
+  <div class="max-w-7xl mx-auto accordion-container md:h-[85vh]">
+    <a href="{{ routes.collections_url }}/lounge" class="accordion-item group relative block mobile-fade-in">
+      <img src="{{ 'lounge.png' | file_url }}" alt="Modular Lounge Sofa">
+      <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 px-6 py-2 border border-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-md z-20 pointer-events-none"
+        >See More</span
+      >
+      <div class="accordion-content">
+        <h3 class="text-3xl font-bold mb-2">Lounge</h3>
+        <p>Low profile sofas that modularly fit any corner.</p>
+      </div>
+    </a>
+    <a href="{{ routes.collections_url }}/rest" class="accordion-item group relative block mobile-fade-in">
+      <img src="{{ 'footballsofa.png' | file_url }}" alt="Bubble Cloud Sofa">
+      <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 px-6 py-2 border border-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-md z-20 pointer-events-none"
+        >See More</span
+      >
+      <div class="accordion-content">
+        <h3 class="text-3xl font-bold mb-2">Rest</h3>
+        <p>Platform beds that assemble without a single tool.</p>
+      </div>
+    </a>
+    <a href="{{ routes.collections_url }}/work" class="accordion-item group relative block mobile-fade-in">
+      <img src="{{ 'work.png' | file_url }}" alt="Work Space">
+      <span class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 px-6 py-2 border border-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-md z-20 pointer-events-none"
+        >See More</span
+      >
+      <div class="accordion-content">
+        <h3 class="text-3xl font-bold mb-2">Work</h3>
+        <p>Desks that fold flat when the day is done.</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bloom accordion",
+  "settings": []
+}
+{% endschema %}

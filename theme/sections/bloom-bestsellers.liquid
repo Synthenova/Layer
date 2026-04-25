@@ -1,0 +1,104 @@
+<section class="min-h-screen flex flex-col justify-center pt-24 pb-12 px-6 md:px-12 bg-white relative">
+  <div class="max-w-7xl mx-auto w-full">
+    <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900 tracking-tight">
+      {{ section.settings.heading | default: 'Our Bestsellers' }}
+    </h2>
+    <div class="relative">
+      <div id="bestseller-carousel" class="overflow-x-auto md:overflow-hidden mb-16 scrollbar-hide">
+        <div
+          class="flex gap-8 transition-transform duration-500 ease-out snap-x snap-mandatory md:snap-none"
+          id="bestseller-track"
+        >
+          {%- for product in section.settings.collection.products limit: 8 -%}
+            <a
+              href="{{ product.url }}"
+              class="block flex-shrink-0 w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] cursor-pointer group"
+            >
+              <div class="relative aspect-[4/5] mb-6 flex items-center justify-center bg-gray-50 rounded-md overflow-hidden">
+                {%- if product.featured_image -%}
+                  <img
+                    src="{{ product.featured_image | image_url: width: 600 }}"
+                    alt="{{ product.title | escape }}"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  >
+                {%- else -%}
+                  <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">No Image</div>
+                {%- endif -%}
+                <button class="absolute bottom-6 left-1/2 transform -translate-x-1/2 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 px-6 py-2 border border-black rounded-full text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-md">
+                  Buy Now
+                </button>
+              </div>
+              <div class="text-left space-y-1">
+                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">{{ product.vendor }}</p>
+                <h3 class="text-lg font-medium text-gray-900 leading-tight">{{ product.title }}</h3>
+                <p class="text-gray-900 font-medium mt-1">
+                  {%- if product.price_varies -%}
+                    From {{ product.price_min | money }}
+                  {%- else -%}
+                    {{ product.price | money }}
+                  {%- endif -%}
+                </p>
+              </div>
+            </a>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div
+        id="bestseller-prev"
+        class="absolute top-[40%] -left-4 lg:-left-10 transform -translate-y-1/2 hidden md:block z-20 opacity-50 pointer-events-none transition-opacity"
+      >
+        <button class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-xl text-gray-900 hover:scale-110 transition-transform cursor-pointer border border-gray-100">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M15 18L9 12L15 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div
+        id="bestseller-next"
+        class="absolute top-[40%] -right-4 lg:-right-10 transform -translate-y-1/2 hidden md:block z-20 transition-opacity"
+      >
+        <button class="w-12 h-12 flex items-center justify-center rounded-full bg-white shadow-xl text-gray-900 hover:scale-110 transition-transform cursor-pointer border border-gray-100">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M9 18L15 12L9 6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <div class="w-[70%] h-[2px] bg-gray-100 mb-6 relative rounded-full overflow-hidden">
+        <div
+          id="bestseller-progress"
+          class="absolute left-0 top-0 h-full bg-black transition-all duration-500"
+          style="width: 0%"
+        ></div>
+      </div>
+      <a
+        href="/collections/all"
+        class="text-xs font-bold uppercase tracking-[0.2em] border-b border-black pb-1 hover:opacity-70 transition-opacity"
+        >View All</a
+      >
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bloom bestsellers",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Bestsellers"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ]
+}
+{% endschema %}

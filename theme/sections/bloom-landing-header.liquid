@@ -1,0 +1,365 @@
+<nav
+  class="fixed top-0 w-full z-50 px-4 md:px-6 py-4 flex items-center text-white transition-all duration-300"
+  id="main-nav"
+  data-bloom-dark-zone
+>
+  {%- comment -%} Mobile: Hamburger menu on left {%- endcomment -%}
+  <button
+    type="button"
+    class="flex md:hidden bloom-header-icon hover:opacity-70 transition"
+    id="bloom-menu-toggle"
+    aria-label="Open menu"
+    aria-expanded="false"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+
+  {%- comment -%} Logo: centered on mobile, left on desktop {%- endcomment -%}
+  <div class="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0 flex items-center gap-2">
+    <img src="{{ 'logo.png' | file_url }}" alt="Bloom logo" class="h-6 w-auto">
+    <span class="text-xl font-semibold tracking-tighter lowercase">bloom.</span>
+  </div>
+
+  {%- comment -%} Desktop navigation links {%- endcomment -%}
+  <div class="hidden md:flex flex-1 justify-center space-x-8 text-sm uppercase tracking-widest">
+    <a href="{{ routes.root_url }}" class="hover:opacity-70 transition">Home</a>
+    <a href="/collections/all" class="hover:opacity-70 transition">Catalog</a>
+    <a href="{{ routes.collections_url }}" class="hover:opacity-70 transition">Collection</a>
+  </div>
+
+  {%- comment -%} Right icons {%- endcomment -%}
+  <div class="flex items-center gap-4 md:gap-6 ml-auto">
+    {%- comment -%} User Account Icon - Desktop only {%- endcomment -%}
+    {%- if shop.customer_accounts_enabled -%}
+      <a
+        href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+        class="hidden md:flex bloom-header-icon hover:opacity-70 transition"
+        rel="nofollow"
+        aria-label="{{ 'header.general.open_account' | t }}"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span class="visually-hidden">
+          {%- liquid
+            if customer
+              echo 'customer.account_fallback' | t
+            else
+              echo 'customer.log_in' | t
+            endif
+          -%}
+        </span>
+      </a>
+    {%- endif -%}
+
+    {%- comment -%} Search Icon {%- endcomment -%}
+    <button
+      type="button"
+      class="bloom-header-icon hover:opacity-70 transition"
+      id="bloom-search-toggle"
+      aria-label="{{ 'header.general.open_search' | t }}"
+      aria-expanded="false"
+      aria-controls="bloom-search-container"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <span class="visually-hidden">{{ 'header.general.open_search' | t }}</span>
+    </button>
+
+    {%- comment -%} Cart Button {%- endcomment -%}
+    <a
+      href="{{ routes.cart_url }}"
+      class="bloom-header-icon hover:opacity-70 transition"
+      id="bloom-cart-button"
+      aria-label="{{ 'header.general.open_cart' | t }}"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      {%- if cart != empty -%}
+        <span class="bloom-cart-count">{{ cart.item_count }}</span>
+      {%- endif -%}
+      <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+    </a>
+  </div>
+</nav>
+
+{%- comment -%} Mobile Sidebar {%- endcomment -%}
+<div
+  id="bloom-mobile-sidebar"
+  class="fixed inset-0 z-[55] pointer-events-none"
+  aria-hidden="true"
+>
+  {%- comment -%} Overlay {%- endcomment -%}
+  <div class="bloom-sidebar-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300"></div>
+
+  {%- comment -%} Sidebar panel {%- endcomment -%}
+  <div class="bloom-sidebar-panel absolute left-0 top-0 h-full w-72 bg-white text-black -translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="flex items-center justify-between p-4 border-b">
+      <span class="text-lg font-semibold">Menu</span>
+      <button type="button" class="bloom-sidebar-close p-2 hover:opacity-70" aria-label="Close menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <nav class="flex flex-col p-4 space-y-4 text-lg">
+      <a href="{{ routes.root_url }}" class="py-2 hover:opacity-70 transition border-b border-gray-100">Home</a>
+      <a href="/collections/all" class="py-2 hover:opacity-70 transition border-b border-gray-100">Catalog</a>
+      <a href="{{ routes.collections_url }}" class="py-2 hover:opacity-70 transition border-b border-gray-100"
+        >Collection</a
+      >
+      {%- if shop.customer_accounts_enabled -%}
+        <a
+          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+          class="py-2 hover:opacity-70 transition border-b border-gray-100"
+        >
+          {%- if customer -%}Account{%- else -%}Sign In{%- endif -%}
+        </a>
+      {%- endif -%}
+    </nav>
+  </div>
+</div>
+
+{%- comment -%} Inline Search Container {%- endcomment -%}
+<div
+  id="bloom-search-container"
+  class="fixed top-0 left-0 w-full z-[60] px-6 py-4 bg-white text-black flex items-center transition-transform duration-300 -translate-y-full"
+  aria-hidden="true"
+>
+  <form action="{{ routes.search_url }}" method="GET" class="flex-1 flex items-center gap-4">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="text-gray-500"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </svg>
+    <input
+      type="search"
+      name="q"
+      class="flex-1 bg-transparent border-none outline-none text-lg placeholder-gray-400"
+      placeholder="{{ 'search.general.search_placeholder' | t | default: 'Search for...' }}"
+      autocomplete="off"
+      spellcheck="false"
+    >
+  </form>
+  <button
+    type="button"
+    class="bloom-search-close hover:opacity-70 transition p-2"
+    id="bloom-search-close"
+    aria-label="{{ 'general.accessibility.close' | t }}"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+</div>
+
+<script>
+  (function () {
+    document.addEventListener('DOMContentLoaded', function () {
+      // ========== Search functionality ==========
+      var searchToggle = document.getElementById('bloom-search-toggle');
+      var searchContainer = document.getElementById('bloom-search-container');
+      var searchClose = document.getElementById('bloom-search-close');
+      var searchInput = searchContainer ? searchContainer.querySelector('input[type="search"]') : null;
+
+      if (searchToggle && searchContainer && searchClose) {
+        function openSearch() {
+          searchContainer.classList.remove('-translate-y-full');
+          searchContainer.classList.add('translate-y-0');
+          searchContainer.setAttribute('aria-hidden', 'false');
+          searchToggle.setAttribute('aria-expanded', 'true');
+          if (searchInput) {
+            setTimeout(function () {
+              searchInput.focus();
+            }, 300);
+          }
+        }
+
+        function closeSearch() {
+          searchContainer.classList.add('-translate-y-full');
+          searchContainer.classList.remove('translate-y-0');
+          searchContainer.setAttribute('aria-hidden', 'true');
+          searchToggle.setAttribute('aria-expanded', 'false');
+          if (searchInput) searchInput.value = '';
+        }
+
+        searchToggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          var isOpen = searchToggle.getAttribute('aria-expanded') === 'true';
+          isOpen ? closeSearch() : openSearch();
+        });
+
+        searchClose.addEventListener('click', function (e) {
+          e.preventDefault();
+          closeSearch();
+        });
+
+        document.addEventListener('click', function (e) {
+          var isOpen = searchToggle.getAttribute('aria-expanded') === 'true';
+          if (!isOpen) return;
+          if (!searchContainer.contains(e.target) && !searchToggle.contains(e.target)) {
+            closeSearch();
+          }
+        });
+      }
+
+      // ========== Mobile sidebar functionality ==========
+      var menuToggle = document.getElementById('bloom-menu-toggle');
+      var sidebar = document.getElementById('bloom-mobile-sidebar');
+      var sidebarOverlay = sidebar ? sidebar.querySelector('.bloom-sidebar-overlay') : null;
+      var sidebarPanel = sidebar ? sidebar.querySelector('.bloom-sidebar-panel') : null;
+      var sidebarClose = sidebar ? sidebar.querySelector('.bloom-sidebar-close') : null;
+
+      if (menuToggle && sidebar && sidebarPanel) {
+        function openSidebar() {
+          sidebar.classList.remove('pointer-events-none');
+          sidebar.setAttribute('aria-hidden', 'false');
+          menuToggle.setAttribute('aria-expanded', 'true');
+          sidebarOverlay.classList.remove('opacity-0');
+          sidebarOverlay.classList.add('opacity-100');
+          sidebarPanel.classList.remove('-translate-x-full');
+          sidebarPanel.classList.add('translate-x-0');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+          sidebar.classList.add('pointer-events-none');
+          sidebar.setAttribute('aria-hidden', 'true');
+          menuToggle.setAttribute('aria-expanded', 'false');
+          sidebarOverlay.classList.add('opacity-0');
+          sidebarOverlay.classList.remove('opacity-100');
+          sidebarPanel.classList.add('-translate-x-full');
+          sidebarPanel.classList.remove('translate-x-0');
+          document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', function (e) {
+          e.preventDefault();
+          var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+          isOpen ? closeSidebar() : openSidebar();
+        });
+
+        if (sidebarClose) {
+          sidebarClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            closeSidebar();
+          });
+        }
+
+        if (sidebarOverlay) {
+          sidebarOverlay.addEventListener('click', function () {
+            closeSidebar();
+          });
+        }
+      }
+
+      // ========== Close on Escape key ==========
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (searchToggle && searchToggle.getAttribute('aria-expanded') === 'true') {
+            closeSearch();
+          }
+          if (menuToggle && menuToggle.getAttribute('aria-expanded') === 'true') {
+            closeSidebar();
+          }
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bloom landing header",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_customer_avatar",
+      "label": "Enable customer avatar",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

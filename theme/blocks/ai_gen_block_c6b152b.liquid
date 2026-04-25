@@ -1,0 +1,242 @@
+{% doc %}
+  @prompt
+    i want to add a list of links one below another.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-link-list-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+  }
+
+  .ai-link-list__container-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: {{ block.settings.link_spacing }}px;
+    width: 100%;
+  }
+
+  .ai-link-list__link-{{ ai_gen_id }} {
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    font-size: {{ block.settings.font_size }}px;
+    transition: color 0.2s ease;
+    display: block;
+  }
+
+  .ai-link-list__link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  {% if block.settings.show_underline %}
+    .ai-link-list__link-{{ ai_gen_id }} {
+      text-decoration: underline;
+    }
+  {% endif %}
+
+  {% if block.settings.text_transform == 'uppercase' %}
+    .ai-link-list__link-{{ ai_gen_id }} {
+      text-transform: uppercase;
+    }
+  {% endif %}
+{% endstyle %}
+
+<div class="ai-link-list-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <nav class="ai-link-list__container-{{ ai_gen_id }}">
+    {% if block.settings.link_1_text != blank %}
+      <a href="{{ block.settings.link_1_url }}" class="ai-link-list__link-{{ ai_gen_id }}">
+        {{ block.settings.link_1_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.link_2_text != blank %}
+      <a href="{{ block.settings.link_2_url }}" class="ai-link-list__link-{{ ai_gen_id }}">
+        {{ block.settings.link_2_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.link_3_text != blank %}
+      <a href="{{ block.settings.link_3_url }}" class="ai-link-list__link-{{ ai_gen_id }}">
+        {{ block.settings.link_3_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.link_4_text != blank %}
+      <a href="{{ block.settings.link_4_url }}" class="ai-link-list__link-{{ ai_gen_id }}">
+        {{ block.settings.link_4_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.link_5_text != blank %}
+      <a href="{{ block.settings.link_5_url }}" class="ai-link-list__link-{{ ai_gen_id }}">
+        {{ block.settings.link_5_text }}
+      </a>
+    {% endif %}
+
+    {% if block.settings.link_6_text != blank %}
+      <a href="{{ block.settings.link_6_url }}" class="ai-link-list__link-{{ ai_gen_id }}">
+        {{ block.settings.link_6_text }}
+      </a>
+    {% endif %}
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "Vertical link list",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Link 1"
+    },
+    {
+      "type": "text",
+      "id": "link_1_text",
+      "label": "Text",
+      "default": "About us"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Link 2"
+    },
+    {
+      "type": "text",
+      "id": "link_2_text",
+      "label": "Text",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Link 3"
+    },
+    {
+      "type": "text",
+      "id": "link_3_text",
+      "label": "Text",
+      "default": "Privacy policy"
+    },
+    {
+      "type": "url",
+      "id": "link_3_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Link 4"
+    },
+    {
+      "type": "text",
+      "id": "link_4_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_4_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Link 5"
+    },
+    {
+      "type": "text",
+      "id": "link_5_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_5_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Link 6"
+    },
+    {
+      "type": "text",
+      "id": "link_6_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link_6_url",
+      "label": "URL"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "link_spacing",
+      "label": "Link spacing",
+      "min": 4,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#000f9f"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_underline",
+      "label": "Show underline",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text case",
+      "options": [
+        {
+          "value": "none",
+          "label": "Default"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ],
+      "default": "none"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vertical link list"
+    }
+  ],
+  "tag": null
+}
+{% endschema %}

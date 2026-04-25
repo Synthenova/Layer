@@ -1,0 +1,244 @@
+<footer class="bloom-footer bg-black text-white pt-24 pb-12 px-6" data-bloom-dark-zone>
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-800 pb-12">
+    <div class="md:col-span-2">
+      <h2 class="text-4xl font-bold mb-2 lowercase">{{ section.settings.brand_name | default: 'bloom.' }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="text-lg text-gray-300 mb-4">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+      <p class="text-gray-400 max-w-sm">
+        {{
+          section.settings.description
+          | default: 'Modern furniture for the fluid generation. Designed in USA, compressed for the world.'
+        }}
+      </p>
+    </div>
+    <div>
+      <h4 class="uppercase text-xs tracking-widest text-gray-500 mb-6">Explore</h4>
+      <ul class="space-y-4 text-gray-300">
+        {%- if section.settings.explore_link_1_text != blank -%}
+          <li>
+            <a href="{{ section.settings.explore_link_1_url | default: '#' }}" class="hover:text-white transition">
+              {{- section.settings.explore_link_1_text -}}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if section.settings.explore_link_2_text != blank -%}
+          <li>
+            <a href="{{ section.settings.explore_link_2_url | default: '#' }}" class="hover:text-white transition">
+              {{- section.settings.explore_link_2_text -}}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if section.settings.explore_link_3_text != blank -%}
+          <li>
+            <a href="{{ section.settings.explore_link_3_url | default: '#' }}" class="hover:text-white transition">
+              {{- section.settings.explore_link_3_text -}}
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+    <div>
+      <h4 class="uppercase text-xs tracking-widest text-gray-500 mb-6">Connect</h4>
+      <ul class="space-y-4 text-gray-300">
+        {%- if section.settings.social_1_platform != 'none' and section.settings.social_1_url != blank -%}
+          <li>
+            <a
+              href="{{ section.settings.social_1_url }}"
+              class="hover:text-white transition"
+              target="_blank"
+              rel="noopener"
+            >
+              {{- section.settings.social_1_platform | capitalize -}}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if section.settings.social_2_platform != 'none' and section.settings.social_2_url != blank -%}
+          <li>
+            <a
+              href="{{ section.settings.social_2_url }}"
+              class="hover:text-white transition"
+              target="_blank"
+              rel="noopener"
+            >
+              {{- section.settings.social_2_platform | capitalize -}}
+            </a>
+          </li>
+        {%- endif -%}
+        {%- if section.settings.social_3_platform != 'none' and section.settings.social_3_url != blank -%}
+          <li>
+            <a
+              href="{{ section.settings.social_3_url }}"
+              class="hover:text-white transition"
+              target="_blank"
+              rel="noopener"
+            >
+              {{- section.settings.social_3_platform | capitalize -}}
+            </a>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between text-sm text-gray-600">
+    <p>{{ section.settings.copyright | default: '© 2025 Bloom Living Inc.' }}</p>
+    <div class="flex space-x-6 mt-4 md:mt-0">
+      {%- if shop.privacy_policy != blank -%}
+        <a href="{{ shop.privacy_policy.url }}">Privacy Policy</a>
+      {%- endif -%}
+      {%- if shop.terms_of_service != blank -%}
+        <a href="{{ shop.terms_of_service.url }}">Terms of Service</a>
+      {%- endif -%}
+      {%- if shop.refund_policy != blank -%}
+        <a href="{{ shop.refund_policy.url }}">Refund Policy</a>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Bloom footer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Brand"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name",
+      "default": "bloom."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "info": "Optional subheading below brand name"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Modern furniture for the fluid generation. Designed in USA, compressed for the world."
+    },
+    {
+      "type": "header",
+      "content": "Explore Links"
+    },
+    {
+      "type": "text",
+      "id": "explore_link_1_text",
+      "label": "Link 1 Text",
+      "default": "Shop All"
+    },
+    {
+      "type": "url",
+      "id": "explore_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "explore_link_2_text",
+      "label": "Link 2 Text",
+      "default": "The Technology"
+    },
+    {
+      "type": "url",
+      "id": "explore_link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "explore_link_3_text",
+      "label": "Link 3 Text",
+      "default": "Sustainability"
+    },
+    {
+      "type": "url",
+      "id": "explore_link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "header",
+      "content": "Social Links"
+    },
+    {
+      "type": "select",
+      "id": "social_1_platform",
+      "label": "Social 1 Platform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "instagram", "label": "Instagram" },
+        { "value": "tiktok", "label": "TikTok" },
+        { "value": "twitter", "label": "X (Twitter)" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "youtube", "label": "YouTube" },
+        { "value": "pinterest", "label": "Pinterest" },
+        { "value": "linkedin", "label": "LinkedIn" },
+        { "value": "blog", "label": "Blog" }
+      ],
+      "default": "instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_1_url",
+      "label": "Social 1 URL"
+    },
+    {
+      "type": "select",
+      "id": "social_2_platform",
+      "label": "Social 2 Platform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "instagram", "label": "Instagram" },
+        { "value": "tiktok", "label": "TikTok" },
+        { "value": "twitter", "label": "X (Twitter)" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "youtube", "label": "YouTube" },
+        { "value": "pinterest", "label": "Pinterest" },
+        { "value": "linkedin", "label": "LinkedIn" },
+        { "value": "blog", "label": "Blog" }
+      ],
+      "default": "tiktok"
+    },
+    {
+      "type": "url",
+      "id": "social_2_url",
+      "label": "Social 2 URL"
+    },
+    {
+      "type": "select",
+      "id": "social_3_platform",
+      "label": "Social 3 Platform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "instagram", "label": "Instagram" },
+        { "value": "tiktok", "label": "TikTok" },
+        { "value": "twitter", "label": "X (Twitter)" },
+        { "value": "facebook", "label": "Facebook" },
+        { "value": "youtube", "label": "YouTube" },
+        { "value": "pinterest", "label": "Pinterest" },
+        { "value": "linkedin", "label": "LinkedIn" },
+        { "value": "blog", "label": "Blog" }
+      ],
+      "default": "blog"
+    },
+    {
+      "type": "url",
+      "id": "social_3_url",
+      "label": "Social 3 URL"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright",
+      "label": "Copyright Text",
+      "default": "© 2025 Bloom Living Inc."
+    }
+  ]
+}
+{% endschema %}
