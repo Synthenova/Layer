@@ -1,365 +1,664 @@
-<section id="layer-homepage">
-  <svg class="absolute w-0 h-0" aria-hidden="true">
-    <defs>
-      <filter id="dither-filter" x="-60%" y="-60%" width="220%" height="220%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="4" result="noise" seed="15"></feTurbulence>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="50" xChannelSelector="R" yChannelSelector="G" result="displaced"></feDisplacementMap>
-        <feGaussianBlur in="displaced" stdDeviation="5" result="blurred"></feGaussianBlur>
-        <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0"></feColorMatrix>
-      </filter>
-    </defs>
-  </svg>
+{% liquid
+  assign fragrances_collection = collections['fragrances']
+  assign for_him_collection = collections['for-him']
+  assign for_her_collection = collections['for-her']
+  assign all_fragrances_collection = collections['all-fragrances-default']
+  assign all_kits_collection = collections['all-fragrance-kits']
+  assign contact_page = pages['contact']
+  assign about_page = pages['about']
+  assign journal_page = pages['journal']
+  assign stockists_page = pages['stockists']
 
-  <div class="cursor-dot hidden md:block" aria-hidden="true"></div>
-  <div class="cursor-outline hidden md:block" aria-hidden="true"></div>
+  assign instagram_url = settings.social_instagram_link | default: '#'
+  assign twitter_url = settings.social_twitter_link | default: '#'
+  assign tiktok_url = settings.social_tiktok_link | default: '#'
 
-  <nav id="main-nav" class="fixed top-0 w-full z-50 px-6 md:px-10 py-5 flex justify-between items-center mix-blend-difference text-white">
-    <a href="{{ routes.root_url }}" class="text-xl font-light tracking-[0.3em] uppercase serif">Layer</a>
-    <div class="hidden md:flex space-x-10 text-[10px] tracking-[0.25em]">
-      <a href="#showcase" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Curated kits</a>
-      <a href="#visualizer" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">The science</a>
-      <a href="/blogs/news" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Journal</a>
-    </div>
-    <a href="{{ routes.cart_url }}" class="text-[10px] tracking-[0.2em] border border-current rounded-full px-5 py-2 hover:opacity-60 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
-      Cart ({{ cart.item_count }})
-    </a>
-  </nav>
+  assign midnight_velvet_url = '/products/black-opium-eau-de-parfum-la-nuit-de-lhomme-eau-de-toilette'
+  assign sunday_morning_url = '/products/jo-malone-wood-sage-sea-salt-cologne-le-labo-bergamote-22-eau-de-parfum'
+  assign deep_amber_url = '/products/vanilla-28-tobacco-vanille-eau-de-parfum'
+  assign forest_rain_url = '/products/green-irish-tweed-eau-de-parfum-xerjoff-naxos-eau-de-parfum'
 
-  <header class="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center">
-    <div class="absolute inset-0 z-0" aria-hidden="true">
-      <div class="absolute top-1/4 left-1/5 w-[520px] h-[520px] bg-[#EDE4D6] rounded-full mix-blend-multiply blur-[110px] opacity-75 animate-blob"></div>
-      <div class="absolute top-1/3 right-1/4 w-[420px] h-[420px] bg-[#D9C9B6] rounded-full mix-blend-multiply blur-[90px] opacity-60 animate-blob animation-delay-2000"></div>
-      <div class="absolute -bottom-28 left-1/3 w-[460px] h-[460px] bg-[#EDE8E0] rounded-full mix-blend-multiply blur-[100px] opacity-65 animate-blob animation-delay-4000"></div>
-    </div>
+  assign black_opium_url = '/products/black-opium-eau-de-parfum'
+  assign sauvage_url = '/products/sauvage-eau-de-parfum'
+  assign bleu_url = '/products/bleu-de-chanel-eau-de-parfum'
+  assign cloud_url = '/products/cloud-eau-de-parfum'
+  assign good_girl_url = '/products/good-girl-eau-de-parfum'
+  assign flowerbomb_url = '/products/flowerbomb-eau-de-parfum'
+  assign daisy_url = '/products/daisy-eau-de-toilette'
+  assign acqua_di_gio_url = '/products/acqua-di-gio-eau-de-parfum'
+  assign eros_url = '/products/eros-eau-de-parfum'
+  assign jazz_club_url = '/products/replica-jazz-club-eau-de-toilette'
+%}
 
-    <div class="absolute inset-0 flex items-center justify-center z-0 pointer-events-none" aria-hidden="true">
-      <div class="w-[640px] h-[640px] border border-stone-300 rounded-full animate-spin-slow opacity-20"></div>
-      <div class="absolute w-[480px] h-[480px] border border-stone-300 rounded-full animate-spin-reverse opacity-15"></div>
-    </div>
+<!-- SVG Filter for dither/atomised smoke effect -->
+    <svg class="absolute w-0 h-0" aria-hidden="true">
+        <defs>
+            <filter id="dither-filter" x="-60%" y="-60%" width="220%" height="220%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="4" result="noise" seed="15"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="50" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+                <feGaussianBlur in="displaced" stdDeviation="5" result="blurred"/>
+                <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0"/>
+            </filter>
+        </defs>
+    </svg>
 
-    <div class="z-10 text-center px-6 relative">
-      <p class="hero-elem text-[10px] md:text-xs tracking-[0.55em] uppercase mb-8 text-stone-500">
-        The art of scent stacking
-      </p>
-      <h1 class="hero-elem text-[clamp(3.8rem,13vw,9.5rem)] font-light leading-[0.86] mb-3 serif">
-        <span class="block italic">Not Just</span>
-        <span class="block not-italic font-thin tracking-[-0.01em]">Perfume.</span>
-      </h1>
-      <p class="hero-elem text-[11px] md:text-xs text-stone-500 tracking-[0.2em] max-w-[22rem] mx-auto mt-9 mb-11 leading-[2] font-light">
-        Craft a signature scent through the precise science of layering.
-      </p>
-      <div class="hero-elem">
-        <a href="#reveal" class="inline-flex items-center gap-3 px-8 py-3.5 border border-stone-700 rounded-full text-[10px] tracking-[0.28em] hover:bg-stone-900 hover:text-[#F9F8F6] hover:border-stone-900 transition-[background-color,color,border-color,width] duration-500 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F9F8F6]">
-          Discover layering
-          <span class="w-5 h-px bg-current block transition-[background-color,color,border-color,width] duration-400 group-hover:w-7"></span>
-        </a>
-      </div>
-    </div>
+    <!-- Custom Cursor (desktop only) -->
+    <div class="cursor-dot hidden md:block" aria-hidden="true"></div>
+    <div class="cursor-outline hidden md:block" aria-hidden="true"></div>
 
-    <div class="hero-elem absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5">
-      <span class="text-[9px] tracking-[0.35em] uppercase text-stone-400">Scroll</span>
-      <svg class="scroll-arrow w-3 h-[15px] text-stone-400" fill="none" viewBox="0 0 12 16" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-        <line x1="6" y1="1" x2="6" y2="14"></line>
-        <polyline points="1,9 6,15 11,9"></polyline>
-      </svg>
-    </div>
-  </header>
-
-  <section id="reveal" class="relative bg-[#0D0D0D] text-[#F9F8F6] z-20" style="height: 300vh;">
-    <div class="h-screen w-full flex items-center justify-center overflow-hidden px-8 md:px-24 sticky top-0">
-      <div class="absolute left-6 md:left-14 w-28 md:w-44 h-44 md:h-[17rem] overflow-hidden reveal-img-left opacity-0" aria-hidden="true">
-        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="" loading="lazy" width="600" height="720">
-      </div>
-
-      <div class="absolute right-6 md:right-14 w-28 md:w-44 h-44 md:h-[17rem] overflow-hidden reveal-img-right opacity-0" aria-hidden="true">
-        <img src="https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover" alt="" loading="lazy" width="600" height="720">
-      </div>
-
-      <div class="max-w-3xl text-center z-10 relative">
-        <div class="w-10 h-px bg-stone-700 mx-auto mb-12"></div>
-        <p class="text-[26px] md:text-[50px] lg:text-[58px] serif font-light leading-[1.2] reveal-text" id="split-text">
-          Layering brings you infinite potential. We curate the finest collections to help you sculpt a scent that is undeniably yours.
-        </p>
-        <div class="w-10 h-px bg-stone-700 mx-auto mt-12"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="relative h-screen bg-[#EEEAE4] overflow-hidden z-30" id="showcase">
-    <div class="h-full w-full flex items-center justify-center relative">
-      <div class="absolute inset-0 opacity-[0.025]" aria-hidden="true" style="background-image: radial-gradient(circle, #1a1a1a 1px, transparent 1px); background-size: 28px 28px;"></div>
-
-      <div class="relative w-[260px] h-[340px] md:w-[380px] md:h-[480px] bg-white shadow-[0_24px_80px_-8px_rgba(0,0,0,0.14)] flex items-center justify-center z-20 showcase-box">
-        <div class="absolute inset-[10px] border border-stone-100 pointer-events-none"></div>
-        <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=900&auto=format&fit=crop" class="w-full h-full object-cover p-4" alt="Layer starter kit" width="900" height="1140">
-      </div>
-
-      <div class="absolute floating-item item-1 overflow-hidden shadow-[0_14px_48px_rgba(0,0,0,0.13)]" style="width:90px;height:136px;top:11%;left:7%;border-radius:50% 50% 4px 4px;">
-        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfume" loading="lazy" width="400" height="600">
-      </div>
-
-      <div class="absolute floating-item item-2 overflow-hidden shadow-[0_14px_48px_rgba(0,0,0,0.13)]" style="width:90px;height:136px;bottom:11%;right:7%;border-radius:50% 50% 4px 4px;">
-        <img src="https://images.unsplash.com/photo-1594035910387-fea4779426e9?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover" alt="Perfume" loading="lazy" width="400" height="600">
-      </div>
-
-      <div class="absolute floating-item item-3 bg-white shadow-[0_8px_32px_rgba(0,0,0,0.08)] flex flex-col items-center justify-center border border-stone-100" style="width:84px;height:84px;top:50%;left:3%;transform:translateY(-50%);border-radius:50%;">
-        <span class="text-[7.5px] tracking-[0.2em] uppercase text-stone-400 leading-tight">Base</span>
-        <span class="text-[7px] tracking-[0.18em] uppercase text-stone-600 leading-tight mt-0.5">Lotion</span>
-      </div>
-
-      <div class="absolute floating-item item-4 bg-[#0D0D0D] text-[#F9F8F6] flex flex-col items-center justify-center shadow-lg" style="width:72px;height:72px;top:13%;right:12%;border-radius:4px;">
-        <span class="text-[7px] tracking-[0.2em] uppercase opacity-40 mb-0.5">From</span>
-        <span class="text-[22px] font-light serif italic leading-none">$49</span>
-      </div>
-
-      <div class="absolute bottom-10 md:bottom-14 text-center w-full z-20 px-4">
-        <p class="text-[9px] tracking-[0.45em] uppercase text-stone-400 mb-3">Signature collection</p>
-        <h2 class="text-[2.2rem] md:text-[3rem] serif italic leading-none">The Starter Kit</h2>
-        <div class="flex items-center justify-center gap-4 mt-4">
-          <span class="w-10 h-px bg-stone-300 block"></span>
-          <p class="text-[9px] tracking-[0.3em] uppercase text-stone-400">Citrus · Wood · Vanilla</p>
-          <span class="w-10 h-px bg-stone-300 block"></span>
+    <!-- ── NAVIGATION ── -->
+    <nav id="main-nav" class="fixed top-0 w-full z-50 px-6 md:px-10 py-5 flex justify-between items-center mix-blend-difference text-white">
+        <a href="{{ routes.root_url }}" class="text-xl font-light tracking-[0.3em] uppercase serif">Layer</a>
+        <div class="hidden md:flex space-x-10 text-[10px] tracking-[0.25em]">
+            <a href="{{ fragrances_collection.url | default: routes.all_products_collection_url }}" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Fragrances</a>
+            <a href="{{ for_him_collection.url | default: routes.collections_url }}" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Him</a>
+            <a href="{{ for_her_collection.url | default: routes.collections_url }}" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Her</a>
+            <a href="#visualizer" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">The Science</a>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="h-scroll-section" class="bg-[#E6E2DC]">
-    <div class="h-screen w-full flex items-center relative" id="h-scroll-container">
-      <div class="absolute top-10 md:top-14 left-6 md:left-20 z-10 mix-blend-difference text-white">
-        <p class="text-[9px] tracking-[0.4em] uppercase mb-3 opacity-60">The collection</p>
-        <h2 class="text-4xl md:text-6xl serif font-light leading-none">Curated Stacks</h2>
-      </div>
-
-      <div class="flex gap-6 md:gap-10 px-6 md:px-20" id="h-scroll-wrapper">
-        <div class="min-w-[40px] md:min-w-[340px] shrink-0"></div>
-
-        <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
-          <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">01</span>
-          <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Midnight Velvet" loading="lazy" width="800" height="1200">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-7">
-            <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Woody oriental</p>
-            <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Midnight Velvet</h3>
-            <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Oud · Rose · Lotion Base</p>
-            <span class="text-sm text-white/75 font-light serif">$65</span>
-          </div>
+        <div class="flex items-center gap-3">
+            <button id="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-[10px] tracking-[0.2em] border border-current rounded-full px-4 py-2 hover:opacity-60 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                Menu
+            </button>
+            <a href="{{ routes.cart_url }}" aria-label="Open shopping cart" class="text-[10px] tracking-[0.2em] border border-current rounded-full px-5 py-2 hover:opacity-60 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                Cart (0)
+            </a>
         </div>
-
-        <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
-          <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">02</span>
-          <img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Sunday Morning" loading="lazy" width="800" height="1200">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-7">
-            <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Fresh and airy</p>
-            <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Sunday Morning</h3>
-            <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Bergamot · Linen · Shea</p>
-            <span class="text-sm text-white/75 font-light serif">$55</span>
-          </div>
-        </div>
-
-        <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
-          <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">03</span>
-          <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Deep Amber" loading="lazy" width="800" height="1200">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-7">
-            <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Warm and gourmand</p>
-            <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Deep Amber</h3>
-            <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Vanilla · Tobacco · Cocoa</p>
-            <span class="text-sm text-white/75 font-light serif">$60</span>
-          </div>
-        </div>
-
-        <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0">
-          <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">04</span>
-          <img src="https://images.unsplash.com/photo-1616012480717-fd9867059ca0?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Forest Rain" loading="lazy" width="800" height="1200">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-7">
-            <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Green and aquatic</p>
-            <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Forest Rain</h3>
-            <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Petrichor · Pine · Aloe</p>
-            <span class="text-sm text-white/75 font-light serif">$58</span>
-          </div>
-        </div>
-
-        <div class="min-w-[260px] md:min-w-[360px] h-[460px] md:h-[520px] relative group overflow-hidden shadow-xl shrink-0 flex items-center justify-center border border-stone-300/70 bg-[#E6E2DC]">
-          <div class="text-center p-10">
-            <div class="w-14 h-14 rounded-full border border-stone-400 flex items-center justify-center mx-auto mb-9 transition-[background-color,color,border-color,width] duration-400 group-hover:bg-[#0D0D0D] group-hover:border-[#0D0D0D]">
-              <span class="text-2xl text-stone-500 group-hover:text-white transition-colors duration-400 leading-none" style="margin-top:-1px">+</span>
+        <div id="mobile-menu" hidden class="absolute left-6 right-6 top-[4.6rem] md:hidden rounded-[2px] border border-stone-200 bg-[#F9F8F6]/95 px-6 py-6 text-[#1A1A1A] shadow-[0_24px_70px_rgba(0,0,0,0.08)] backdrop-blur-xl">
+            <div class="flex flex-col gap-5 text-[10px] tracking-[0.28em] uppercase">
+                <a href="{{ fragrances_collection.url | default: routes.all_products_collection_url }}" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Fragrances</a>
+                <a href="{{ for_him_collection.url | default: routes.collections_url }}" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Him</a>
+                <a href="{{ for_her_collection.url | default: routes.collections_url }}" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Her</a>
+                <a href="#visualizer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">The Science</a>
             </div>
-            <h3 class="text-[1.8rem] serif italic mb-3 text-stone-800 leading-tight">Build Your Own</h3>
-            <p class="text-[9px] tracking-[0.25em] uppercase text-stone-400 mb-1.5">3 decants + 1 base</p>
-            <p class="text-[9px] tracking-[0.25em] uppercase text-stone-400">From $45</p>
-          </div>
+        </div>
+    </nav>
+
+    <main id="top">
+
+    <!-- ── HERO ── -->
+    <header class="relative h-screen w-full overflow-hidden flex flex-col justify-center items-center">
+
+        <!-- Ambient blobs -->
+        <div class="hero-decor absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+            <div class="hero-blob absolute top-1/4 left-1/5 w-[520px] h-[520px] bg-[#EDE4D6] rounded-full mix-blend-multiply blur-[110px] opacity-75 animate-blob"></div>
+            <div class="hero-blob absolute top-1/3 right-1/4 w-[420px] h-[420px] bg-[#D9C9B6] rounded-full mix-blend-multiply blur-[90px] opacity-60 animate-blob animation-delay-2000"></div>
+            <div class="hero-blob absolute -bottom-28 left-1/3 w-[460px] h-[460px] bg-[#EDE8E0] rounded-full mix-blend-multiply blur-[100px] opacity-65 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div class="min-w-[60px] md:min-w-[80px] shrink-0"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="py-28 md:py-40 px-6 md:px-20 bg-[#F9F8F6] overflow-hidden" id="philosophy">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-28 items-center max-w-6xl mx-auto">
-      <div class="order-2 md:order-1 relative phil-col-images">
-        <div class="grid grid-cols-2 gap-5">
-          <div class="phil-img-wrap">
-            <img src="https://images.unsplash.com/photo-1585120040315-2241b774ad0f?q=80&w=800&auto=format&fit=crop" class="w-full h-60 md:h-72 object-cover mt-14" alt="Perfume detail" loading="lazy" width="800" height="1000">
-          </div>
-          <div class="phil-img-wrap">
-            <img src="https://images.unsplash.com/photo-1557170334-a9632e77c6e4?q=80&w=800&auto=format&fit=crop" class="w-full h-72 md:h-80 object-cover" alt="Perfume detail" loading="lazy" width="800" height="1000">
-          </div>
-        </div>
-        <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-stone-200 -z-10 hidden md:block"></div>
-        <div class="absolute -top-5 -right-5 hidden md:block rounded-full -z-10 opacity-50 bg-[#E8DFCE]" style="width:4.5rem;height:4.5rem;"></div>
-      </div>
-
-      <div class="order-1 md:order-2 phil-col-content">
-        <span class="text-[9px] tracking-[0.45em] uppercase text-stone-400 block mb-9">The philosophy</span>
-        <h2 class="text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] serif font-light mb-9 leading-[0.88]">
-          Chemistry <br>
-          <span class="italic text-stone-300">&amp;</span> Artistry
-        </h2>
-        <p class="text-[0.9rem] leading-[2] text-stone-500 mb-10 max-w-md font-light">
-          Traditional perfumes are static. Your mood is not. Scent stacking lets you modulate intensity and complexity —
-          start with a hydrating base to lock in molecules, layer a woody core, then finish with a citrus top note.
-        </p>
-        <ul class="space-y-5">
-          <li class="flex items-center gap-5 text-[10px] tracking-[0.25em] uppercase text-stone-700">
-            <span class="w-8 h-px bg-stone-300 block shrink-0"></span>
-            100% authentic decants
-          </li>
-          <li class="flex items-center gap-5 text-[10px] tracking-[0.25em] uppercase text-stone-700">
-            <span class="w-8 h-px bg-stone-300 block shrink-0"></span>
-            Unscented peptide lotion base
-          </li>
-          <li class="flex items-center gap-5 text-[10px] tracking-[0.25em] uppercase text-stone-700">
-            <span class="w-8 h-px bg-stone-300 block shrink-0"></span>
-            Travel friendly vials
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section class="min-h-screen bg-[#F9F8F6] relative flex flex-col md:flex-row" id="visualizer">
-    <div class="absolute inset-0 z-0 pointer-events-none" id="note-bg">
-      <img src="https://images.unsplash.com/photo-1605651702720-4151bef65860?q=80&w=1600&auto=format&fit=crop" class="w-full h-full object-cover grayscale opacity-[0.13]" alt="" aria-hidden="true" loading="lazy" width="1600" height="2000">
-    </div>
-
-    <div class="relative z-10 w-full md:w-1/2 p-8 md:p-20 lg:p-28 flex flex-col justify-center">
-      <span class="text-[9px] tracking-[0.45em] uppercase text-stone-400 block mb-9">Compose your scent</span>
-      <h2 class="text-[3rem] md:text-[4rem] lg:text-[5rem] serif font-light mb-14 leading-[0.88]">The <em>Notes</em></h2>
-
-      <div class="divide-y divide-stone-200">
-        <button type="button" class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7" data-img="https://images.unsplash.com/photo-1615486511484-92e590d6e2e3?q=80&w=1200&auto=format&fit=crop">
-          <div class="flex justify-between items-baseline">
-            <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Top Notes</span>
-            <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">15–30 mins</span>
-          </div>
-          <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light">
-            The first impression. Typically citrus, light florals, or herbs. They evaporate quickly but set the mood.
-          </div>
-        </button>
-
-        <button type="button" class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7" data-img="https://images.unsplash.com/photo-1535683010036-76f5e2277752?q=80&w=1200&auto=format&fit=crop">
-          <div class="flex justify-between items-baseline">
-            <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Heart Notes</span>
-            <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">2–4 hours</span>
-          </div>
-          <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light">
-            The core of the fragrance. Spices, deeper florals, and fruits emerge once the top notes fade.
-          </div>
-        </button>
-
-        <button type="button" class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7" data-img="https://images.unsplash.com/photo-1542614471-001ccf2b449c?q=80&w=1200&auto=format&fit=crop">
-          <div class="flex justify-between items-baseline">
-            <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Base Notes</span>
-            <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">6+ hours</span>
-          </div>
-          <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light">
-            The foundation. Woods, musk, amber, and vanilla. These rich molecules linger the longest on your skin.
-          </div>
-        </button>
-      </div>
-    </div>
-
-    <div class="hidden md:flex w-1/2 items-center justify-center relative z-10 p-12">
-      <div class="relative w-72 h-72">
-        <div class="absolute inset-0 border border-stone-300/40 rounded-full animate-spin-slow" aria-hidden="true"></div>
-        <div class="absolute inset-5 border border-stone-200/40 rounded-full animate-spin-reverse" aria-hidden="true"></div>
-
-        <div class="absolute inset-0 flex flex-col items-center justify-center gap-2 px-8">
-          <div class="w-full text-center py-3.5 border-b border-stone-200/60">
-            <p class="text-[8px] tracking-[0.3em] uppercase text-stone-400 mb-1">Top · 15–30 min</p>
-            <p class="text-[11px] font-light text-stone-600 tracking-wider">Citrus · Herbs · Aldehydes</p>
-          </div>
-          <div class="w-full text-center py-3.5 border-b border-stone-200/60">
-            <p class="text-[8px] tracking-[0.3em] uppercase text-stone-400 mb-1">Heart · 2–4 hrs</p>
-            <p class="text-[11px] font-light text-stone-600 tracking-wider">Floral · Spice · Fruit</p>
-          </div>
-          <div class="w-full text-center py-3.5">
-            <p class="text-[8px] tracking-[0.3em] uppercase text-stone-400 mb-1">Base · 6+ hrs</p>
-            <p class="text-[11px] font-light text-stone-600 tracking-wider">Wood · Musk · Amber</p>
-          </div>
+        <!-- Decorative rings -->
+        <div class="hero-decor absolute inset-0 flex items-center justify-center z-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div class="hero-ring-lg w-[640px] h-[640px] border border-stone-300 rounded-full animate-spin-slow opacity-20"></div>
+            <div class="hero-ring-sm absolute w-[480px] h-[480px] border border-stone-300 rounded-full animate-spin-reverse opacity-15"></div>
         </div>
 
-        <div class="absolute -bottom-10 left-0 right-0 text-center">
-          <p class="text-[8.5px] tracking-[0.45em] uppercase text-stone-400">Scent profile</p>
+        <div class="z-10 text-center px-6 relative">
+            <p class="hero-elem text-[10px] md:text-xs tracking-[0.55em] uppercase mb-8 text-stone-500">
+                The Art of Scent Stacking
+            </p>
+            <h1 class="hero-elem text-[clamp(3.8rem,13vw,9.5rem)] font-light leading-[0.86] mb-3 serif">
+                <span class="block italic">Not Just</span>
+                <span class="block not-italic font-thin tracking-[-0.01em]">Perfume.</span>
+            </h1>
+            <p class="hero-elem hero-copy text-[11px] md:text-xs text-stone-500 tracking-[0.2em] max-w-[22rem] mx-auto mt-9 mb-11 leading-[2] font-light">
+                Craft a signature scent through the precise science of layering.
+            </p>
+            <div class="hero-elem">
+                <a href="#reveal" class="inline-flex items-center gap-3 px-8 py-3.5 border border-stone-700 rounded-full text-[10px] tracking-[0.28em] hover:bg-stone-900 hover:text-[#F9F8F6] hover:border-stone-900 transition-[background-color,color,border-color,width] duration-500 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F9F8F6]">
+                    Discover Layering
+                    <span class="w-5 h-px bg-current block transition-[background-color,color,border-color,width] duration-400 group-hover:w-7"></span>
+                </a>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="bg-[#0D0D0D] py-32 px-6 md:px-20 text-[#F9F8F6] relative overflow-hidden">
-    <div class="absolute inset-0 pointer-events-none" aria-hidden="true" style="background: radial-gradient(ellipse at 50% 60%, rgba(201,169,110,0.07) 0%, transparent 65%);"></div>
-    <div class="relative z-10 max-w-xl mx-auto text-center">
-      <p class="text-[9px] tracking-[0.5em] uppercase text-stone-500 mb-9">Inner circle</p>
-      <h2 class="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] serif italic leading-[0.9] mb-6">Define Your Aura</h2>
-      <p class="text-[0.82rem] text-stone-400 leading-[2.1] mb-12 font-light max-w-sm mx-auto">
-        Be first to discover new curated stacks, exclusive decants, and the science behind layering.
-      </p>
-      <form class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto" onsubmit="return false;">
-        <input type="email" placeholder="Your email address" class="cta-input flex-1 bg-transparent border border-stone-700 rounded-full px-6 py-3.5 text-[11px] text-white outline-none focus:border-stone-500 transition-colors duration-300">
-        <button type="submit" class="bg-[#F9F8F6] text-[#0D0D0D] rounded-full px-7 py-3.5 text-[9px] tracking-[0.3em] hover:bg-stone-200 transition-colors duration-300 shrink-0 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0D0D]">
-          Subscribe
-        </button>
-      </form>
-    </div>
-  </section>
+        <!-- Scroll indicator -->
+        <div class="hero-elem hero-scroll-indicator absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5">
+            <span class="text-[9px] tracking-[0.35em] uppercase text-stone-400">Scroll</span>
+            <svg class="scroll-arrow w-3 h-[15px] text-stone-400" fill="none" viewBox="0 0 12 16" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <line x1="6" y1="1" x2="6" y2="14"/>
+                <polyline points="1,9 6,15 11,9"/>
+            </svg>
+        </div>
+    </header>
 
-  <footer class="bg-[#080808] text-[#F9F8F6] pt-20 pb-10 px-6 md:px-20">
-    <div class="flex flex-col md:flex-row justify-between items-start mb-20 gap-12">
-      <div>
-        <h2 class="text-[3.5rem] md:text-[5.5rem] serif italic leading-none">Layer</h2>
-        <p class="text-[9px] tracking-[0.4em] uppercase opacity-25 mt-4">Define your aura.</p>
-      </div>
-      <div class="grid grid-cols-2 gap-10 md:gap-24 text-[10px] tracking-[0.22em]">
-        <div class="flex flex-col space-y-5">
-          <span class="opacity-25 text-[8.5px] tracking-[0.4em] mb-1">Shop</span>
-          <a href="{{ routes.all_products_collection_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Best sellers</a>
-          <a href="{{ routes.all_products_collection_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">New arrivals</a>
-          <a href="{{ routes.all_products_collection_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Gift sets</a>
-          <a href="#showcase" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Build your own</a>
+    <!-- ── CINEMATIC TEXT SCROLL (three viewport scroll beats, sticky inner) ── -->
+    <section id="reveal" class="relative bg-[#0D0D0D] text-[#F9F8F6] z-20 min-h-[300vh]" data-scroll-beats="3">
+        <div class="h-screen w-full flex items-center justify-center overflow-hidden px-8 md:px-24 sticky top-0">
+            <div class="reveal-smoke absolute inset-[12%] opacity-70 pointer-events-none" aria-hidden="true"></div>
+
+            <!-- Parallax image left -->
+            <div class="absolute left-6 md:left-14 w-28 md:w-44 h-44 md:h-[17rem] overflow-hidden reveal-img-left opacity-0" aria-hidden="true">
+                <img src="{{ 'combo1-macro-bokeh-closeup.png' | asset_url }}"
+                     class="w-full h-full object-cover" alt="" loading="eager" width="2816" height="1536">
+            </div>
+
+            <!-- Parallax image right -->
+            <div class="absolute right-6 md:right-14 w-28 md:w-44 h-44 md:h-[17rem] overflow-hidden reveal-img-right opacity-0" aria-hidden="true">
+                <img src="{{ 'combo2-macro-bokeh-closeup.png' | asset_url }}"
+                     class="w-full h-full object-cover" alt="" loading="eager" width="2816" height="1536">
+            </div>
+
+            <div class="max-w-3xl text-center z-10 relative">
+                <div class="w-10 h-px bg-stone-700 mx-auto mb-12"></div>
+                <p class="text-[26px] md:text-[50px] lg:text-[58px] serif font-light leading-[1.2] reveal-text" id="split-text">
+                    Layering brings you infinite potential. We curate the finest collections to help you sculpt a scent that is undeniably yours.
+                </p>
+                <div class="w-10 h-px bg-stone-700 mx-auto mt-12"></div>
+            </div>
         </div>
-        <div class="flex flex-col space-y-5">
-          <span class="opacity-25 text-[8.5px] tracking-[0.4em] mb-1">Company</span>
-          <a href="/pages/about" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">About</a>
-          <a href="/blogs/news" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Journal</a>
-          <a href="/pages/contact" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Contact</a>
-          <a href="{{ routes.all_products_collection_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Stockists</a>
+    </section>
+
+    <!-- ── SHOWCASE ── -->
+    <section class="relative min-h-screen bg-[#EEEAE4] overflow-hidden z-30 split-showcase flex flex-col md:flex-row" id="showcase" aria-label="Shop fragrance edits">
+        <article id="for-him" class="split-panel relative min-h-[50vh] md:min-h-screen overflow-hidden group">
+            <img src="{{ 'for-him-date-night-power.png' | asset_url }}"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                 alt="Date Night Power scent stack with dark bottles, amber light, tobacco notes, and polished decant vials" width="1672" height="941">
+            <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-black/75 via-black/20 to-transparent"></div>
+            <div class="relative z-10 h-full min-h-[50vh] md:min-h-screen flex flex-col justify-end p-8 md:p-14 lg:p-20 text-[#F9F8F6]">
+                <p class="text-[9px] tracking-[0.45em] uppercase text-white/45 mb-4">Date Night Power</p>
+                <h2 class="text-[3.1rem] md:text-[5rem] lg:text-[6.5rem] serif italic leading-[0.86] mb-5">For Him</h2>
+                <p class="text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-white/55 mb-8 max-w-md">Bleu de Chanel · Tobacco Vanille · 5ml Decants</p>
+                <a href="{{ for_him_collection.url | default: routes.collections_url }}" class="inline-flex w-fit items-center gap-3 rounded-full border border-white/70 px-7 py-3 text-[9px] tracking-[0.3em] uppercase text-white transition-colors duration-300 hover:bg-white hover:text-[#0D0D0D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                    Shop Him
+                    <span class="block h-px w-6 bg-current"></span>
+                </a>
+            </div>
+        </article>
+
+        <article id="for-her" class="split-panel relative min-h-[50vh] md:min-h-screen overflow-hidden group">
+            <img src="{{ 'for-her-romantic-evening.png' | asset_url }}"
+                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                 alt="Romantic Evening scent stack with rose-toned bottles, amber crystal reflections, and polished decant vials" width="1672" height="941">
+            <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-l from-black/75 via-black/15 to-transparent"></div>
+            <div class="relative z-10 h-full min-h-[50vh] md:min-h-screen flex flex-col justify-end items-start md:items-end p-8 md:p-14 lg:p-20 text-[#F9F8F6] md:text-right">
+                <p class="text-[9px] tracking-[0.45em] uppercase text-white/45 mb-4">Romantic Evening</p>
+                <h2 class="text-[3.1rem] md:text-[5rem] lg:text-[6.5rem] serif italic leading-[0.86] mb-5">For Her</h2>
+                <p class="text-[10px] md:text-[11px] tracking-[0.28em] uppercase text-white/55 mb-8 max-w-md">Delina · Baccarat Rouge 540 · 5ml Decants</p>
+                <a href="{{ for_her_collection.url | default: routes.collections_url }}" class="inline-flex w-fit items-center gap-3 rounded-full border border-white/70 px-7 py-3 text-[9px] tracking-[0.3em] uppercase text-white transition-colors duration-300 hover:bg-white hover:text-[#0D0D0D] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+                    Shop Her
+                    <span class="block h-px w-6 bg-current"></span>
+                </a>
+            </div>
+        </article>
+    </section>
+
+    <!-- ── HORIZONTAL SCROLL GALLERY ── -->
+    <section id="h-scroll-section" class="bg-[#E6E2DC]">
+        <div class="min-h-screen md:h-screen w-full flex items-center relative py-28 md:py-0" id="h-scroll-container">
+
+            <div class="absolute top-10 md:top-14 left-6 md:left-20 z-10 md:mix-blend-difference md:text-white text-stone-800" aria-hidden="false">
+                <p class="text-[9px] tracking-[0.4em] uppercase mb-3 opacity-60">The Collection</p>
+                <h2 class="text-4xl md:text-6xl serif font-light leading-none">Curated Stacks</h2>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-6 md:gap-10 px-6 md:px-20 w-full md:w-auto" id="h-scroll-wrapper">
+                <!-- leading spacer -->
+                <div class="hidden md:block min-w-[340px] shrink-0"></div>
+
+                <!-- Card 1 -->
+                <a href="{{ midnight_velvet_url }}" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Midnight Velvet scent stack">
+                    <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">01</span>
+                    <img src="{{ 'combo3-low-light-midnight.png' | asset_url }}"
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Midnight Velvet" loading="lazy" width="2816" height="1536">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-7">
+                        <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Woody Oriental</p>
+                        <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Midnight Velvet</h3>
+                        <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Oud · Rose · Lotion Base</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$65 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 2 -->
+                <a href="{{ sunday_morning_url }}" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Sunday Morning scent stack">
+                    <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">02</span>
+                    <img src="{{ 'combo1-perspective-blur-cloudy.png' | asset_url }}"
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Sunday Morning" loading="lazy" width="2816" height="1536">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-7">
+                        <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Fresh &amp; Airy</p>
+                        <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Sunday Morning</h3>
+                        <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Bergamot · Linen · Shea</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$55 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 3 -->
+                <a href="{{ deep_amber_url }}" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Deep Amber scent stack">
+                    <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">03</span>
+                    <img src="{{ 'combo2-white-studio-gourmand.png' | asset_url }}"
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Deep Amber" loading="lazy" width="2816" height="1536">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-7">
+                        <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Warm &amp; Gourmand</p>
+                        <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Deep Amber</h3>
+                        <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Vanilla · Tobacco · Cocoa</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$60 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 4 -->
+                <a href="{{ forest_rain_url }}" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-2xl shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Buy Forest Rain scent stack">
+                    <span class="absolute top-5 left-5 z-10 text-[9px] text-white/35 tracking-[0.3em]">04</span>
+                    <img src="{{ 'combo3-dutch-angle-mist.png' | asset_url }}"
+                         class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Forest Rain" loading="lazy" width="2816" height="1536">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-7">
+                        <p class="text-[8px] tracking-[0.35em] uppercase text-white/45 mb-1.5">Green &amp; Aquatic</p>
+                        <h3 class="text-[1.7rem] serif italic text-white leading-tight mb-1">Forest Rain</h3>
+                        <p class="text-[9px] tracking-widest uppercase text-white/50 mb-4">Petrichor · Pine · Aloe</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="text-sm text-white/75 font-light serif">$58 · 2 x 5ml + base</span>
+                            <span class="buy-button rounded-full bg-white px-5 py-2 text-[8px] tracking-[0.28em] uppercase text-[#0D0D0D]">Buy Now</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Card 5: Build Your Own -->
+                <a href="{{ all_kits_collection.url | default: routes.collections_url }}" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-xl shrink-0 flex items-center justify-center border border-stone-300/70 bg-[#E6E2DC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Build your own scent stack">
+                    <div class="text-center p-10">
+                        <div class="w-14 h-14 rounded-full border border-stone-400 flex items-center justify-center mx-auto mb-9 transition-[background-color,color,border-color,width] duration-400 group-hover:bg-[#0D0D0D] group-hover:border-[#0D0D0D]">
+                            <span class="text-2xl text-stone-500 group-hover:text-white transition-colors duration-400 leading-none" style="margin-top:-1px">+</span>
+                        </div>
+                        <h3 class="text-[1.8rem] serif italic mb-3 text-stone-800 leading-tight">Build Your Own</h3>
+                        <p class="text-[9px] tracking-[0.25em] uppercase text-stone-400 mb-1.5">3 decants + 1 base</p>
+                        <p class="text-[9px] tracking-[0.25em] uppercase text-stone-400">From $45</p>
+                        <span class="buy-button mt-8 inline-flex rounded-full bg-[#0D0D0D] px-6 py-3 text-[8px] tracking-[0.28em] uppercase text-[#F9F8F6]">Start Stack</span>
+                    </div>
+                </a>
+
+                <!-- trailing spacer -->
+                <div class="hidden md:block min-w-[80px] shrink-0"></div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="border-t border-white/[0.07] pt-8 flex flex-col md:flex-row justify-between items-center text-[8.5px] tracking-[0.28em] uppercase opacity-25">
-      <p>&copy; 2025 Layer Perfumery. All rights reserved.</p>
-      <div class="flex space-x-8 mt-5 md:mt-0">
-        <a href="https://www.instagram.com" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Instagram</a>
-        <a href="https://x.com" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Twitter</a>
-        <a href="https://www.tiktok.com" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">TikTok</a>
-      </div>
-    </div>
-  </footer>
-</section>
+    </section>
+
+    <!-- ── PHILOSOPHY ── -->
+    <section class="py-28 md:py-40 px-6 md:px-20 bg-[#F9F8F6] overflow-hidden" id="philosophy">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-28 items-center max-w-6xl mx-auto">
+
+            <!-- Image grid -->
+            <div class="order-2 md:order-1 relative z-0 phil-col-images">
+                <div class="relative z-10 grid grid-cols-2 gap-5">
+                    <div class="phil-img-wrap">
+                        <img src="{{ 'combo1-low-light-iridescent.png' | asset_url }}"
+                             class="w-full h-60 md:h-72 object-cover mt-14" alt="Iridescent close-up of layered perfume decants and reflective fragrance glass" loading="lazy" width="2816" height="1536">
+                    </div>
+                    <div class="phil-img-wrap">
+                        <img src="{{ 'combo2-macro-bokeh-closeup.png' | asset_url }}"
+                             class="w-full h-72 md:h-80 object-cover" alt="Macro view of fragrance bottles and decant tools used for scent layering" loading="lazy" width="2816" height="1536">
+                    </div>
+                </div>
+                <!-- Decorative accents -->
+                <div class="absolute -bottom-8 -left-8 w-28 h-28 border border-stone-200 z-0 hidden md:block"></div>
+                <div class="absolute -top-5 -right-5 w-18 h-18 bg-[#E8DFCE] rounded-full z-0 opacity-50 hidden md:block" style="width:4.5rem;height:4.5rem;"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="order-1 md:order-2 phil-col-content">
+                <span class="text-[9px] tracking-[0.45em] uppercase text-stone-400 block mb-9">The Philosophy</span>
+                <h2 class="text-[3.2rem] md:text-[4.5rem] lg:text-[5.5rem] serif font-light mb-9 leading-[0.88]">
+                    Chemistry <br>
+                    <span class="italic text-stone-300">&amp;</span> Artistry
+                </h2>
+                <p class="text-[0.9rem] leading-[2] text-stone-500 mb-10 max-w-md font-light">
+                    Each stack starts with authenticated decants and a neutral peptide base that helps fragrance molecules settle evenly on skin.
+                    Build from long-wearing woods or amber, then tune the top with citrus, florals, spice, or clean musks.
+                </p>
+                <ul class="space-y-5">
+                    <li class="flex items-center gap-5 text-[10px] tracking-[0.25em] uppercase text-stone-700">
+                        <span class="w-8 h-px bg-stone-300 block shrink-0"></span>
+                        100% Authentic Decants
+                    </li>
+                    <li class="flex items-center gap-5 text-[10px] tracking-[0.25em] uppercase text-stone-700">
+                        <span class="w-8 h-px bg-stone-300 block shrink-0"></span>
+                        Unscented Peptide Lotion Base
+                    </li>
+                    <li class="flex items-center gap-5 text-[10px] tracking-[0.25em] uppercase text-stone-700">
+                        <span class="w-8 h-px bg-stone-300 block shrink-0"></span>
+                        Travel Friendly Vials
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── BEST SELLERS ── -->
+    <section class="bg-[#F9F8F6] px-6 py-28 md:px-20 md:py-36 overflow-hidden" id="best-sellers" aria-labelledby="best-sellers-title">
+        <div class="mx-auto max-w-7xl">
+            <div class="mb-12 flex flex-col gap-8 md:mb-16 md:flex-row md:items-end md:justify-between">
+                <div>
+                    <p class="mb-5 text-[9px] uppercase tracking-[0.45em] text-stone-400">Best Sellers</p>
+                    <h2 id="best-sellers-title" class="serif text-[3.1rem] font-light leading-[0.9] md:text-[5.2rem]">
+                        Stocked to <em>Layer</em>
+                    </h2>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button type="button" class="gallery-prev flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-stone-800 transition-colors duration-300 hover:bg-stone-900 hover:text-[#F9F8F6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400" aria-label="Scroll best sellers left">
+                        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="gallery-next flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 text-stone-800 transition-colors duration-300 hover:bg-stone-900 hover:text-[#F9F8F6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400" aria-label="Scroll best sellers right">
+                        <svg class="h-4 w-4" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="best-seller-track flex gap-6 overflow-x-auto pb-3" tabindex="0" aria-label="Best selling fragrance products">
+                <article class="best-seller-card group">
+                    <a href="{{ black_opium_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'black-opium.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="YSL Black Opium Eau de Parfum bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">YSL</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Black Opium EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Coffee · Vanilla · White Flowers</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$101.50</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.0 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ sauvage_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'sauvage-edp.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Dior Sauvage Eau de Parfum bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Dior</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Sauvage EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Bergamot · Pepper · Ambroxan</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$127.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ bleu_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'bleu-de-chanel.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Bleu de Chanel Eau de Parfum bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Chanel</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Bleu de Chanel</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Grapefruit · Incense · Cedar</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">Sourcing</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ cloud_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'cloud-edp.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Ariana Grande Cloud Eau de Parfum bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Ariana Grande</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Cloud EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Coconut · Praline · Musk</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$44.75</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ good_girl_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'good-girl.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Carolina Herrera Good Girl Eau de Parfum stiletto bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Carolina Herrera</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Good Girl EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Almond · Tuberose · Tonka</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$98.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">2.7 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ flowerbomb_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'flowerbomb.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Viktor&Rolf Flowerbomb Eau de Parfum bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Viktor&amp;Rolf</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Flowerbomb EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Rose · Jasmine · Patchouli</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$68.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ daisy_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'daisy-edt.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Marc Jacobs Daisy Eau de Toilette bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Marc Jacobs</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Daisy EDT</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Strawberry · Violet · Woods</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$53.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ acqua_di_gio_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'acqua-di-gio.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Armani Acqua di Gio Eau de Parfum bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Armani</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Acqua di Gio EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Marine · Bergamot · Cedar</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$72.50</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.3 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ eros_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'eros-edp.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Versace Eros Eau de Parfum bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Versace</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Eros EDP</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Mint · Green Apple · Vanilla</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$59.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+
+                <article class="best-seller-card group">
+                    <a href="{{ jazz_club_url }}" class="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400">
+                        <div class="mb-6 aspect-[4/5] overflow-hidden bg-white shadow-[0_20px_70px_rgba(0,0,0,0.06)]">
+                            <img src="{{ 'jazz-club.png' | asset_url }}" class="h-full w-full scale-[1.22] object-contain transition-transform duration-700 group-hover:scale-[1.3]" alt="Maison Margiela Replica Jazz Club Eau de Toilette bottle on a white background" loading="lazy" width="1408" height="768">
+                        </div>
+                        <p class="mb-2 text-[8px] uppercase tracking-[0.35em] text-stone-400">Maison Margiela</p>
+                        <h3 class="serif mb-2 text-[1.6rem] italic leading-tight text-stone-900">Replica Jazz Club</h3>
+                        <p class="mb-4 text-[10px] uppercase tracking-[0.22em] text-stone-500">Rum · Tobacco · Vanilla</p>
+                        <div class="flex items-center justify-between gap-4">
+                            <span class="serif text-sm text-stone-700">$78.00</span>
+                            <span class="text-[8px] uppercase tracking-[0.28em] text-stone-400">3.4 oz</span>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── NOTES VISUALIZER ── -->
+    <section class="min-h-screen bg-[#F9F8F6] relative flex flex-col md:flex-row" id="visualizer">
+
+        <!-- Dynamic background image -->
+        <div class="absolute inset-0 z-0 pointer-events-none" id="note-bg" data-default-img="{{ 'combo2-low-light-noir.png' | asset_url }}">
+            <img src="{{ 'combo2-low-light-noir.png' | asset_url }}"
+                 class="w-full h-full object-cover grayscale opacity-[0.13]" alt="" aria-hidden="true" loading="lazy" width="2816" height="1536">
+        </div>
+        <div class="absolute inset-0 z-0 pointer-events-none bg-[#F9F8F6]/45" aria-hidden="true"></div>
+
+        <!-- Left: accordion -->
+        <div class="relative z-10 w-full md:w-1/2 p-8 md:p-20 lg:p-28 flex flex-col justify-center">
+            <span class="text-[9px] tracking-[0.45em] uppercase text-stone-400 block mb-9">Compose Your Scent</span>
+            <h2 class="text-[3rem] md:text-[4rem] lg:text-[5rem] serif font-light mb-14 leading-[0.88]">The <em>Notes</em></h2>
+
+            <div class="divide-y divide-stone-200" id="notes-accordion">
+                <button class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7"
+                     data-img="{{ 'combo1-dutch-angle-mist.png' | asset_url }}" type="button" aria-expanded="false" aria-controls="note-panel-top" id="note-trigger-top">
+                    <div class="flex justify-between items-baseline">
+                        <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Top Notes</span>
+                        <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">15–30 Mins</span>
+                    </div>
+                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light" id="note-panel-top" role="region" aria-labelledby="note-trigger-top">
+                        The first impression. Typically citrus, light florals, or herbs. They evaporate quickly but set the mood.
+                    </div>
+                </button>
+
+                <button class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7"
+                     data-img="{{ 'combo2-macro-bokeh-closeup.png' | asset_url }}" type="button" aria-expanded="false" aria-controls="note-panel-heart" id="note-trigger-heart">
+                    <div class="flex justify-between items-baseline">
+                        <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Heart Notes</span>
+                        <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">2–4 Hours</span>
+                    </div>
+                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light" id="note-panel-heart" role="region" aria-labelledby="note-trigger-heart">
+                        The core of the fragrance. Spices, deeper florals, and fruits emerge once the top notes fade.
+                    </div>
+                </button>
+
+                <button class="note-item cursor-pointer w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm py-7"
+                     data-img="{{ 'combo3-dutch-angle-noir-campaign.png' | asset_url }}" type="button" aria-expanded="false" aria-controls="note-panel-base" id="note-trigger-base">
+                    <div class="flex justify-between items-baseline">
+                        <span class="note-title text-[1.9rem] md:text-[2.4rem] font-light serif">Base Notes</span>
+                        <span class="note-duration text-[8.5px] uppercase tracking-[0.35em] text-stone-400">6+ Hours</span>
+                    </div>
+                    <div class="note-body text-stone-500 text-[0.82rem] leading-7 font-light" id="note-panel-base" role="region" aria-labelledby="note-trigger-base">
+                        The foundation. Woods, musk, amber, and vanilla. These rich molecules linger the longest on your skin.
+                    </div>
+                </button>
+            </div>
+
+            <div class="mt-12 rounded-[2px] border border-stone-200/80 bg-[#F9F8F6]/70 p-6 md:hidden">
+                <p class="text-[8.5px] tracking-[0.45em] uppercase text-stone-400 mb-5">Scent Profile</p>
+                <div class="space-y-4 text-[10px] tracking-[0.24em] uppercase text-stone-600">
+                    <p>Top · Citrus · Herbs · Aldehydes</p>
+                    <p>Heart · Floral · Spice · Fruit</p>
+                    <p>Base · Wood · Musk · Amber</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: fragrance pyramid visualiser -->
+        <div class="hidden md:flex w-1/2 items-center justify-center relative z-10 p-12">
+            <div class="relative w-[25rem] h-[25rem] rounded-full bg-[#F9F8F6]/70 shadow-[0_28px_90px_rgba(0,0,0,0.06)] backdrop-blur-[2px]">
+                <!-- Spinning rings -->
+                <div class="absolute inset-0 border border-stone-300/60 rounded-full animate-spin-slow" aria-hidden="true"></div>
+                <div class="absolute inset-7 border border-stone-200/70 rounded-full animate-spin-reverse" aria-hidden="true"></div>
+
+                <!-- Pyramid layers -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-12">
+                    <div class="w-full text-center py-5 border-b border-stone-200/80">
+                        <p class="text-[9px] tracking-[0.34em] uppercase text-stone-500 mb-1.5">Top · 15 – 30 min</p>
+                        <p class="text-[13px] font-light text-stone-800 tracking-wider">Citrus &nbsp;·&nbsp; Herbs &nbsp;·&nbsp; Aldehydes</p>
+                    </div>
+                    <div class="w-full text-center py-5 border-b border-stone-200/80">
+                        <p class="text-[9px] tracking-[0.34em] uppercase text-stone-500 mb-1.5">Heart · 2 – 4 hrs</p>
+                        <p class="text-[13px] font-light text-stone-800 tracking-wider">Floral &nbsp;·&nbsp; Spice &nbsp;·&nbsp; Fruit</p>
+                    </div>
+                    <div class="w-full text-center py-5">
+                        <p class="text-[9px] tracking-[0.34em] uppercase text-stone-500 mb-1.5">Base · 6+ hrs</p>
+                        <p class="text-[13px] font-light text-stone-800 tracking-wider">Wood &nbsp;·&nbsp; Musk &nbsp;·&nbsp; Amber</p>
+                    </div>
+                </div>
+
+                <!-- Outer label -->
+                <div class="absolute -bottom-10 left-0 right-0 text-center">
+                    <p class="text-[10px] tracking-[0.5em] uppercase text-stone-500">Scent Profile</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PRE-FOOTER CTA ── -->
+    <section class="bg-[#0D0D0D] py-32 px-6 md:px-20 text-[#F9F8F6] relative overflow-hidden" id="email-signup">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+             style="background: radial-gradient(ellipse at 50% 60%, rgba(201,169,110,0.07) 0%, transparent 65%);"></div>
+        <div class="relative z-10 max-w-xl mx-auto text-center">
+            <p class="text-[9px] tracking-[0.5em] uppercase text-stone-500 mb-9">Inner Circle</p>
+            <h2 class="text-[3rem] md:text-[4.5rem] lg:text-[5.5rem] serif italic leading-[0.9] mb-6">Define Your Aura</h2>
+            <p class="text-[0.82rem] text-stone-400 leading-[2.1] mb-12 font-light max-w-sm mx-auto">
+                Be first to discover new curated stacks, exclusive decants, and the science behind layering.
+            </p>
+            <form id="signup-form" class="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto" novalidate>
+                <label for="signup-email" class="sr-only">Email address</label>
+                <input id="signup-email" name="email" type="email" placeholder="Your email address" autocomplete="email" required aria-describedby="signup-message"
+                       class="cta-input flex-1 bg-transparent border border-stone-700 rounded-full px-6 py-3.5 text-[11px] text-white outline-none focus:border-stone-500 transition-colors duration-300">
+                <button type="submit"
+                        class="bg-[#F9F8F6] text-[#0D0D0D] rounded-full px-7 py-3.5 text-[9px] tracking-[0.3em] hover:bg-stone-200 transition-colors duration-300 shrink-0 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0D0D]">
+                    Subscribe
+                </button>
+            </form>
+            <p id="signup-message" class="form-message mt-5 text-[9px] tracking-[0.25em] uppercase text-stone-500" role="status" aria-live="polite" hidden></p>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- ── FOOTER ── -->
+    <footer class="bg-[#080808] text-[#F9F8F6] pt-20 pb-10 px-6 md:px-20">
+        <div class="flex flex-col md:flex-row justify-between items-start mb-20 gap-12">
+            <div>
+                <h2 class="text-[3.5rem] md:text-[5.5rem] serif italic leading-none">Layer</h2>
+                <p class="text-[9px] tracking-[0.4em] uppercase opacity-25 mt-4">Define your aura.</p>
+            </div>
+            <div class="grid grid-cols-2 gap-10 md:gap-24 text-[10px] tracking-[0.22em]">
+                <div class="flex flex-col space-y-5">
+                    <span class="opacity-25 text-[8.5px] tracking-[0.4em] mb-1">Shop</span>
+                    <a href="{{ fragrances_collection.url | default: routes.all_products_collection_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Best Sellers</a>
+                    <a href="{{ all_fragrances_collection.url | default: routes.all_products_collection_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">New Arrivals</a>
+                    <a href="{{ all_kits_collection.url | default: routes.collections_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Gift Sets</a>
+                    <a href="{{ all_kits_collection.url | default: routes.collections_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Build Your Own</a>
+                </div>
+                <div class="flex flex-col space-y-5">
+                    <span class="opacity-25 text-[8.5px] tracking-[0.4em] mb-1">Company</span>
+                    <a href="{{ about_page.url | default: routes.root_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">About</a>
+                    <a href="{{ journal_page.url | default: routes.root_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Journal</a>
+                    <a href="{{ contact_page.url | default: routes.root_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Contact</a>
+                    <a href="{{ stockists_page.url | default: routes.root_url }}" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Stockists</a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/[0.07] pt-8 flex flex-col md:flex-row justify-between items-center text-[8.5px] tracking-[0.28em] uppercase opacity-25">
+            <p>&copy; <span id="copyright-year">2026</span> Layer Perfumery. All rights reserved.</p>
+            <div class="flex space-x-8 mt-5 md:mt-0">
+                <a href="{{ instagram_url }}" aria-label="Layer on Instagram" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Instagram</a>
+                <a href="{{ twitter_url }}" aria-label="Layer on X" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Twitter</a>
+                <a href="{{ tiktok_url }}" aria-label="Layer on TikTok" class="hover:opacity-60 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">TikTok</a>
+            </div>
+        </div>
+    </footer>
 
 {% schema %}
 {

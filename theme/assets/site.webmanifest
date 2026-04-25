@@ -1,0 +1,17 @@
+{
+  "name": "Layer",
+  "short_name": "Layer",
+  "description": "The art of scent stacking.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F9F8F6",
+  "theme_color": "#F9F8F6",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

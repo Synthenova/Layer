@@ -20,6 +20,26 @@
     {% if template == 'index' %}
       {%- comment -%} Layer: Skip ALL theme CSS, load only landing assets {%- endcomment -%}
 
+      <meta name="theme-color" content="#F9F8F6">
+      <meta
+        name="description"
+        content="Layer is a luxury scent-stacking webstore for curated fragrance pairings, decants, and layering rituals."
+      >
+      <link rel="canonical" href="{{ canonical_url }}">
+      <meta property="og:title" content="Layer | The Art of Scent Stacking">
+      <meta
+        property="og:description"
+        content="Curated fragrance pairings, decants, and layering rituals for a signature scent."
+      >
+      <meta property="og:type" content="website">
+      <meta property="og:image" content="{{ 'combo1-white-studio-editorial.png' | asset_url }}">
+      <meta name="twitter:card" content="summary_large_image">
+      <link rel="icon" href="{{ 'favicon.svg' | asset_url }}" type="image/svg+xml">
+      <link rel="manifest" href="{{ 'site.webmanifest' | asset_url }}">
+      <script>
+        document.documentElement.classList.add('js');
+      </script>
+
       {%- comment -%} Fonts {%- endcomment -%}
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,6 +47,8 @@
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Montserrat:wght@200;300;400;500&display=swap"
         rel="stylesheet"
       >
+      <link rel="preload" as="image" href="{{ 'combo1-macro-bokeh-closeup.png' | asset_url }}">
+      <link rel="preload" as="image" href="{{ 'combo2-macro-bokeh-closeup.png' | asset_url }}">
 
       <script src="https://unpkg.com/@tailwindcss/browser@4" defer></script>
 
