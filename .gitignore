@@ -6,9 +6,18 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Hidden folders
+.*/
+
 # Factory/Droid internal
 .factory/
 
 # Temporary files
 ~`
 *.tmp
+
+# Generated output
+output/
+
+# Local source product assets
+docs/source-products/
