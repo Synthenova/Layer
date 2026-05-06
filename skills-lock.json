@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "browser-trace": {
+      "source": "browserbase/skills",
+      "sourceType": "github",
+      "skillPath": "skills/browser-trace/SKILL.md",
+      "computedHash": "6fb2478e33ad6e8a658846398c2cc46239095730606c3e5ce60ba81e0fd8821d"
+    },
     "chatgpt-api": {
       "source": "Synthenova/skills",
       "sourceType": "github",

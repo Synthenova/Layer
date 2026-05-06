@@ -389,12 +389,43 @@ function relativeToRoot(targetPath) {
   return path.relative(ROOT, targetPath);
 }
 
+async function createTransparentComboHero(sourceAPath, sourceBPath, outputPath) {
+  const args = [
+    "-size",
+    "1600x1600",
+    "xc:none",
+    "(",
+    sourceAPath,
+    "-trim",
+    "+repage",
+    "-resize",
+    "x1180",
+    ")",
+    "-gravity",
+    "west",
+    "-geometry",
+    "+120+0",
+    "-composite",
+    "(",
+    sourceBPath,
+    "-trim",
+    "+repage",
+    "-resize",
+    "x1180",
+    ")",
+    "-gravity",
+    "east",
+    "-geometry",
+    "+120+0",
+    "-composite",
+    outputPath,
+  ];
+  await run("magick", args);
+}
+
 async function prepareCombo(combo) {
   const dir = comboDir(combo.combo);
-  const sourceADir = path.join(dir, "source-a");
-  const sourceBDir = path.join(dir, "source-b");
-  await ensureDir(sourceADir);
-  await ensureDir(sourceBDir);
+  await ensureDir(dir);
 
   const [comboProduct, sourceAProduct, sourceBProduct] = await Promise.all([
     findExactProduct(combo.combo),
@@ -402,43 +433,44 @@ async function prepareCombo(combo) {
     findExactProduct(combo.sourceB),
   ]);
 
-  const downloadProductMedia = async (product, targetDir) => {
-    const images = product.media.nodes.filter(node => node.image?.url);
-    if (images.length === 0) {
-      throw new Error(`No image media found for "${product.title}"`);
-    }
-    const downloaded = [];
-    for (let index = 0; index < images.length; index += 1) {
-      const node = images[index];
-      const ext = extFromUrl(node.image.url);
-      const filename = `${String(index + 1).padStart(2, "0")}${ext}`;
-      const destination = path.join(targetDir, filename);
-      await downloadFile(node.image.url, destination);
-      downloaded.push({
-        mediaId: node.id,
-        url: node.image.url,
-        localPath: destination,
-        filename,
-      });
-    }
-    return downloaded;
-  };
+  const sourceALocalDir = path.join(
+    ROOT,
+    "perfect_product",
+    "products",
+    sourceAProduct.handle,
+    "shopify-images",
+  );
+  const sourceBLocalDir = path.join(
+    ROOT,
+    "perfect_product",
+    "products",
+    sourceBProduct.handle,
+    "shopify-images",
+  );
 
-  const [sourceAImages, sourceBImages] = await Promise.all([
-    downloadProductMedia(sourceAProduct, sourceADir),
-    downloadProductMedia(sourceBProduct, sourceBDir),
-  ]);
+  const sourceABottleOnlyPath = path.join(sourceALocalDir, "bottle-only-rembg.png");
+  const sourceBBottleOnlyPath = path.join(sourceBLocalDir, "bottle-only-rembg.png");
+  const sourceAIngredientsPath = path.join(sourceALocalDir, "bottle-with-ingredients.png");
+  const sourceBIngredientsPath = path.join(sourceBLocalDir, "bottle-with-ingredients.png");
+
+  await access(sourceABottleOnlyPath, fsConstants.R_OK);
+  await access(sourceBBottleOnlyPath, fsConstants.R_OK);
+  await access(sourceAIngredientsPath, fsConstants.R_OK);
+  await access(sourceBIngredientsPath, fsConstants.R_OK);
+
+  const heroImagePath = path.join(dir, "hero-combined.png");
+  await createTransparentComboHero(sourceABottleOnlyPath, sourceBBottleOnlyPath, heroImagePath);
 
   const metadata = {
     combo,
     comboProduct,
     sourceAProduct,
     sourceBProduct,
-    sourceAImages,
-    sourceBImages,
-    heroPrompt:
-      "Create a clean ecommerce product photo on a pure white background. Show both uploaded perfume bottles together in one frame, upright, fully visible, and visually accurate to their real packaging. Keep the composition minimal and premium, like a catalog listing image. Do not add text, props, dramatic shadows, decorative elements, flowers, smoke, splashes, or background color. Preserve the bottle shapes, cap details, label styling, and brand appearance from the reference images. Output a single realistic studio product image with both perfumes side by side.",
-    heroImagePath: path.join(dir, "hero-generated.png"),
+    sourceABottleOnlyPath,
+    sourceBBottleOnlyPath,
+    sourceAIngredientsPath,
+    sourceBIngredientsPath,
+    heroImagePath,
     report: {
       uploadResult: "pending",
       verificationResult: "pending",
@@ -560,10 +592,8 @@ async function uploadCombo(combo) {
 
   const desiredFilePaths = [
     metadata.heroImagePath,
-    ...interleavePaths(
-      metadata.sourceAImages.map(item => item.localPath),
-      metadata.sourceBImages.map(item => item.localPath),
-    ),
+    metadata.sourceAIngredientsPath,
+    metadata.sourceBIngredientsPath,
   ];
 
   const stagedMedia = [];

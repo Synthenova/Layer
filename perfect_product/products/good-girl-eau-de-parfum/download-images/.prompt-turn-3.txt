@@ -1,0 +1,21 @@
+Create image 3 of the same 4-image set for Good Girl Eau de Parfum.
+
+Use the uploaded textured white background image style.
+Square 1:1 composition.
+Luxury editorial flat-lay.
+Soft natural studio lighting.
+No bottle.
+No text.
+No borders.
+No unrelated props.
+
+This image is for the HEART NOTES only:
+{Jasmine Sambac & Tuberose Chrystal}
+
+Requirements:
+- Show only ingredients/material elements representing these notes.
+- The composition should feel resinous, warm, mysterious, refined, premium, minimal, balanced, and clean.
+- Use elegant incense/resin/floral/material styling where relevant without making it messy or smoky in an uncontrolled way.
+- Match the same high-end visual language as the rest of the set.
+
+Generate image 3 only.

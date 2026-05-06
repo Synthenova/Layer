@@ -1,41 +1,65 @@
 
-{% assign block_settings = block.settings %}
+{% liquid
+  assign block_settings = block.settings
+  assign should_render = true
+  assign metafield_visibility_key = block_settings.metafield_visibility_key | strip
 
-<accordion-custom
-  {% if block_settings.open_by_default %}
-    open-by-default-on-desktop
-    open-by-default-on-mobile
-  {% endif %}
->
-  <details
-    class="details"
-    data-testid="accordion-details"
+  if metafield_visibility_key != blank and metafield_visibility_key != 'none'
+    assign should_render = false
+    assign visibility_keys = metafield_visibility_key | split: '|'
+
+    for visibility_key_raw in visibility_keys
+      assign visibility_key = visibility_key_raw | strip
+
+      if visibility_key != blank and visibility_key != 'none'
+        assign visibility_metafield = product.metafields.custom[visibility_key]
+
+        if visibility_metafield != blank and visibility_metafield.value != blank
+          assign should_render = true
+          break
+        endif
+      endif
+    endfor
+  endif
+%}
+
+{% if should_render %}
+  <accordion-custom
     {% if block_settings.open_by_default %}
-      open
+      open-by-default-on-desktop
+      open-by-default-on-mobile
     {% endif %}
-    {{ block.shopify_attributes }}
   >
-    <summary class="details__header">
-      {% render 'icon-or-image',
-        icon: block_settings.icon,
-        image_upload: block_settings.image_upload,
-        width: block_settings.width,
-        class_name: 'details__icon'
-      %}
-      {{ block_settings.heading }}
-      <span class="svg-wrapper icon-caret icon-animated">
-        {{- 'icon-caret.svg' | inline_asset_content -}}
-      </span>
-      <span class="svg-wrapper icon-plus">
-        {{- 'icon-plus.svg' | inline_asset_content -}}
-      </span>
-    </summary>
+    <details
+      class="details"
+      data-testid="accordion-details"
+      {% if block_settings.open_by_default %}
+        open
+      {% endif %}
+      {{ block.shopify_attributes }}
+    >
+      <summary class="details__header">
+        {% render 'icon-or-image',
+          icon: block_settings.icon,
+          image_upload: block_settings.image_upload,
+          width: block_settings.width,
+          class_name: 'details__icon'
+        %}
+        {{ block_settings.heading }}
+        <span class="svg-wrapper icon-caret icon-animated">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+        <span class="svg-wrapper icon-plus">
+          {{- 'icon-plus.svg' | inline_asset_content -}}
+        </span>
+      </summary>
 
-    <div class="details-content">
-      {% content_for 'blocks' %}
-    </div>
-  </details>
-</accordion-custom>
+      <div class="details-content">
+        {% content_for 'blocks' %}
+      </div>
+    </details>
+  </accordion-custom>
+{% endif %}
 
 {% stylesheet %}
   .details__icon {
@@ -331,6 +355,13 @@
       "step": 2,
       "unit": "px",
       "default": 20
+    },
+    {
+      "type": "text",
+      "id": "metafield_visibility_key",
+      "label": "Metafield key for visibility",
+      "info": "Custom namespace only. Leave blank to always show the row.",
+      "default": "none"
     }
   ],
   "presets": [

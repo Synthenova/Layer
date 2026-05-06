@@ -741,6 +741,12 @@
   .header-menu .menu-list__submenu[data-active] {
     content-visibility: visible;
   }
+
+  @media screen and (min-width: 750px) {
+    .header__row.section--full-width .header__columns {
+      padding-inline: 2.5rem;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}

@@ -1,0 +1,12 @@
+{
+  "slots": {
+    "hero": {
+      "filename": "bottle-with-ingredients.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T03:01:20.999699+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/stronger-with-you-intensely-eau-de-parfum/download-images/bottle-with-ingredients.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/stronger-with-you-intensely-eau-de-parfum/shopify-images/bottle-with-ingredients.png"
+    }
+  }
+}

@@ -15,9 +15,30 @@ Thumbs.db
 # Temporary files
 ~`
 *.tmp
+*.log
 
 # Generated output
 output/
+
+# Ignore image assets outside the Shopify theme
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg
+*.avif
+*.heic
+*.ico
+!theme/**/*.png
+!theme/**/*.jpg
+!theme/**/*.jpeg
+!theme/**/*.gif
+!theme/**/*.webp
+!theme/**/*.svg
+!theme/**/*.avif
+!theme/**/*.heic
+!theme/**/*.ico
 
 # Local source product assets
 docs/source-products/

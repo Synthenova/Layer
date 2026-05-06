@@ -1,0 +1,66 @@
+{% liquid
+  assign metafield_key = block.settings.metafield_key | strip
+  assign references_metafield = blank
+  assign related_products = blank
+
+  if metafield_key != blank and metafield_key != 'none'
+    assign references_metafield = product.metafields.custom[metafield_key]
+  endif
+
+  if references_metafield != blank and references_metafield.value != blank
+    assign related_products = references_metafield.value
+  endif
+%}
+
+{% if related_products != blank %}
+  <div class="product-reference-links" {{ block.shopify_attributes }}>
+    <ul class="product-reference-links__list" role="list">
+      {% for related_product in related_products %}
+        <li class="product-reference-links__item">
+          <a class="product-reference-links__link" href="{{ related_product.url }}">
+            {{ related_product.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .product-reference-links__list {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .product-reference-links__item {
+    margin: 0;
+  }
+
+  .product-reference-links__link {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .product-reference-links__link:hover {
+    color: var(--color-foreground-heading);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product reference links",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "metafield_key",
+      "label": "Metafield key",
+      "default": "none"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,28 @@
+{
+  "slots": {
+    "top": {
+      "filename": "top-notes.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T02:58:39.497191+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/kayali-fleur-majesty-rose-royale-31-eau-de-parfum/download-images/top-notes.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/kayali-fleur-majesty-rose-royale-31-eau-de-parfum/shopify-images/top-notes.png"
+    },
+    "heart": {
+      "filename": "heart-notes.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T02:59:15.186411+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/kayali-fleur-majesty-rose-royale-31-eau-de-parfum/download-images/heart-notes.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/kayali-fleur-majesty-rose-royale-31-eau-de-parfum/shopify-images/heart-notes.png"
+    },
+    "base": {
+      "filename": "base-notes.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T02:59:43.712426+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/kayali-fleur-majesty-rose-royale-31-eau-de-parfum/download-images/base-notes.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/kayali-fleur-majesty-rose-royale-31-eau-de-parfum/shopify-images/base-notes.png"
+    }
+  }
+}

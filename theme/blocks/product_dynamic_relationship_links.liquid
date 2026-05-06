@@ -1,0 +1,74 @@
+{% liquid
+  assign related_products = blank
+  assign relationship_label = blank
+
+  assign individual_fragrances = product.metafields.custom.shop_individual_fragrances
+  assign featured_kits = product.metafields.custom.featured_in_layering_kits
+
+  if individual_fragrances != blank and individual_fragrances.value != blank
+    assign related_products = individual_fragrances.value
+    assign relationship_label = 'Shop Individual Fragrances'
+  elsif featured_kits != blank and featured_kits.value != blank
+    assign related_products = featured_kits.value
+    assign relationship_label = 'Featured in Layering Kits'
+  endif
+%}
+
+{% if related_products != blank %}
+  <div class="product-dynamic-relationship-links" {{ block.shopify_attributes }}>
+    <p class="product-dynamic-relationship-links__label">{{ relationship_label }}</p>
+    <ul class="product-dynamic-relationship-links__list" role="list">
+      {% for related_product in related_products %}
+        <li class="product-dynamic-relationship-links__item">
+          <a class="product-dynamic-relationship-links__link" href="{{ related_product.url }}">
+            {{ related_product.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .product-dynamic-relationship-links {
+    color: var(--color-foreground);
+  }
+
+  .product-dynamic-relationship-links__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
+
+  .product-dynamic-relationship-links__list {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .product-dynamic-relationship-links__item {
+    margin: 0;
+  }
+
+  .product-dynamic-relationship-links__link {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .product-dynamic-relationship-links__link:hover {
+    color: var(--color-foreground-heading);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Dynamic links",
+  "tag": null,
+  "settings": []
+}
+{% endschema %}

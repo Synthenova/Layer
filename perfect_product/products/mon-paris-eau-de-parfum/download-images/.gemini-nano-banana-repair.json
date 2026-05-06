@@ -1,0 +1,20 @@
+{
+  "slots": {
+    "heart": {
+      "filename": "heart-notes.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T03:00:36.867915+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/mon-paris-eau-de-parfum/download-images/heart-notes.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/mon-paris-eau-de-parfum/shopify-images/heart-notes.png"
+    },
+    "base": {
+      "filename": "base-notes.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T03:00:57.843246+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/mon-paris-eau-de-parfum/download-images/base-notes.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/mon-paris-eau-de-parfum/shopify-images/base-notes.png"
+    }
+  }
+}

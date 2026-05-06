@@ -1,0 +1,19 @@
+Regenerate the heart notes image only.
+
+Target output file: heart-notes.png
+
+This image is for the HEART NOTES only:
+{White Violet, Jasmine}
+
+Requirements:
+- No bottle.
+- No packaging.
+- Show only ingredients/material elements representing these notes.
+- The composition should feel resinous, warm, mysterious, refined, premium, minimal, balanced, and clean.
+- Use elegant botanical/resin/material styling where relevant without making it messy or smoky in an uncontrolled way.
+- Match the same luxury editorial flat-lay style as the provided correct set images.
+- Keep generous negative space and a clean textured white background feel.
+
+Generate the corrected heart notes image only.
+
+Make the aspect ratio 1:1.

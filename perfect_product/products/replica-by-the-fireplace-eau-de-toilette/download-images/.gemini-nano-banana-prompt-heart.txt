@@ -1,0 +1,51 @@
+Replica By the Fireplace Eau de Toilette
+
+We are repairing a luxury editorial fragrance image set for this product. This is a deterministic repair pass based on QA results.
+
+Provided input images:
+Input image 1: background.png - required exact off-white textured plaster/paper background style reference.
+Input image 2: bottle-only-rembg.png - strict bottle identity reference.
+Input image 3: bottle-with-ingredients.png - QA-correct hero and set-style reference.
+Input image 4: top-notes.png - QA-correct top-notes and set-style reference.
+Input image 5: base-notes.png - QA-correct base-notes and set-style reference.
+
+Reference integrity:
+Only QA-correct existing set images are provided as style references. Any image that QA marked wrong, missing, or uncertain has deliberately been excluded and must not be inferred or recreated from memory.
+
+Background reference rule:
+Use the provided background image as the exact background style for every regenerated image. It is a square off-white textured plaster/paper surface with subtle grey mottling and shallow fibrous relief. Match this clean tactile white surface, soft natural studio lighting, and generous negative space. Do not replace it with marble, fabric, wood, colored paper, gradients, table props, or a plain flat white void.
+
+Images that must be regenerated in this chat:
+- heart notes image (heart-notes.png) is marked wrong. QA reason: The image features vanilla pods, which are listed as a base note, not a heart note. It also lacks clear visual representations of chestnut, guaiacwood, or cedar.
+
+Global visual direction for all regenerated images:
+Luxury editorial flat-lay fragrance photography.
+Clean, premium, minimal, high-end composition.
+Soft natural studio lighting.
+Square 1:1 composition.
+Same refined visual language as the provided correct set images.
+No added captions, no added typography, no borders, no packaging, no unrelated props.
+For hero images only: preserve real text, logo marks, label typography, engravings, and brand/product identity that are physically part of the bottle reference.
+For note-only images: no text or labels of any kind.
+
+Important product identity rule:
+Always preserve the real bottle identity from the bottle-only reference when the target image includes a bottle. The bottle-only reference outranks every other image for product identity. If the target image is a note-only image, do not include any bottle or packaging.
+
+Regenerate the heart notes image only.
+
+Target output file: heart-notes.png
+
+This image is for the HEART NOTES only:
+{Chestnut, Guaiacwood, Cedar}
+
+Requirements:
+- No bottle.
+- No packaging.
+- Show only ingredients/material elements representing these notes.
+- The composition should feel resinous, warm, mysterious, refined, premium, minimal, balanced, and clean.
+- Use elegant botanical/resin/material styling where relevant without making it messy or smoky in an uncontrolled way.
+- Match the same luxury editorial flat-lay style as the provided correct set images.
+- Keep generous negative space and the exact provided off-white textured plaster/paper background feel.
+
+Generate the corrected heart notes image only.
+Make the aspect ratio 1:1.

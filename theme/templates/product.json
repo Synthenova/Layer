@@ -294,90 +294,51 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "accordion_row_QNUPUc": {
+                "accordion_row_mTQeW8": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "Size",
+                    "heading": "Fragrance Notes",
                     "open_by_default": false,
                     "icon": "none",
-                    "width": 20
+                    "width": 20,
+                    "metafield_visibility_key": "notes"
                   },
                   "blocks": {
-                    "ai_gen_block_7ca6558_CpLhqx": {
-                      "type": "ai_gen_block_7ca6558",
-                      "settings": {
-                        "table_background": "#ffffff",
-                        "border_radius": 0,
-                        "border_width": 1,
-                        "border_color": "#e6e6e6",
-                        "header_background": "#efefef",
-                        "header_text_color": "#000000",
-                        "header_font_size": 14,
-                        "header_font_weight": 600,
-                        "cell_text_color": "#000000",
-                        "cell_font_size": 14,
-                        "cell_padding": 12,
-                        "text_alignment": "left",
-                        "row_alternate_background": "#f9f9f9",
-                        "row_hover_background": "#f5f5f5",
-                        "spacing_top": 0,
-                        "spacing_bottom": 0
-                      },
+                    "product_notes_accordion_content_ytx8KB": {
+                      "type": "product_notes_accordion_content",
+                      "settings": {},
                       "blocks": {}
                     }
                   },
                   "block_order": [
-                    "ai_gen_block_7ca6558_CpLhqx"
+                    "product_notes_accordion_content_ytx8KB"
                   ]
                 },
-                "accordion_row_X6kzzf": {
+                "accordion_row_g1PjEs": {
                   "type": "_accordion-row",
                   "settings": {
-                    "heading": "SPECS",
+                    "heading": "Related Fragrances",
                     "open_by_default": false,
                     "icon": "none",
-                    "width": 20
+                    "width": 20,
+                    "metafield_visibility_key": "shop_individual_fragrances|featured_in_layering_kits"
                   },
                   "blocks": {
-                    "ai_gen_block_b46be9f_pexWLq": {
-                      "type": "ai_gen_block_b46be9f",
+                    "product_dynamic_relationship_links_jc9W6u": {
+                      "type": "product_dynamic_relationship_links",
                       "settings": {
-                        "show_heading": false,
-                        "heading": "",
-                        "heading_size": 22,
-                        "heading_color": "#000000",
-                        "table_background": "#ffffff",
-                        "table_border_color": "#e6e6e6",
-                        "table_border_width": 1,
-                        "table_border_radius": 4,
-                        "header_background": "#efefef",
-                        "header_text_color": "#000000",
-                        "header_font_size": 14,
-                        "header_font_weight": 600,
-                        "header_text_transform": "uppercase",
-                        "cell_background": "#ffffff",
-                        "cell_text_color": "#1c1c1c",
-                        "cell_font_size": 14,
-                        "cell_padding": 12,
-                        "cell_border_color": "#e6e6e6",
-                        "cell_border_width": 1,
-                        "text_alignment": "left",
-                        "enable_striped_rows": true,
-                        "striped_row_background": "#f5f5f5",
-                        "enable_row_hover": true,
-                        "row_hover_background": "#eef1ea"
                       },
                       "blocks": {}
                     }
                   },
                   "block_order": [
-                    "ai_gen_block_b46be9f_pexWLq"
+                    "product_dynamic_relationship_links_jc9W6u"
                   ]
                 }
               },
               "block_order": [
-                "accordion_row_QNUPUc",
-                "accordion_row_X6kzzf"
+                "accordion_row_mTQeW8",
+                "accordion_row_g1PjEs"
               ]
             }
           },
@@ -392,7 +353,7 @@
         }
       },
       "custom_css": [
-        "/* Product Information Padding - Add to Theme Editor > Custom CSS */.product-information {padding-inline: 0px;}",
+        "/* Product Information Padding - Add to Theme Editor > Custom CSS */.product-information {padding-inline: 0px;}"
       ],
       "settings": {
         "content_width": "content-center-aligned",

@@ -1,0 +1,523 @@
+{
+  "store": "vzixet-tr.myshopify.com",
+  "products": [
+    {
+      "handle": "1-million-eau-de-toilette",
+      "title": "1 Million Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "acqua-di-gio-eau-de-parfum",
+      "title": "Acqua di Gio Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "acqua-di-parma-blu-mediterraneo-fico-di-amalfi-eau-de-toilette",
+      "title": "Acqua di Parma Blu Mediterraneo - Fico di Amalfi Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "amouage-interlude-man",
+      "title": "Amouage Interlude Man",
+      "deletedCount": 5,
+      "uploadedCount": 5,
+      "finalCount": 5
+    },
+    {
+      "handle": "aventus-eau-de-parfum",
+      "title": "Aventus Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "baccarat-rouge-540-eau-de-parfum",
+      "title": "Baccarat Rouge 540 Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "bad-boy-eau-de-toilette",
+      "title": "Bad Boy Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "black-opium-eau-de-parfum",
+      "title": "Black Opium Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "black-opium-le-parfum",
+      "title": "Black Opium Le Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "black-phantom-eau-de-parfum",
+      "title": "Black Phantom Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "bleu-de-chanel-eau-de-parfum",
+      "title": "Bleu de Chanel Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "born-in-roma-donna-eau-de-parfum",
+      "title": "Born In Roma Donna Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "boss-bottled-parfum",
+      "title": "Boss Bottled Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "burberry-her-eau-de-parfum",
+      "title": "Burberry Her Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "chance-eau-tendre-eau-de-toilette",
+      "title": "Chance Eau Tendre Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "cloud-eau-de-parfum",
+      "title": "Cloud Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "club-de-nuit-intense-eau-de-toilette",
+      "title": "Club de Nuit Intense Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "club-de-nuit-intense-woman",
+      "title": "Club de Nuit Intense Woman",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "club-de-nuit-milestone-eau-de-parfum",
+      "title": "Club de Nuit Milestone Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "club-de-nuit-woman-perfume-oil",
+      "title": "Club De Nuit Woman Perfume Oil",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "coco-mademoiselle-eau-de-toilette",
+      "title": "Coco Mademoiselle Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "creed-virgin-island-water-eau-de-parfum",
+      "title": "Creed Virgin Island Water Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "daisy-eau-de-toilette",
+      "title": "Daisy Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "delina-eau-de-parfum",
+      "title": "Delina Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "delina-la-rosee-eau-de-parfum",
+      "title": "Delina La Rosée Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "dior-ambre-nuit-eau-de-parfum",
+      "title": "Dior Ambre Nuit Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "dior-homme-intense-eau-de-parfum",
+      "title": "Dior Homme Intense Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "eros-eau-de-parfum",
+      "title": "Eros Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "fantasy-eau-de-parfum",
+      "title": "Fantasy Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "flowerbomb-eau-de-parfum",
+      "title": "Flowerbomb Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "glossier-you-eau-de-parfum",
+      "title": "Glossier You Eau de Parfum",
+      "deletedCount": 5,
+      "uploadedCount": 5,
+      "finalCount": 5
+    },
+    {
+      "handle": "good-girl-eau-de-parfum",
+      "title": "Good Girl Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "good-girl-gone-bad-eau-de-parfum",
+      "title": "Good Girl Gone Bad Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "grand-soir-eau-de-parfum",
+      "title": "Grand Soir Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "green-irish-tweed-eau-de-parfum",
+      "title": "Green Irish Tweed Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "grey-vetiver-eau-de-parfum",
+      "title": "Grey Vetiver Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "gucci-bloom-eau-de-parfum",
+      "title": "Gucci Bloom Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "gucci-flora-gorgeous-gardenia-eau-de-parfum",
+      "title": "Gucci Flora Gorgeous Gardenia Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "guilty-pour-homme-eau-de-parfum",
+      "title": "Guilty Pour Homme Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "invictus-eau-de-toilette",
+      "title": "Invictus Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "jadore-eau-de-parfum",
+      "title": "J'adore Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "jo-malone-wood-sage-sea-salt-cologne",
+      "title": "Jo Malone Wood Sage & Sea Salt Cologne",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "kayali-fleur-majesty-rose-royale-31-eau-de-parfum",
+      "title": "KAYALI Fleur Majesty Rose Royale | 31 Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "khamrah-qahwa",
+      "title": "Khamrah Qahwa",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "la-nuit-de-lhomme-eau-de-toilette",
+      "title": "La Nuit de L'Homme Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "la-vie-est-belle-eau-de-parfum",
+      "title": "La Vie Est Belle Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "lattafa-mayar-eau-de-parfum",
+      "title": "Lattafa Mayar Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "layton-eau-de-parfum",
+      "title": "Layton Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "le-labo-bergamote-22",
+      "title": "Le Labo Bergamote 22 Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "le-labo-santal-33-eau-de-parfum",
+      "title": "Le Labo Santal 33 Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "le-male-eau-de-toilette",
+      "title": "Le Male Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "legend-blue-eau-de-parfum",
+      "title": "Legend Blue Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "libre-eau-de-parfum",
+      "title": "Libre Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "light-blue-eau-de-toilette",
+      "title": "Light Blue Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "luna-rossa-carbon-eau-de-toilette",
+      "title": "Luna Rossa Carbon Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "miss-dior-absolutely-blooming-eau-de-parfum",
+      "title": "Miss Dior Absolutely Blooming Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "molecule-01-eau-de-toilette",
+      "title": "Molecule 01 Eau de Toilette",
+      "deletedCount": 5,
+      "uploadedCount": 5,
+      "finalCount": 5
+    },
+    {
+      "handle": "mon-paris-eau-de-parfum",
+      "title": "Mon Paris Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "noir-extreme-eau-de-parfum",
+      "title": "Noir Extreme Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "ombre-leather-eau-de-parfum",
+      "title": "Ombre Leather Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "oud-wood-eau-de-parfum",
+      "title": "Oud Wood Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "prada-paradoxe-eau-de-parfum",
+      "title": "Prada Paradoxe Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "replica-by-the-fireplace-eau-de-toilette",
+      "title": "Replica By the Fireplace Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "replica-jazz-club-eau-de-toilette",
+      "title": "Replica Jazz Club Eau de Toilette",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "sauvage-eau-de-parfum",
+      "title": "Sauvage Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "si-passione-intense-eau-de-parfum",
+      "title": "Si Passione Intense Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "stronger-with-you-intensely-eau-de-parfum",
+      "title": "Stronger With You Intensely Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "the-one-eau-de-parfum",
+      "title": "The One Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "tobacco-vanille-eau-de-parfum",
+      "title": "Tobacco Vanille Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "vanilla-28",
+      "title": "Vanilla | 28",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "very-good-girl-eau-de-parfum",
+      "title": "Very Good Girl Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "xerjoff-alexandria-ii",
+      "title": "Xerjoff Alexandria II",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "xerjoff-naxos-eau-de-parfum",
+      "title": "Xerjoff Naxos Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    },
+    {
+      "handle": "y-eau-de-parfum",
+      "title": "Y Eau de Parfum",
+      "deletedCount": 6,
+      "uploadedCount": 6,
+      "finalCount": 6
+    }
+  ]
+}

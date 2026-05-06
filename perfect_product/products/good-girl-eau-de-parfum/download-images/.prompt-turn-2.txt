@@ -1,0 +1,21 @@
+Create image 2 of the same 4-image set for Good Girl Eau de Parfum.
+
+Use the uploaded textured white background image style.
+Square 1:1 composition.
+Luxury editorial flat-lay.
+Soft natural studio lighting.
+No bottle.
+No text.
+No borders.
+No unrelated props.
+
+This image is for the TOP NOTES only:
+{Almond}
+
+Requirements:
+- Show only ingredients/material elements representing these notes.
+- The composition should feel fresh, bright, aromatic, premium, minimal, balanced, and clean.
+- Make Almond clearly readable as the note story.
+- Match the same high-end visual language as the rest of the set.
+
+Generate image 2 only.

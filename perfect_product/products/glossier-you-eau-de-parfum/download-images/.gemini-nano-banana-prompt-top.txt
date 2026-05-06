@@ -1,0 +1,18 @@
+Regenerate the top notes image only.
+
+Target output file: top-notes.png
+
+This image is for the TOP NOTES only:
+{Pink Pepper}
+
+Requirements:
+- No bottle.
+- No packaging.
+- Show only ingredients/material elements representing these notes.
+- The composition should feel fresh, bright, aromatic, premium, minimal, balanced, and clean.
+- Make Pink Pepper clearly readable as the note story.
+- Match the same luxury editorial flat-lay style as the provided correct set images.
+- Keep generous negative space and the exact provided off-white textured plaster/paper background feel.
+
+Generate the corrected top notes image only.
+Make the aspect ratio 1:1.

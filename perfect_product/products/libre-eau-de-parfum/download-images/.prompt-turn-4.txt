@@ -1,0 +1,21 @@
+Create image 4 of the same 4-image set for Libre Eau de Parfum.
+
+Use the uploaded textured white background image style.
+Square 1:1 composition.
+Luxury editorial flat-lay.
+Soft natural studio lighting.
+No bottle.
+No text.
+No borders.
+No unrelated props.
+
+This image is for the BASE NOTES only:
+{Intense Vanilla Bourbon}
+
+Requirements:
+- Show only ingredients/material elements representing these notes.
+- The composition should feel dark, woody, luxurious, refined, premium, minimal, balanced, and clean.
+- Use elegant base-note material styling where relevant while keeping the composition restrained.
+- Match the same high-end visual language as the rest of the set.
+
+Generate image 4 only.

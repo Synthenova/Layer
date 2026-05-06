@@ -1,0 +1,203 @@
+{
+  "store": "vzixet-tr.myshopify.com",
+  "products": [
+    {
+      "handle": "daisy-cloud-dream",
+      "title": "Daisy Cloud Dream",
+      "deletedCount": 5,
+      "initialCount": 5
+    },
+    {
+      "handle": "cotton-candy-luxe",
+      "title": "Cotton Candy Luxe",
+      "deletedCount": 7,
+      "initialCount": 7
+    },
+    {
+      "handle": "dark-seduction",
+      "title": "Dark Seduction",
+      "deletedCount": 5,
+      "initialCount": 5
+    },
+    {
+      "handle": "professional-powerhouse",
+      "title": "Professional Powerhouse",
+      "deletedCount": 7,
+      "initialCount": 7
+    },
+    {
+      "handle": "sweet-smoke-symphony",
+      "title": "Sweet Smoke Symphony",
+      "deletedCount": 8,
+      "initialCount": 8
+    },
+    {
+      "handle": "fresh-confidence",
+      "title": "Fresh Confidence",
+      "deletedCount": 8,
+      "initialCount": 8
+    },
+    {
+      "handle": "garden-party",
+      "title": "Garden Party",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "autumn-warmth",
+      "title": "Autumn Warmth",
+      "deletedCount": 7,
+      "initialCount": 7
+    },
+    {
+      "handle": "leather-and-smoke",
+      "title": "Leather & Smoke",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "the-million-dollar-eros",
+      "title": "The Million Dollar Eros",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "stronger-bad-boy",
+      "title": "Stronger Bad Boy",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "sauvage-night",
+      "title": "Sauvage Night",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "invictus-blue",
+      "title": "Invictus Blue",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "libre-bloom",
+      "title": "Libre Bloom",
+      "deletedCount": 5,
+      "initialCount": 5
+    },
+    {
+      "handle": "good-girl-fantasy",
+      "title": "Good Girl Fantasy",
+      "deletedCount": 5,
+      "initialCount": 5
+    },
+    {
+      "handle": "flowerbomb-la-vie",
+      "title": "Flowerbomb La Vie",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "date-night-power",
+      "title": "Date Night Power",
+      "deletedCount": 4,
+      "initialCount": 4
+    },
+    {
+      "handle": "romantic-evening",
+      "title": "Romantic Evening",
+      "deletedCount": 6,
+      "initialCount": 6
+    },
+    {
+      "handle": "vanilla-sky",
+      "title": "Vanilla Sky",
+      "deletedCount": 4,
+      "initialCount": 4
+    },
+    {
+      "handle": "coffee-and-cream",
+      "title": "Coffee & Cream",
+      "deletedCount": 6,
+      "initialCount": 6
+    },
+    {
+      "handle": "cozy-fireplace",
+      "title": "Cozy Fireplace",
+      "deletedCount": 8,
+      "initialCount": 8
+    },
+    {
+      "handle": "citrus-veil",
+      "title": "Citrus Veil",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "summer-citrus-kick",
+      "title": "Summer Citrus Kick",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "nautical-fresh",
+      "title": "Nautical Fresh",
+      "deletedCount": 6,
+      "initialCount": 6
+    },
+    {
+      "handle": "effortless-elegance",
+      "title": "Effortless Elegance",
+      "deletedCount": 5,
+      "initialCount": 5
+    },
+    {
+      "handle": "floral-bomb-supreme",
+      "title": "Floral Bomb Supreme",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "noir-serenity",
+      "title": "Noir Serenity",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "sandalwood-glow",
+      "title": "Sandalwood Glow",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "winter-richness",
+      "title": "Winter Richness",
+      "deletedCount": 4,
+      "initialCount": 4
+    },
+    {
+      "handle": "sweet-and-musky",
+      "title": "Sweet & Musky",
+      "deletedCount": 5,
+      "initialCount": 5
+    },
+    {
+      "handle": "fruity-floral-heaven",
+      "title": "Fruity Floral Heaven",
+      "deletedCount": 3,
+      "initialCount": 3
+    },
+    {
+      "handle": "dark-and-delicious",
+      "title": "Dark & Delicious",
+      "deletedCount": 4,
+      "initialCount": 4
+    },
+    {
+      "handle": "summer-vibes",
+      "title": "Summer Vibes",
+      "deletedCount": 4,
+      "initialCount": 4
+    }
+  ]
+}

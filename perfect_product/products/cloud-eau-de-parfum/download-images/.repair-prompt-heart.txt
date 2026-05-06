@@ -1,0 +1,46 @@
+Cloud Eau de Parfum
+
+We are repairing a luxury editorial fragrance image set for this product. This is a deterministic repair pass based on QA results.
+
+Provided input images:
+Input image 1: bottle-only-rembg.png - bottle-only product identity reference. Use this only for identity/style/reference as described.
+Input image 2: bottle-with-ingredients.png - existing hero/set-style reference. Use this only for identity/style/reference as described.
+Input image 3: top-notes.png - existing top-notes/set-style reference. Use this only for identity/style/reference as described.
+Input image 4: base-notes.png - existing base-notes/set-style reference. Use this only for identity/style/reference as described.
+
+Reference integrity:
+Only QA-correct existing set images are provided as style references. Any image that QA marked wrong, missing, or uncertain has deliberately been excluded and must not be inferred or recreated from memory.
+
+Images that must be regenerated in this chat:
+- heart notes image (heart-notes.png) is marked wrong. QA reason: The image shows various berries (strawberries, raspberries, blackberries, etc.), but the expected heart notes are creme de coconut, praline, and vanilla orchid.
+
+Global visual direction for all regenerated images:
+Luxury editorial flat-lay fragrance photography.
+Clean, premium, minimal, high-end composition.
+Soft natural studio lighting.
+Square 1:1 composition.
+Same refined visual language as the provided correct set images.
+No text, no labels, no borders, no packaging, no unrelated props.
+
+Important product identity rule:
+Always preserve the real bottle identity from the bottle-only reference when the target image includes a bottle. The bottle-only reference outranks every other image for product identity. If the target image is a note-only image, do not include any bottle or packaging.
+
+Regenerate the heart notes image only.
+
+Target output file: heart-notes.png
+
+This image is for the HEART NOTES only:
+{Creme de Coconut, Praline, Vanilla Orchid}
+
+Requirements:
+- No bottle.
+- No packaging.
+- Show only ingredients/material elements representing these notes.
+- The composition should feel resinous, warm, mysterious, refined, premium, minimal, balanced, and clean.
+- Use elegant botanical/resin/material styling where relevant without making it messy or smoky in an uncontrolled way.
+- Match the same luxury editorial flat-lay style as the provided correct set images.
+- Keep generous negative space and a clean textured white background feel.
+
+Generate the corrected heart notes image only.
+
+Make the aspect ratio 1:1.

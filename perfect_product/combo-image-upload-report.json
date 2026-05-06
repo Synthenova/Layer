@@ -1,0 +1,69 @@
+{
+  "store": "vzixet-tr.myshopify.com",
+  "uploaded": [
+    {
+      "handle": "daisy-cloud-dream",
+      "title": "Daisy Cloud Dream",
+      "deletedCount": 3,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "cotton-candy-luxe",
+      "title": "Cotton Candy Luxe",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "dark-seduction",
+      "title": "Dark Seduction",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "professional-powerhouse",
+      "title": "Professional Powerhouse",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "sweet-smoke-symphony",
+      "title": "Sweet Smoke Symphony",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "fresh-confidence",
+      "title": "Fresh Confidence",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "garden-party",
+      "title": "Garden Party",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "autumn-warmth",
+      "title": "Autumn Warmth",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    },
+    {
+      "handle": "leather-and-smoke",
+      "title": "Leather & Smoke",
+      "deletedCount": 0,
+      "uploadedCount": 3,
+      "finalCount": 3
+    }
+  ],
+  "skipped": []
+}

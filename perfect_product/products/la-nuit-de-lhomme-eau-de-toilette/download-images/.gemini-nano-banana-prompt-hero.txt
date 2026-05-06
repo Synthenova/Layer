@@ -1,0 +1,56 @@
+La Nuit de L'Homme Eau de Toilette
+
+We are repairing a luxury editorial fragrance image set for this product. This is a deterministic repair pass based on QA results.
+
+Provided input images:
+Input image 1: background.png - required exact off-white textured plaster/paper background style reference.
+Input image 2: bottle-only-rembg.png - strict bottle identity reference.
+Input image 3: top-notes.png - QA-correct top-notes and set-style reference.
+Input image 4: heart-notes.png - QA-correct heart-notes and set-style reference.
+Input image 5: base-notes.png - QA-correct base-notes and set-style reference.
+
+Reference integrity:
+Only QA-correct existing set images are provided as style references. Any image that QA marked wrong, missing, or uncertain has deliberately been excluded and must not be inferred or recreated from memory.
+
+Background reference rule:
+Use the provided background image as the exact background style for every regenerated image. It is a square off-white textured plaster/paper surface with subtle grey mottling and shallow fibrous relief. Match this clean tactile white surface, soft natural studio lighting, and generous negative space. Do not replace it with marble, fabric, wood, colored paper, gradients, table props, or a plain flat white void.
+
+Images that must be regenerated in this chat:
+- hero image (bottle-with-ingredients.png) is marked wrong. QA reason: The bottle in image 2 is missing the mandatory brand and product name text shown in the reference image. Additionally, it has a much darker gradient at the base compared to the reference bottle.
+
+Global visual direction for all regenerated images:
+Luxury editorial flat-lay fragrance photography.
+Clean, premium, minimal, high-end composition.
+Soft natural studio lighting.
+Square 1:1 composition.
+Same refined visual language as the provided correct set images.
+No added captions, no added typography, no borders, no packaging, no unrelated props.
+For hero images only: preserve real text, logo marks, label typography, engravings, and brand/product identity that are physically part of the bottle reference.
+For note-only images: no text or labels of any kind.
+
+Important product identity rule:
+Always preserve the real bottle identity from the bottle-only reference when the target image includes a bottle. The bottle-only reference outranks every other image for product identity. If the target image is a note-only image, do not include any bottle or packaging.
+
+Regenerate the hero image only.
+
+Target output file: bottle-with-ingredients.png
+
+Requirements:
+- Use the real La Nuit de L'Homme Eau de Toilette bottle as the central hero object.
+- Treat the bottle-only input image as the strict product identity source.
+- Keep the bottle accurate to the bottle-only reference: exact silhouette, shape, cap, color, material finish, emblem/details, label placement, label text/marks when visible, proportions, and front identity.
+- Preserve real bottle text, logo marks, label typography, engravings, and any visible brand/product wording from the bottle-only reference. Do not remove, blur, simplify, hallucinate, or replace bottle text.
+- Do not invent a different brand bottle, different logo, different label geometry, different cap, different colorway, or different product name.
+- If existing correct note images are provided, use them only for ingredient styling, composition language, lighting, and background continuity. Never use them to override the bottle identity.
+- Place the bottle on the exact provided off-white textured plaster/paper background style.
+- Surround the bottle with elegant ingredient elements representing the fragrance notes.
+- Use only visually relevant ingredients from this perfume's note profile.
+- Keep ingredient styling premium, restrained, balanced, and not cluttered.
+
+Notes for ingredient inspiration:
+Top notes: Cardamom, Bergamot, Lemon
+Heart notes: Cedarwood, Lavender
+Base notes: Vetiver, Caraway, Coumarin, Amber
+
+Generate the corrected hero image only.
+Make the aspect ratio 1:1.

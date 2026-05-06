@@ -1,0 +1,20 @@
+{
+  "slots": {
+    "hero": {
+      "filename": "bottle-with-ingredients.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T03:00:59.227779+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/ombre-leather-eau-de-parfum/download-images/bottle-with-ingredients.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/ombre-leather-eau-de-parfum/shopify-images/bottle-with-ingredients.png"
+    },
+    "heart": {
+      "filename": "heart-notes.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T03:01:32.346568+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/ombre-leather-eau-de-parfum/download-images/heart-notes.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/ombre-leather-eau-de-parfum/shopify-images/heart-notes.png"
+    }
+  }
+}

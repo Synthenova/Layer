@@ -1,0 +1,2 @@
+turn1-only
+reason: bottle reference exists, but no clear packaged bottle / retail box reference in the first Shopify images

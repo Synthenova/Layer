@@ -1,0 +1,46 @@
+Coco Mademoiselle Eau de Toilette
+
+We are repairing a luxury editorial fragrance image set for this product. This is a deterministic repair pass based on QA results.
+
+Provided input images:
+Input image 1: bottle-only-rembg.png - bottle-only product identity reference. Use this only for identity/style/reference as described.
+Input image 2: bottle-with-ingredients.png - existing hero/set-style reference. Use this only for identity/style/reference as described.
+Input image 3: heart-notes.png - existing heart-notes/set-style reference. Use this only for identity/style/reference as described.
+
+Reference integrity:
+Only QA-correct existing set images are provided as style references. Any image that QA marked wrong, missing, or uncertain has deliberately been excluded and must not be inferred or recreated from memory.
+
+Images that must be regenerated in this chat:
+- top notes image (top-notes.png) is marked wrong. QA reason: The image contains a perfume bottle, which is against the rules. Additionally, it shows blackcurrants, jasmine, and vanilla, which are not the expected top notes (Sicilian Grapefruit, Orange).
+- base notes image (base-notes.png) is marked wrong. QA reason: The image features a perfume bottle, which is against the rules for this slot. Additionally, the bottle is for 'Chance Eau Tendre', not 'Coco Mademoiselle'.
+
+Global visual direction for all regenerated images:
+Luxury editorial flat-lay fragrance photography.
+Clean, premium, minimal, high-end composition.
+Soft natural studio lighting.
+Square 1:1 composition.
+Same refined visual language as the provided correct set images.
+No text, no labels, no borders, no packaging, no unrelated props.
+
+Important product identity rule:
+Always preserve the real bottle identity from the bottle-only reference when the target image includes a bottle. The bottle-only reference outranks every other image for product identity. If the target image is a note-only image, do not include any bottle or packaging.
+
+Regenerate the top notes image only.
+
+Target output file: top-notes.png
+
+This image is for the TOP NOTES only:
+{Sicilian Grapefruit, Orange}
+
+Requirements:
+- No bottle.
+- No packaging.
+- Show only ingredients/material elements representing these notes.
+- The composition should feel fresh, bright, aromatic, premium, minimal, balanced, and clean.
+- Make Sicilian Grapefruit, Orange clearly readable as the note story.
+- Match the same luxury editorial flat-lay style as the provided correct set images.
+- Keep generous negative space and a clean textured white background feel.
+
+Generate the corrected top notes image only.
+
+Make the aspect ratio 1:1.

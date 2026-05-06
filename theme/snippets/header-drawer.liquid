@@ -15,6 +15,9 @@
   assign block_settings = block.settings
   assign max_featured_items = 4
   assign image_border_radius = block_settings.image_border_radius
+  assign fragrances_collection = collections['fragrances']
+  assign for_him_collection = collections['for-him']
+  assign for_her_collection = collections['for-her']
 
   if block_settings.menu_style == 'featured_collections'
     assign ratio = block_settings.featured_collections_aspect_ratio
@@ -95,10 +98,66 @@
           class="menu-drawer__menu has-submenu"
           role="list"
         >
-          {%- comment -%}
-            Handle menus with fewer than 3 levels of links
-          {%- endcomment -%}
-          {% if linklist.levels < 3 %}
+          {% if data_header_drawer_type == 'mobile-drawer' %}
+            <li class="menu-drawer__list-item--flat">
+              <a
+                href="{{ routes.root_url }}"
+                class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset{% if request.path == routes.root_url %} menu-drawer__menu-item--active{% endif %}"
+                {% if request.path == routes.root_url %}
+                  aria-current="page"
+                {% endif %}
+              >
+                <span class="menu-drawer__menu-item-text wrap-text">Home</span>
+              </a>
+            </li>
+            <li class="menu-drawer__list-item--flat">
+              <a
+                href="{{ fragrances_collection.url | default: routes.all_products_collection_url }}"
+                class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset{% if request.path == fragrances_collection.url %} menu-drawer__menu-item--active{% endif %}"
+                {% if request.path == fragrances_collection.url %}
+                  aria-current="page"
+                {% endif %}
+              >
+                <span class="menu-drawer__menu-item-text wrap-text">Fragrances</span>
+              </a>
+            </li>
+            <li class="menu-drawer__list-item--flat">
+              <a
+                href="{{ for_him_collection.url | default: routes.collections_url }}"
+                class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset{% if request.path == for_him_collection.url %} menu-drawer__menu-item--active{% endif %}"
+                {% if request.path == for_him_collection.url %}
+                  aria-current="page"
+                {% endif %}
+              >
+                <span class="menu-drawer__menu-item-text wrap-text">For Him</span>
+              </a>
+            </li>
+            <li class="menu-drawer__list-item--flat">
+              <a
+                href="{{ for_her_collection.url | default: routes.collections_url }}"
+                class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset{% if request.path == for_her_collection.url %} menu-drawer__menu-item--active{% endif %}"
+                {% if request.path == for_her_collection.url %}
+                  aria-current="page"
+                {% endif %}
+              >
+                <span class="menu-drawer__menu-item-text wrap-text">For Her</span>
+              </a>
+            </li>
+            <li class="menu-drawer__list-item--flat">
+              <a
+                href="{{ routes.collections_url }}"
+                class="menu-drawer__menu-item menu-drawer__menu-item--mainlist menu-drawer__animated-element focus-inset{% if request.path == routes.collections_url %} menu-drawer__menu-item--active{% endif %}"
+                {% if request.path == routes.collections_url %}
+                  aria-current="page"
+                {% endif %}
+              >
+                <span class="menu-drawer__menu-item-text wrap-text">Collections</span>
+              </a>
+            </li>
+          {% elsif linklist.levels < 3 %}
+            {%- comment -%}
+              Handle menus with fewer than 3 levels of links
+            {%- endcomment -%}
             {% assign first_accordion_open = false %}
             {% assign animation_index = 0 %}
             {%- for link in linklist.links -%}

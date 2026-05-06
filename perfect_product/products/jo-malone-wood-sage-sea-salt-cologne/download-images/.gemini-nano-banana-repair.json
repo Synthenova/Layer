@@ -1,0 +1,12 @@
+{
+  "slots": {
+    "hero": {
+      "filename": "bottle-with-ingredients.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T02:58:23.462072+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/jo-malone-wood-sage-sea-salt-cologne/download-images/bottle-with-ingredients.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/jo-malone-wood-sage-sea-salt-cologne/shopify-images/bottle-with-ingredients.png"
+    }
+  }
+}

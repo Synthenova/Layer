@@ -1,0 +1,59 @@
+{% liquid
+  assign notes_metafield = product.metafields.custom.notes
+%}
+
+{% if notes_metafield != blank and notes_metafield.value != blank %}
+  <div class="product-notes-accordion" {{ block.shopify_attributes }}>
+    {% if notes_metafield.type == 'rich_text_field' %}
+      {{ notes_metafield | metafield_tag }}
+    {% elsif notes_metafield.value contains '<' %}
+      {{ notes_metafield.value }}
+    {% else %}
+      <div class="product-notes-accordion__text rte">
+        {{ notes_metafield.value | newline_to_br }}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% stylesheet %}
+  .product-notes-accordion {
+    color: var(--color-foreground);
+  }
+
+  .product-notes-accordion :is(h1, h2, h4, h5, h6, p) {
+    margin-block: 0 0.75rem;
+  }
+
+  .product-notes-accordion h3 {
+    margin: 1rem 0 0.55rem;
+    font-family: var(--font-body--family);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .product-notes-accordion :is(ul, ol) {
+    margin: 0.75rem 0 0;
+    padding-inline-start: 1.25rem;
+  }
+
+  .product-notes-accordion li + li {
+    margin-top: 0.35rem;
+  }
+
+  .product-notes-accordion p:last-child,
+  .product-notes-accordion :is(ul, ol):last-child {
+    margin-bottom: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product notes content",
+  "tag": null,
+  "settings": []
+}
+{% endschema %}

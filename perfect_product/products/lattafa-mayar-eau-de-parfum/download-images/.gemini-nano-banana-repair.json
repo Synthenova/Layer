@@ -1,0 +1,20 @@
+{
+  "slots": {
+    "hero": {
+      "filename": "bottle-with-ingredients.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T02:59:07.951702+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/lattafa-mayar-eau-de-parfum/download-images/bottle-with-ingredients.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/lattafa-mayar-eau-de-parfum/shopify-images/bottle-with-ingredients.png"
+    },
+    "top": {
+      "filename": "top-notes.png",
+      "model": "gemini-3.1-flash-image-preview",
+      "mimeType": "image/jpeg",
+      "generatedAt": "2026-05-02T02:59:32.913914+00:00",
+      "downloadOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/lattafa-mayar-eau-de-parfum/download-images/top-notes.png",
+      "shopifyOutput": "/Users/nirmal/Desktop/Layer/perfect_product/products/lattafa-mayar-eau-de-parfum/shopify-images/top-notes.png"
+    }
+  }
+}

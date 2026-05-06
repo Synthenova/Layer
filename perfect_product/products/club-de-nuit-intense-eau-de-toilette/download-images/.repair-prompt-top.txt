@@ -1,0 +1,19 @@
+Regenerate the top notes image only.
+
+Target output file: top-notes.png
+
+This image is for the TOP NOTES only:
+{Pineapple, Bergamot, Lemon, Apple, Black Currant}
+
+Requirements:
+- No bottle.
+- No packaging.
+- Show only ingredients/material elements representing these notes.
+- The composition should feel fresh, bright, aromatic, premium, minimal, balanced, and clean.
+- Make Pineapple, Bergamot, Lemon, Apple, Black Currant clearly readable as the note story.
+- Match the same luxury editorial flat-lay style as the provided correct set images.
+- Keep generous negative space and a clean textured white background feel.
+
+Generate the corrected top notes image only.
+
+Make the aspect ratio 1:1.

@@ -1,0 +1,2 @@
+none
+reason: no clear bottle-only reference image in the first Shopify images

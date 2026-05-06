@@ -1,0 +1,36 @@
+Le Male Eau de Toilette
+
+We are creating a 4-image fragrance editorial set for this perfume. Use the uploaded bottle-only image of the perfume as the product reference, and use the uploaded textured white background image as the exact background style for the whole set.
+
+Overall visual direction:
+Luxury editorial flat-lay fragrance photography.
+Clean, premium, minimal, high-end composition.
+Soft natural studio lighting.
+Square 1:1 composition.
+No text, no labels, no borders, no packaging unless explicitly requested.
+Everything must feel refined, balanced, and aesthetically styled like a premium perfume campaign.
+
+Image 1 task:
+Create the hero image for this perfume.
+
+Requirements:
+- Use the real Le Male Eau de Toilette bottle as the central hero object.
+- Keep the bottle accurate to the uploaded reference: bottle color, emblem/details, cap shape, proportions, and front identity.
+- Place it on the same textured white background style as the uploaded background image.
+- Surround the bottle with elegant ingredient elements representing the fragrance notes.
+- The ingredient styling should feel premium, restrained, and balanced, not cluttered.
+- Use only visually relevant ingredients from this perfume's note profile.
+
+Notes for ingredient inspiration:
+Top notes: Mint, Lavender, Bergamot, Cardamom
+Heart notes: Orange Blossom, Cinnamon, Cumin
+Base notes: Vanilla, Tonka Bean, Sandalwood, Cedar, Amber
+
+Important:
+- No text in the image.
+- No extra unrelated props.
+- No change to bottle identity.
+- Keep generous negative space.
+- Make it look like a luxury fragrance campaign flat-lay.
+
+Generate image 1 only.
