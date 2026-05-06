@@ -290,6 +290,36 @@
             }
         }
 
+        /* ── Kit builder ── */
+        .kit-slot,
+        .kit-product {
+            transition: border-color 0.28s ease, background-color 0.28s ease, transform 0.28s ease, opacity 0.28s ease;
+        }
+        .kit-slot.is-active {
+            border-color: rgba(201,169,110,0.85);
+            background: rgba(255,255,255,0.78);
+            transform: translateY(-2px);
+        }
+        .kit-slot.is-filled {
+            background: rgba(255,255,255,0.62);
+        }
+        .kit-product.is-selected {
+            opacity: 0.42;
+        }
+        .kit-product.is-selected img {
+            filter: grayscale(1);
+        }
+        .kit-product:active,
+        .kit-slot:active,
+        #add-kit-slot:active,
+        #kit-checkout:active {
+            transform: translateY(1px);
+        }
+        .kit-slot-remove[hidden],
+        #add-kit-slot[hidden] {
+            display: none;
+        }
+
         /* ── Note item accordion — max-height approach ── */
         .note-body {
             max-height: 0;
@@ -366,6 +396,7 @@
             <a href="#h-scroll-section" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Fragrances</a>
             <a href="#for-him" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Him</a>
             <a href="#for-her" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Her</a>
+            <a href="#kit-builder" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Build Kit</a>
             <a href="#visualizer" class="hover:opacity-50 transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">The Science</a>
         </div>
         <div class="flex items-center gap-3">
@@ -381,6 +412,7 @@
                 <a href="#h-scroll-section" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Fragrances</a>
                 <a href="#for-him" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Him</a>
                 <a href="#for-her" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">For Her</a>
+                <a href="#kit-builder" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Build Kit</a>
                 <a href="#visualizer" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">The Science</a>
             </div>
         </div>
@@ -577,7 +609,7 @@
                 </a>
 
                 <!-- Card 5: Build Your Own -->
-                <a href="#email-signup" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-xl shrink-0 flex items-center justify-center border border-stone-300/70 bg-[#E6E2DC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Build your own scent stack">
+                <a href="#kit-builder" class="collection-card min-w-0 md:min-w-[360px] w-full md:w-auto h-[430px] md:h-[520px] relative group overflow-hidden shadow-xl shrink-0 flex items-center justify-center border border-stone-300/70 bg-[#E6E2DC] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Build your own scent stack">
                     <div class="text-center p-10">
                         <div class="w-14 h-14 rounded-full border border-stone-400 flex items-center justify-center mx-auto mb-9 transition-[background-color,color,border-color,width] duration-400 group-hover:bg-[#0D0D0D] group-hover:border-[#0D0D0D]">
                             <span class="text-2xl text-stone-500 group-hover:text-white transition-colors duration-400 leading-none" style="margin-top:-1px">+</span>
@@ -823,6 +855,133 @@
         </div>
     </section>
 
+    <!-- ── KIT BUILDER ── -->
+    <section class="bg-[#EEEAE4] px-6 py-28 md:px-20 md:py-36 overflow-hidden" id="kit-builder" aria-labelledby="kit-builder-title">
+        <div class="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-[0.95fr_1.35fr] lg:gap-16">
+            <div class="lg:sticky lg:top-28 lg:self-start">
+                <p class="mb-5 text-[9px] uppercase tracking-[0.45em] text-stone-500">Custom Kit</p>
+                <h2 id="kit-builder-title" class="serif mb-8 text-[3.2rem] font-light leading-[0.88] md:text-[5.4rem]">
+                    Build your <em>ritual</em>
+                </h2>
+                <p class="mb-10 max-w-md text-[0.86rem] font-light leading-[2] text-stone-600">
+                    Start with two perfume slots. Add one optional third slot when the blend needs more contrast. Each slot holds one fragrance decant.
+                </p>
+
+                <div class="border-y border-stone-300/70 py-7">
+                    <div class="mb-5 flex items-end justify-between gap-6">
+                        <div>
+                            <p class="text-[8px] uppercase tracking-[0.38em] text-stone-500">Kit Summary</p>
+                            <p id="kit-slot-count" class="serif mt-2 text-2xl italic text-stone-900">0 of 2 selected</p>
+                        </div>
+                        <p id="kit-price" class="serif text-2xl text-stone-900">$45</p>
+                    </div>
+                    <div id="kit-summary" class="space-y-3 text-[10px] uppercase tracking-[0.24em] text-stone-500" aria-live="polite">
+                        <p>Select a slot, then choose a perfume.</p>
+                    </div>
+                </div>
+
+                <button id="kit-checkout" type="button" class="mt-8 inline-flex w-full items-center justify-center rounded-full bg-[#0D0D0D] px-8 py-4 text-[9px] uppercase tracking-[0.3em] text-[#F9F8F6] transition-colors duration-300 hover:bg-stone-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500 focus-visible:ring-offset-2 focus-visible:ring-offset-[#EEEAE4] sm:w-auto">
+                    Add Kit To Bag
+                </button>
+                <p id="kit-message" class="mt-5 text-[9px] uppercase tracking-[0.25em] text-stone-500" role="status" aria-live="polite">Two perfumes are required to start a kit.</p>
+            </div>
+
+            <div class="space-y-8">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-3" id="kit-slots" aria-label="Perfume kit slots">
+                    <button type="button" class="kit-slot min-h-[13rem] border border-stone-300/80 bg-[#F9F8F6]/45 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-slot-index="0" aria-label="Choose perfume for slot 1">
+                        <span class="mb-10 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Slot 01</span>
+                        <span class="kit-slot-empty serif block text-[2rem] italic leading-tight text-stone-800">Choose perfume</span>
+                        <span class="kit-slot-name serif hidden text-[1.7rem] italic leading-tight text-stone-900"></span>
+                        <span class="kit-slot-brand mt-3 hidden text-[8px] uppercase tracking-[0.3em] text-stone-500"></span>
+                        <span class="kit-slot-notes mt-5 hidden text-[10px] uppercase tracking-[0.22em] text-stone-500"></span>
+                        <span class="kit-slot-remove mt-8 hidden text-[8px] uppercase tracking-[0.3em] text-stone-400">Remove</span>
+                    </button>
+
+                    <button type="button" class="kit-slot min-h-[13rem] border border-stone-300/80 bg-[#F9F8F6]/45 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-slot-index="1" aria-label="Choose perfume for slot 2">
+                        <span class="mb-10 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Slot 02</span>
+                        <span class="kit-slot-empty serif block text-[2rem] italic leading-tight text-stone-800">Choose perfume</span>
+                        <span class="kit-slot-name serif hidden text-[1.7rem] italic leading-tight text-stone-900"></span>
+                        <span class="kit-slot-brand mt-3 hidden text-[8px] uppercase tracking-[0.3em] text-stone-500"></span>
+                        <span class="kit-slot-notes mt-5 hidden text-[10px] uppercase tracking-[0.22em] text-stone-500"></span>
+                        <span class="kit-slot-remove mt-8 hidden text-[8px] uppercase tracking-[0.3em] text-stone-400">Remove</span>
+                    </button>
+
+                    <button id="add-kit-slot" type="button" class="min-h-[13rem] border border-dashed border-stone-400/80 bg-transparent p-6 text-left transition-colors duration-300 hover:bg-[#F9F8F6]/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Add third perfume slot">
+                        <span class="mb-10 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Optional</span>
+                        <span class="serif block text-[2rem] italic leading-tight text-stone-800">Add third slot</span>
+                        <span class="mt-5 block text-[10px] uppercase tracking-[0.22em] text-stone-500">One more perfume</span>
+                    </button>
+                </div>
+
+                <div>
+                    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <p class="mb-2 text-[8px] uppercase tracking-[0.38em] text-stone-500">Perfume Library</p>
+                            <h3 class="serif text-[2.25rem] italic leading-tight text-stone-900">Choose one per slot</h3>
+                        </div>
+                        <p class="max-w-xs text-[10px] uppercase tracking-[0.22em] text-stone-500">Selected perfumes are held for one slot only.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3" id="kit-products">
+                        <button type="button" class="kit-product group border border-stone-200/80 bg-[#F9F8F6] p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-product-id="black-opium" data-brand="YSL" data-name="Black Opium EDP" data-notes="Coffee · Vanilla · White Flowers" data-img="./public/best-sellers/black-opium.png">
+                            <span class="mb-4 block aspect-[4/3] overflow-hidden bg-white">
+                                <img src="./public/best-sellers/black-opium.png" class="h-full w-full scale-[1.18] object-contain transition-transform duration-700 group-hover:scale-[1.26]" alt="YSL Black Opium Eau de Parfum bottle" loading="lazy">
+                            </span>
+                            <span class="mb-2 block text-[8px] uppercase tracking-[0.35em] text-stone-400">YSL</span>
+                            <span class="serif block text-[1.45rem] italic leading-tight text-stone-900">Black Opium EDP</span>
+                            <span class="mt-3 block text-[9px] uppercase tracking-[0.22em] text-stone-500">Coffee · Vanilla · White Flowers</span>
+                        </button>
+
+                        <button type="button" class="kit-product group border border-stone-200/80 bg-[#F9F8F6] p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-product-id="sauvage" data-brand="Dior" data-name="Sauvage EDP" data-notes="Bergamot · Pepper · Ambroxan" data-img="./public/best-sellers/sauvage-edp.png">
+                            <span class="mb-4 block aspect-[4/3] overflow-hidden bg-white">
+                                <img src="./public/best-sellers/sauvage-edp.png" class="h-full w-full scale-[1.18] object-contain transition-transform duration-700 group-hover:scale-[1.26]" alt="Dior Sauvage Eau de Parfum bottle" loading="lazy">
+                            </span>
+                            <span class="mb-2 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Dior</span>
+                            <span class="serif block text-[1.45rem] italic leading-tight text-stone-900">Sauvage EDP</span>
+                            <span class="mt-3 block text-[9px] uppercase tracking-[0.22em] text-stone-500">Bergamot · Pepper · Ambroxan</span>
+                        </button>
+
+                        <button type="button" class="kit-product group border border-stone-200/80 bg-[#F9F8F6] p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-product-id="cloud" data-brand="Ariana Grande" data-name="Cloud EDP" data-notes="Coconut · Praline · Musk" data-img="./public/best-sellers/cloud-edp.png">
+                            <span class="mb-4 block aspect-[4/3] overflow-hidden bg-white">
+                                <img src="./public/best-sellers/cloud-edp.png" class="h-full w-full scale-[1.18] object-contain transition-transform duration-700 group-hover:scale-[1.26]" alt="Ariana Grande Cloud Eau de Parfum bottle" loading="lazy">
+                            </span>
+                            <span class="mb-2 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Ariana Grande</span>
+                            <span class="serif block text-[1.45rem] italic leading-tight text-stone-900">Cloud EDP</span>
+                            <span class="mt-3 block text-[9px] uppercase tracking-[0.22em] text-stone-500">Coconut · Praline · Musk</span>
+                        </button>
+
+                        <button type="button" class="kit-product group border border-stone-200/80 bg-[#F9F8F6] p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-product-id="good-girl" data-brand="Carolina Herrera" data-name="Good Girl EDP" data-notes="Almond · Tuberose · Tonka" data-img="./public/best-sellers/good-girl.png">
+                            <span class="mb-4 block aspect-[4/3] overflow-hidden bg-white">
+                                <img src="./public/best-sellers/good-girl.png" class="h-full w-full scale-[1.18] object-contain transition-transform duration-700 group-hover:scale-[1.26]" alt="Carolina Herrera Good Girl Eau de Parfum bottle" loading="lazy">
+                            </span>
+                            <span class="mb-2 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Carolina Herrera</span>
+                            <span class="serif block text-[1.45rem] italic leading-tight text-stone-900">Good Girl EDP</span>
+                            <span class="mt-3 block text-[9px] uppercase tracking-[0.22em] text-stone-500">Almond · Tuberose · Tonka</span>
+                        </button>
+
+                        <button type="button" class="kit-product group border border-stone-200/80 bg-[#F9F8F6] p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-product-id="flowerbomb" data-brand="Viktor&amp;Rolf" data-name="Flowerbomb EDP" data-notes="Rose · Jasmine · Patchouli" data-img="./public/best-sellers/flowerbomb.png">
+                            <span class="mb-4 block aspect-[4/3] overflow-hidden bg-white">
+                                <img src="./public/best-sellers/flowerbomb.png" class="h-full w-full scale-[1.18] object-contain transition-transform duration-700 group-hover:scale-[1.26]" alt="Viktor&amp;Rolf Flowerbomb Eau de Parfum bottle" loading="lazy">
+                            </span>
+                            <span class="mb-2 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Viktor&amp;Rolf</span>
+                            <span class="serif block text-[1.45rem] italic leading-tight text-stone-900">Flowerbomb EDP</span>
+                            <span class="mt-3 block text-[9px] uppercase tracking-[0.22em] text-stone-500">Rose · Jasmine · Patchouli</span>
+                        </button>
+
+                        <button type="button" class="kit-product group border border-stone-200/80 bg-[#F9F8F6] p-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" data-product-id="jazz-club" data-brand="Maison Margiela" data-name="Replica Jazz Club" data-notes="Rum · Tobacco · Vanilla" data-img="./public/best-sellers/jazz-club.png">
+                            <span class="mb-4 block aspect-[4/3] overflow-hidden bg-white">
+                                <img src="./public/best-sellers/jazz-club.png" class="h-full w-full scale-[1.18] object-contain transition-transform duration-700 group-hover:scale-[1.26]" alt="Maison Margiela Replica Jazz Club Eau de Toilette bottle" loading="lazy">
+                            </span>
+                            <span class="mb-2 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Maison Margiela</span>
+                            <span class="serif block text-[1.45rem] italic leading-tight text-stone-900">Replica Jazz Club</span>
+                            <span class="mt-3 block text-[9px] uppercase tracking-[0.22em] text-stone-500">Rum · Tobacco · Vanilla</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ── NOTES VISUALIZER ── -->
     <section class="min-h-screen bg-[#F9F8F6] relative flex flex-col md:flex-row" id="visualizer">
 
@@ -952,7 +1111,7 @@
                     <a href="#" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Best Sellers</a>
                     <a href="#" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">New Arrivals</a>
                     <a href="#" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Gift Sets</a>
-                    <a href="#" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Build Your Own</a>
+                    <a href="#kit-builder" class="hover:opacity-55 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-400 rounded-sm">Build Your Own</a>
                 </div>
                 <div class="flex flex-col space-y-5">
                     <span class="opacity-25 text-[8.5px] tracking-[0.4em] mb-1">Company</span>
@@ -1269,6 +1428,169 @@
             bestSellerTrack.addEventListener('scroll', updateBestSellerControls, { passive: true });
             window.addEventListener('resize', updateBestSellerControls);
             updateBestSellerControls();
+        }
+
+        // ── Kit builder slot selection ──
+        const kitSlots = document.getElementById('kit-slots');
+        const kitProducts = Array.from(document.querySelectorAll('.kit-product'));
+        const addKitSlot = document.getElementById('add-kit-slot');
+        const kitSummary = document.getElementById('kit-summary');
+        const kitSlotCount = document.getElementById('kit-slot-count');
+        const kitPrice = document.getElementById('kit-price');
+        const kitMessage = document.getElementById('kit-message');
+        const kitCheckout = document.getElementById('kit-checkout');
+
+        if (kitSlots && kitProducts.length && addKitSlot && kitSummary && kitSlotCount && kitPrice && kitMessage && kitCheckout) {
+            const kitState = {
+                slots: [null, null],
+                activeSlot: 0,
+            };
+
+            const productData = new Map(kitProducts.map(product => [
+                product.dataset.productId,
+                {
+                    id: product.dataset.productId,
+                    brand: product.dataset.brand,
+                    name: product.dataset.name,
+                    notes: product.dataset.notes,
+                    img: product.dataset.img,
+                }
+            ]));
+
+            const getSlotButtons = () => Array.from(kitSlots.querySelectorAll('.kit-slot'));
+            const getSelectedIds = () => kitState.slots.filter(Boolean).map(product => product.id);
+
+            const setMessage = (text, accent = false) => {
+                kitMessage.textContent = text;
+                kitMessage.classList.toggle('text-[#C9A96E]', accent);
+                kitMessage.classList.toggle('text-stone-500', !accent);
+            };
+
+            const renderKit = () => {
+                const selectedIds = getSelectedIds();
+                const selectedCount = selectedIds.length;
+                const slotButtons = getSlotButtons();
+
+                slotButtons.forEach((slot, index) => {
+                    const product = kitState.slots[index];
+                    const empty = slot.querySelector('.kit-slot-empty');
+                    const name = slot.querySelector('.kit-slot-name');
+                    const brand = slot.querySelector('.kit-slot-brand');
+                    const notes = slot.querySelector('.kit-slot-notes');
+                    const remove = slot.querySelector('.kit-slot-remove');
+
+                    slot.classList.toggle('is-active', index === kitState.activeSlot);
+                    slot.classList.toggle('is-filled', Boolean(product));
+                    slot.setAttribute('aria-pressed', String(index === kitState.activeSlot));
+                    slot.setAttribute('aria-label', product ? `Slot ${index + 1}: ${product.name}` : `Choose perfume for slot ${index + 1}`);
+
+                    empty.classList.toggle('hidden', Boolean(product));
+                    name.classList.toggle('hidden', !product);
+                    brand.classList.toggle('hidden', !product);
+                    notes.classList.toggle('hidden', !product);
+                    remove.classList.toggle('hidden', !product);
+
+                    if (product) {
+                        name.textContent = product.name;
+                        brand.textContent = product.brand;
+                        notes.textContent = product.notes;
+                    }
+                });
+
+                kitProducts.forEach(product => {
+                    const isSelected = selectedIds.includes(product.dataset.productId);
+                    product.classList.toggle('is-selected', isSelected);
+                    product.setAttribute('aria-pressed', String(isSelected));
+                });
+
+                addKitSlot.hidden = kitState.slots.length >= 3;
+                kitSlotCount.textContent = `${selectedCount} of ${kitState.slots.length} selected`;
+                kitPrice.textContent = kitState.slots.length === 3 ? '$58' : '$45';
+                kitCheckout.disabled = selectedCount < 2;
+                kitCheckout.classList.toggle('opacity-45', kitCheckout.disabled);
+
+                if (!selectedCount) {
+                    kitSummary.innerHTML = '<p>Select a slot, then choose a perfume.</p>';
+                    return;
+                }
+
+                kitSummary.innerHTML = kitState.slots
+                    .map((product, index) => product
+                        ? `<p>Slot ${String(index + 1).padStart(2, '0')} · ${product.name}</p>`
+                        : `<p>Slot ${String(index + 1).padStart(2, '0')} · Empty</p>`)
+                    .join('');
+            };
+
+            const addThirdSlot = () => {
+                if (kitState.slots.length >= 3) return;
+                kitState.slots.push(null);
+                kitState.activeSlot = 2;
+                const slot = document.createElement('button');
+                slot.type = 'button';
+                slot.className = 'kit-slot min-h-[13rem] border border-stone-300/80 bg-[#F9F8F6]/45 p-6 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-500';
+                slot.dataset.slotIndex = '2';
+                slot.setAttribute('aria-label', 'Choose perfume for slot 3');
+                slot.innerHTML = `
+                    <span class="mb-10 block text-[8px] uppercase tracking-[0.35em] text-stone-400">Slot 03</span>
+                    <span class="kit-slot-empty serif block text-[2rem] italic leading-tight text-stone-800">Choose perfume</span>
+                    <span class="kit-slot-name serif hidden text-[1.7rem] italic leading-tight text-stone-900"></span>
+                    <span class="kit-slot-brand mt-3 hidden text-[8px] uppercase tracking-[0.3em] text-stone-500"></span>
+                    <span class="kit-slot-notes mt-5 hidden text-[10px] uppercase tracking-[0.22em] text-stone-500"></span>
+                    <span class="kit-slot-remove mt-8 hidden text-[8px] uppercase tracking-[0.3em] text-stone-400">Remove</span>
+                `;
+                kitSlots.insertBefore(slot, addKitSlot);
+                setMessage('Third slot added. Choose one more perfume.');
+                renderKit();
+            };
+
+            kitSlots.addEventListener('click', (event) => {
+                const slot = event.target.closest('.kit-slot');
+                if (!slot) return;
+                const index = Number(slot.dataset.slotIndex);
+                if (event.target.closest('.kit-slot-remove')) {
+                    kitState.slots[index] = null;
+                    kitState.activeSlot = index;
+                    setMessage(`Slot ${index + 1} cleared.`);
+                    renderKit();
+                    return;
+                }
+                kitState.activeSlot = index;
+                setMessage(`Slot ${index + 1} is ready. Choose a perfume.`);
+                renderKit();
+            });
+
+            kitProducts.forEach(productButton => {
+                productButton.addEventListener('click', () => {
+                    const product = productData.get(productButton.dataset.productId);
+                    const selectedSlotIndex = kitState.slots.findIndex(slotProduct => slotProduct?.id === product.id);
+
+                    if (selectedSlotIndex !== -1 && selectedSlotIndex !== kitState.activeSlot) {
+                        setMessage(`${product.name} is already in slot ${selectedSlotIndex + 1}.`, true);
+                        kitState.activeSlot = selectedSlotIndex;
+                        renderKit();
+                        return;
+                    }
+
+                    kitState.slots[kitState.activeSlot] = product;
+                    const nextEmpty = kitState.slots.findIndex(slotProduct => !slotProduct);
+                    if (nextEmpty !== -1) kitState.activeSlot = nextEmpty;
+                    setMessage(`${product.name} added to your kit.`);
+                    renderKit();
+                });
+            });
+
+            addKitSlot.addEventListener('click', addThirdSlot);
+
+            kitCheckout.addEventListener('click', () => {
+                const selectedCount = getSelectedIds().length;
+                if (selectedCount < 2) {
+                    setMessage('Choose at least two perfumes before adding the kit.', true);
+                    return;
+                }
+                setMessage('Custom kit saved. Checkout wiring can connect to Shopify next.');
+            });
+
+            renderKit();
         }
 
         // ── Philosophy entrance animations ──
