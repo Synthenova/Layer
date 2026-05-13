@@ -164,70 +164,76 @@ document.addEventListener('DOMContentLoaded', () => {
               }
           });
   
+          // ── Hero video loop guard ──
+          const heroVideo = document.querySelector('.hero-bg-video');
+          if (heroVideo) {
+              const restartBeforeBlackTail = () => {
+                  const duration = Number.isFinite(heroVideo.duration) ? heroVideo.duration : 0;
+                  if (!duration) return;
+                  if (heroVideo.currentTime >= duration - 0.18) {
+                      heroVideo.currentTime = 0.04;
+                      heroVideo.play().catch(() => {});
+                  }
+              };
+  
+              heroVideo.addEventListener('timeupdate', restartBeforeBlackTail);
+              heroVideo.addEventListener('ended', () => {
+                  heroVideo.currentTime = 0.04;
+                  heroVideo.play().catch(() => {});
+              });
+          }
+  
           // ── Hero reveal (fromTo with explicit initial state) ──
           gsap.fromTo('.hero-elem',
               { y: 40, opacity: 0 },
               { y: 0, opacity: 1, duration: 1.5, stagger: 0.15, ease: 'power3.out', delay: 0.35 }
           );
   
-          // ── Cinematic text reveal (300vh section + correct percentage math) ──
+          // ── Cinematic text reveal (word-by-word across the pinned section) ──
           const textContainer = document.querySelector('.reveal-text');
           if (textContainer) {
               const rawText = textContainer.innerText.trim();
               textContainer.innerHTML = '';
   
-              const sentences = rawText.split(/(?<=[.!?])\s+/).filter(Boolean);
-              sentences.forEach(sentence => {
+              rawText.split(/(\s+)/).forEach(token => {
+                  if (/^\s+$/.test(token)) {
+                      textContainer.appendChild(document.createTextNode(token));
+                      return;
+                  }
                   const span = document.createElement('span');
-                  span.textContent = sentence + ' ';
+                  span.textContent = token;
                   textContainer.appendChild(span);
               });
   
-              const textSpans     = textContainer.querySelectorAll('span');
-              const totalSentences = textSpans.length;
+              const textSpans = textContainer.querySelectorAll('span');
   
-              // percentages now correctly span 0–100% of the 300vh section
-              textSpans.forEach((span, i) => {
-                  gsap.to(span, {
-                      scrollTrigger: {
-                          trigger: '#reveal',
-                          start: `top+=${(i / totalSentences) * 100}% top`,
-                          end:   `top+=${((i + 1) / totalSentences) * 100}% top`,
-                          scrub: 0.8,
-                      },
-                      opacity: 1,
-                      color: '#F9F8F6',
-                      filter: 'none',
-                      y: 0,
-                      scale: 1,
-                      textShadow: '0 0 0 rgba(249,248,246,0)',
-                  });
+              const revealTextTl = gsap.timeline({
+                  scrollTrigger: {
+                      trigger: '#reveal',
+                      start: 'top top',
+                      end: 'bottom bottom',
+                      scrub: 0.45,
+                  }
               });
+  
+              revealTextTl.to(textSpans, {
+                  opacity: 1,
+                  color: '#F9F8F6',
+                  y: 0,
+                  scale: 1,
+                  textShadow: '0 0 0 rgba(249,248,246,0)',
+                  duration: 0.24,
+                  ease: 'power2.out',
+                  stagger: { each: 0.035 },
+              }, 0).to(textContainer, { duration: 0.32 });
   
               if (prefersReducedMotion) {
                   textSpans.forEach(el => {
                       el.style.opacity = 1;
                       el.style.color = '#F9F8F6';
-                      el.style.filter = 'none';
                       el.style.transform = 'none';
                   });
               }
-  
-              // SVG filter convergence — particles consolidate as text is revealed
-              gsap.to('#dither-filter feDisplacementMap', {
-                  scrollTrigger: { trigger: '#reveal', start: 'top top', end: 'bottom bottom', scrub: 1 },
-                  attr: { scale: 0 },
-              });
-              gsap.to('#dither-filter feGaussianBlur', {
-                  scrollTrigger: { trigger: '#reveal', start: 'top top', end: 'bottom bottom', scrub: 1 },
-                  attr: { stdDeviation: 0 },
-              });
-              gsap.to('.reveal-smoke', {
-                  scrollTrigger: { trigger: '#reveal', start: 'top top', end: 'bottom bottom', scrub: 1 },
-                  opacity: 0.08,
-                  scale: 0.72,
-                  filter: 'blur(8px)',
-              });
   
               // Parallax images (staggered entry/exit within the 300vh)
               const revealTl = gsap.timeline({
@@ -252,20 +258,82 @@ document.addEventListener('DOMContentLoaded', () => {
           const desktopGallery = window.matchMedia('(min-width: 768px)');
   
           if (hSection && hWrapper && desktopGallery.matches) {
-              gsap.to(hWrapper, {
-                  x: () => -(hWrapper.scrollWidth - window.innerWidth),
-                  ease: 'none',
+              const getHorizontalTravel = () => Math.max(0, hWrapper.scrollWidth - window.innerWidth);
+              const getLastCardCenterTravel = () => {
+                  const cards = hWrapper.querySelectorAll('.collection-card');
+                  const lastCard = cards[cards.length - 1];
+                  if (!lastCard) return getHorizontalTravel();
+                  const centeredX = lastCard.offsetLeft + (lastCard.offsetWidth / 2) - (window.innerWidth / 2);
+                  return Math.max(0, Math.min(centeredX, getHorizontalTravel()));
+              };
+              const getHorizontalSlack = () => 160;
+              const galleryTl = gsap.timeline({
                   scrollTrigger: {
-                      trigger: hSection,
-                      start: 'top top',
-                      end: () => '+=' + (hWrapper.scrollWidth - window.innerWidth),
-                      pin: true,
-                      scrub: 1,
-                      invalidateOnRefresh: true,
-                      anticipatePin: 1,
+                    trigger: hSection,
+                    start: 'top top',
+                    end: () => '+=' + (getLastCardCenterTravel() + getHorizontalSlack()),
+                    pin: true,
+                    scrub: 1,
+                    invalidateOnRefresh: true,
+                    anticipatePin: 1,
                   }
               });
+  
+              galleryTl
+                  .to(hWrapper, {
+                      x: () => -getLastCardCenterTravel(),
+                      ease: 'none',
+                      duration: 1,
+                  })
+                  .to(hWrapper, {
+                      x: () => -getLastCardCenterTravel(),
+                      ease: 'none',
+                      duration: 0.04,
+                  });
           }
+  
+          // ── Scroll entrance micro-transitions ──
+          const revealSelectors = [
+              '#philosophy .phil-img-wrap',
+              '#philosophy .phil-col-content > *',
+              '#best-sellers-title',
+              '#best-sellers [aria-labelledby="best-sellers-title"] p',
+              '#best-sellers .gallery-prev',
+              '#best-sellers .gallery-next',
+              '#best-sellers .best-seller-card',
+              '#visualizer > div:not(#note-bg)',
+              '#notes-accordion .note-item',
+              '#email-signup form',
+              '#email-signup h2',
+              '#email-signup p',
+              'footer > div',
+          ].join(',');
+  
+          gsap.utils.toArray(revealSelectors).forEach((el, index) => {
+              if (el.closest('#showcase, #h-scroll-section')) return;
+              el.classList.add('scroll-reveal');
+              gsap.fromTo(el,
+                  {
+                      autoAlpha: 0,
+                      y: 28,
+                      filter: 'blur(14px)',
+                  },
+                  {
+                      autoAlpha: 1,
+                      y: 0,
+                      filter: 'blur(0px)',
+                      duration: 0.78,
+                      delay: Math.min((index % 6) * 0.035, 0.16),
+                      ease: 'power3.out',
+                      clearProps: 'willChange',
+                      scrollTrigger: {
+                          trigger: el,
+                          start: 'top 84%',
+                          toggleActions: 'play none none none',
+                      },
+                  }
+              );
+          });
   
           // ── Best sellers side-scroll controls ──
           const bestSellerTrack = document.querySelector('.best-seller-track');

@@ -116,18 +116,20 @@
         .js .reveal-text span {
             opacity: 0.08;
             color: rgba(249,248,246,0.12);
-            filter: url(#dither-filter);
-            transform: translate3d(0, 18px, 0) scale(1.08);
-            text-shadow: 0 0 36px rgba(249,248,246,0.22);
+            transform: translate3d(0, 14px, 0) scale(1.03);
+            text-shadow: 0 0 18px rgba(249,248,246,0.12);
+            will-change: opacity, transform, color;
         }
-        .reveal-smoke {
-            background:
-                radial-gradient(circle at 25% 35%, rgba(249,248,246,0.18), transparent 22%),
-                radial-gradient(circle at 62% 48%, rgba(249,248,246,0.12), transparent 26%),
-                radial-gradient(circle at 45% 70%, rgba(201,169,110,0.1), transparent 24%);
-            filter: blur(30px);
-            mix-blend-mode: screen;
-            transform: scale(1.18);
+        .reveal-bottle {
+            filter: drop-shadow(0 24px 38px rgba(0,0,0,0.58));
+        }
+
+        /* ── Section entrance micro-interactions ── */
+        .js .scroll-reveal {
+            opacity: 0;
+            filter: blur(14px);
+            transform: translate3d(0, 28px, 0);
+            will-change: opacity, transform, filter;
         }
 
         /* ── Glass panel ── */
@@ -199,7 +201,7 @@
         }
         .split-showcase .split-panel:hover,
         .split-showcase .split-panel:focus-within {
-            flex-grow: 3;
+            flex-grow: 1.857;
         }
 
         /* ── Horizontal collection containment ── */

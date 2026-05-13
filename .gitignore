@@ -20,6 +20,14 @@ Thumbs.db
 # Generated output
 output/
 
+# Ignore video assets except the Shopify hero videos
+*.mp4
+*.mov
+*.webm
+*.m4v
+!theme/assets/6-spray.mp4
+!theme/assets/6-spray-hero.mp4
+
 # Ignore image assets outside the Shopify theme
 *.png
 *.jpg
